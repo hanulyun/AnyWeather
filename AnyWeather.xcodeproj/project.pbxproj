@@ -21,6 +21,10 @@
 		313A36BC2488B4C2008DCF68 /* CurrentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36BB2488B4C2008DCF68 /* CurrentModel.swift */; };
 		313A36BE2488B928008DCF68 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36BD2488B928008DCF68 /* Log.swift */; };
 		313A36C02488C13C008DCF68 /* ForecastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36BF2488C13C008DCF68 /* ForecastModel.swift */; };
+		313A36C32488C9B0008DCF68 /* MainTempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36C22488C9B0008DCF68 /* MainTempView.swift */; };
+		313A36C62488CA22008DCF68 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36C52488CA22008DCF68 /* CustomView.swift */; };
+		313A36C92488CD49008DCF68 /* CommonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36C82488CD49008DCF68 /* CommonProtocol.swift */; };
+		313A36CB2488CF5D008DCF68 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36CA2488CF5D008DCF68 /* UIView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +65,10 @@
 		313A36BB2488B4C2008DCF68 /* CurrentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentModel.swift; sourceTree = "<group>"; };
 		313A36BD2488B928008DCF68 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		313A36BF2488C13C008DCF68 /* ForecastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastModel.swift; sourceTree = "<group>"; };
+		313A36C22488C9B0008DCF68 /* MainTempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTempView.swift; sourceTree = "<group>"; };
+		313A36C52488CA22008DCF68 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		313A36C82488CD49008DCF68 /* CommonProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProtocol.swift; sourceTree = "<group>"; };
+		313A36CA2488CF5D008DCF68 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +123,7 @@
 				313A367D24889633008DCF68 /* AppDelegate.swift */,
 				313A367F24889633008DCF68 /* SceneDelegate.swift */,
 				313A36B72488B07D008DCF68 /* Modules */,
+				313A36C72488CD2E008DCF68 /* Protocols */,
 				313A36B2248897CD008DCF68 /* API */,
 				313A36B1248897C8008DCF68 /* Managers */,
 				313A36B024889679008DCF68 /* Resources */,
@@ -147,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				313A368124889633008DCF68 /* ViewController.swift */,
+				313A36C12488C99F008DCF68 /* View */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -197,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				313A36BD2488B928008DCF68 /* Log.swift */,
+				313A36C42488CA1C008DCF68 /* Custom */,
 				313A36B82488B082008DCF68 /* Extensions */,
 			);
 			path = Modules;
@@ -206,8 +217,33 @@
 			isa = PBXGroup;
 			children = (
 				313A36B92488B08C008DCF68 /* String+Extensions.swift */,
+				313A36CA2488CF5D008DCF68 /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		313A36C12488C99F008DCF68 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				313A36C22488C9B0008DCF68 /* MainTempView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		313A36C42488CA1C008DCF68 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				313A36C52488CA22008DCF68 /* CustomView.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+		313A36C72488CD2E008DCF68 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				313A36C82488CD49008DCF68 /* CommonProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,9 +382,13 @@
 				313A36B624889A63008DCF68 /* APIManager.swift in Sources */,
 				313A367E24889633008DCF68 /* AppDelegate.swift in Sources */,
 				313A36C02488C13C008DCF68 /* ForecastModel.swift in Sources */,
+				313A36CB2488CF5D008DCF68 /* UIView+Extensions.swift in Sources */,
+				313A36C32488C9B0008DCF68 /* MainTempView.swift in Sources */,
+				313A36C62488CA22008DCF68 /* CustomView.swift in Sources */,
 				313A36BC2488B4C2008DCF68 /* CurrentModel.swift in Sources */,
 				313A36BA2488B08C008DCF68 /* String+Extensions.swift in Sources */,
 				313A36BE2488B928008DCF68 /* Log.swift in Sources */,
+				313A36C92488CD49008DCF68 /* CommonProtocol.swift in Sources */,
 				313A368024889633008DCF68 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
