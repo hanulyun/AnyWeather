@@ -15,11 +15,13 @@ struct Sizes {
 public enum ColorSet {
     case background
     case main
+    case line
     
     public var rawValue: UIColor {
         switch self {
         case .background: return .lightGray
         case .main: return .white
+        case .line: return UIColor.white.withAlphaComponent(0.5)
         }
     }
 }

@@ -16,8 +16,11 @@ class MainWeatherViewController: BaseViewController {
     private let tempView: MainTempView = MainTempView()
     private let todaySummaryView: TodaySummaryView = TodaySummaryView()
     
-    private let timeView: UIView = UIView()
-    private let weekView: UIView = UIView()
+    private let lineView1: UIView = UIView().lineStyle(color: .black)
+    private let timeWeatherView: TimeWeatherView = TimeWeatherView()
+    private let lineView2: UIView = UIView().lineStyle(color: .black)
+    
+    private let subScrollView: UIScrollView = UIScrollView().basicStyle()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,18 +50,24 @@ class MainWeatherViewController: BaseViewController {
 
 extension MainWeatherViewController {
     private func configureYStackView() {
-        [tempView, todaySummaryView, timeView, weekView].forEach { yStackView.addArrangedSubview($0) }
+        [tempView,
+         todaySummaryView,
+         lineView1,
+         timeWeatherView,
+         lineView2,
+         weekView].forEach { yStackView.addArrangedSubview($0) }
         
         tempView.equalToHeight(300.adjusted)
         tempView.setData()
         
-        todaySummaryView.equalToHeight(50.adjusted)
+        todaySummaryView.equalToHeight(45.adjusted)
         todaySummaryView.setData()
         
-        timeView.equalToHeight(120.adjusted)
-        timeView.backgroundColor = .red
+        timeWeatherView.equalToHeight(120.adjusted)
         
         weekView.equalToHeight(600.adjusted)
         weekView.backgroundColor = .orange
+        
+        [lineView1, lineView2].forEach { $0.equalToHeight(1.adjusted) }
     }
 }

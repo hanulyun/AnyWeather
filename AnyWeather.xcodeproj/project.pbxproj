@@ -14,6 +14,9 @@
 		1C593118248908C400C4EF34 /* UIScrollView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C593117248908C400C4EF34 /* UIScrollView+Extensions.swift */; };
 		1C59311A248909DB00C4EF34 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C593119248909DB00C4EF34 /* UIStackView+Extensions.swift */; };
 		1C59311E24890B8C00C4EF34 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C59311D24890B8C00C4EF34 /* BaseViewController.swift */; };
+		1C593123248923E300C4EF34 /* TimeWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C593122248923E300C4EF34 /* TimeWeatherView.swift */; };
+		1C5931272489260200C4EF34 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5931262489260200C4EF34 /* UICollectionView+Extensions.swift */; };
+		1C593129248926E500C4EF34 /* TimeWeatherCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C593128248926E500C4EF34 /* TimeWeatherCVC.swift */; };
 		313A367E24889633008DCF68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A367D24889633008DCF68 /* AppDelegate.swift */; };
 		313A368024889633008DCF68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A367F24889633008DCF68 /* SceneDelegate.swift */; };
 		313A368224889633008DCF68 /* MainWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A368124889633008DCF68 /* MainWeatherViewController.swift */; };
@@ -60,6 +63,9 @@
 		1C593117248908C400C4EF34 /* UIScrollView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extensions.swift"; sourceTree = "<group>"; };
 		1C593119248909DB00C4EF34 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
 		1C59311D24890B8C00C4EF34 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		1C593122248923E300C4EF34 /* TimeWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeWeatherView.swift; sourceTree = "<group>"; };
+		1C5931262489260200C4EF34 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
+		1C593128248926E500C4EF34 /* TimeWeatherCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeWeatherCVC.swift; sourceTree = "<group>"; };
 		313A367A24889633008DCF68 /* AnyWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnyWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		313A367D24889633008DCF68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		313A367F24889633008DCF68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				313A368124889633008DCF68 /* MainWeatherViewController.swift */,
+				1C5931212489239D00C4EF34 /* Cell */,
 				313A36C12488C99F008DCF68 /* View */,
 			);
 			path = Main;
@@ -141,6 +148,14 @@
 			children = (
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		1C5931212489239D00C4EF34 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1C593128248926E500C4EF34 /* TimeWeatherCVC.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		313A367124889633008DCF68 = {
@@ -273,6 +288,7 @@
 				313A36CA2488CF5D008DCF68 /* UIView+Extensions.swift */,
 				1C593117248908C400C4EF34 /* UIScrollView+Extensions.swift */,
 				1C593119248909DB00C4EF34 /* UIStackView+Extensions.swift */,
+				1C5931262489260200C4EF34 /* UICollectionView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -282,6 +298,7 @@
 			children = (
 				313A36C22488C9B0008DCF68 /* MainTempView.swift */,
 				313A36CC2488D9FF008DCF68 /* TodaySummaryView.swift */,
+				1C593122248923E300C4EF34 /* TimeWeatherView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -437,6 +454,7 @@
 				1C59310A248903C800C4EF34 /* CGFloat+Double+Extensions.swift in Sources */,
 				313A36B4248897D7008DCF68 /* WeatherAPI.swift in Sources */,
 				313A36B624889A63008DCF68 /* APIManager.swift in Sources */,
+				1C593123248923E300C4EF34 /* TimeWeatherView.swift in Sources */,
 				313A367E24889633008DCF68 /* AppDelegate.swift in Sources */,
 				313A36C02488C13C008DCF68 /* ForecastModel.swift in Sources */,
 				313A36CB2488CF5D008DCF68 /* UIView+Extensions.swift in Sources */,
@@ -450,7 +468,9 @@
 				313A36BC2488B4C2008DCF68 /* CurrentModel.swift in Sources */,
 				313A36BA2488B08C008DCF68 /* String+Extensions.swift in Sources */,
 				313A36BE2488B928008DCF68 /* Log.swift in Sources */,
+				1C593129248926E500C4EF34 /* TimeWeatherCVC.swift in Sources */,
 				313A36CD2488D9FF008DCF68 /* TodaySummaryView.swift in Sources */,
+				1C5931272489260200C4EF34 /* UICollectionView+Extensions.swift in Sources */,
 				313A36C92488CD49008DCF68 /* CommonProtocol.swift in Sources */,
 				1C59311A248909DB00C4EF34 /* UIStackView+Extensions.swift in Sources */,
 				313A368024889633008DCF68 /* SceneDelegate.swift in Sources */,

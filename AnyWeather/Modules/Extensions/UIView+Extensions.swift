@@ -99,4 +99,10 @@ extension UIView {
         view.clipsToBounds = true
         return view
     }
+    
+    func lineStyle(color: UIColor) -> UIView {
+        let view = UIView()
+        view.backgroundColor = color
+        return view
+    }
 }
