@@ -19,4 +19,13 @@ class CustomView: UIView {
     }
     
     func configureAutolayouts() { }
+    
+    func getMaxIndexLabel(_ labels: [UILabel]) -> UILabel {
+        var labelWidths: [CGFloat] = []
+        labels.forEach { labelWidths.append($0.intrinsicContentSize.width) }
+        
+        let max: CGFloat = labelWidths.max() ?? 0
+        let maxIndex: Int = labelWidths.indices.filter { labelWidths[$0] == max }.first ?? 0
+        return labels[maxIndex]
+    }
 }

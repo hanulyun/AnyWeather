@@ -24,6 +24,17 @@ extension UIView {
         edges.forEach { $0.isActive = true }
     }
     
+    func equalToGuides(guide: UILayoutGuide) {
+        prepareConstraints()
+        let edges: [NSLayoutConstraint] = [
+            topAnchor.constraint(equalTo: guide.topAnchor),
+            leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            bottomAnchor.constraint(equalTo: guide.bottomAnchor)
+        ]
+        edges.forEach { $0.isActive = true }
+    }
+    
     func equalToCenter(to: UIView) {
         prepareConstraints()
         let center: [NSLayoutConstraint] = [
@@ -42,14 +53,14 @@ extension UIView {
         size.forEach { $0.isActive = true }
     }
     
-    func equalToCenterX(to: UIView, offset: CGFloat = 0) {
+    func equalToCenterX(xAnchor: NSLayoutAnchor<NSLayoutXAxisAnchor>, offset: CGFloat = 0) {
         prepareConstraints()
-        centerXAnchor.constraint(equalTo: to.centerXAnchor, constant: offset).isActive = true
+        centerXAnchor.constraint(equalTo: xAnchor, constant: offset).isActive = true
     }
     
-    func equalToCenterY(to: UIView, offset: CGFloat = 0) {
+    func equalToCenterY(yAnchor: NSLayoutAnchor<NSLayoutYAxisAnchor>, offset: CGFloat = 0) {
         prepareConstraints()
-        centerYAnchor.constraint(equalTo: to.centerYAnchor, constant: offset).isActive = true
+        centerYAnchor.constraint(equalTo: yAnchor, constant: offset).isActive = true
     }
     
     func equalToLeading(toAnchor: NSLayoutAnchor<NSLayoutXAxisAnchor>, offset: CGFloat = 0) {
@@ -80,5 +91,12 @@ extension UIView {
     func equalToHeight(_ height: CGFloat) {
         prepareConstraints()
         heightAnchor.constraint(equalToConstant: height).isActive = true
+    }
+    
+    func containerStyle() -> UIView {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.clipsToBounds = true
+        return view
     }
 }

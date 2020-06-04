@@ -11,10 +11,21 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // MARK: iOS12 첫 화면 연결
+        if #available(iOS 13.0, *) {
+            Log.debug("iOS 13")
+        } else {
+            let vc: MainWeatherViewController = MainWeatherViewController()
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.rootViewController = vc
+            window?.makeKeyAndVisible()
+        }
+        
         return true
     }
 
