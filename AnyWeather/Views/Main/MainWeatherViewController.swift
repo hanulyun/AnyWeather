@@ -10,18 +10,8 @@ import UIKit
 
 class MainWeatherViewController: BaseViewController {
     
-    private let scrollView: UIScrollView = UIScrollView().basicStyle()
-    private let yStackView: UIStackView = UIStackView().basicStyle(.vertical)
+    private let tableView: UITableView = UITableView()
     
-    private let tempView: MainTempView = MainTempView()
-    private let todaySummaryView: TodaySummaryView = TodaySummaryView()
-    
-    private let lineView1: UIView = UIView().lineStyle(color: .black)
-    private let timeWeatherView: TimeWeatherView = TimeWeatherView()
-    private let lineView2: UIView = UIView().lineStyle(color: .black)
-    
-    private let subScrollView: UIScrollView = UIScrollView().basicStyle()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,42 +22,54 @@ class MainWeatherViewController: BaseViewController {
 //
 //        }
         
+        tableView.delegate = self
+        tableView.dataSource = self
         
+        
+        
+        tableView.register(WeekSummaryTVC.self, forCellReuseIdentifier: WeekSummaryTVC.reuseIdentifer)
     }
     
     override func configureAutolayouts() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(yStackView)
+        view.addSubview(tableView)
         
-        scrollView.equalToGuides(guide: self.guide)
+        tableView.equalToGuides(guide: self.guide)
         
-        yStackView.equalToEdges(to: scrollView)
-        yStackView.equalToWidth(Sizes.screenWidth)
-        
-        configureYStackView()
     }
 }
 
-extension MainWeatherViewController {
-    private func configureYStackView() {
-        [tempView,
-         todaySummaryView,
-         lineView1,
-         timeWeatherView,
-         lineView2,
-         weekView].forEach { yStackView.addArrangedSubview($0) }
-        
-        tempView.equalToHeight(300.adjusted)
-        tempView.setData()
-        
-        todaySummaryView.equalToHeight(45.adjusted)
-        todaySummaryView.setData()
-        
-        timeWeatherView.equalToHeight(120.adjusted)
-        
-        weekView.equalToHeight(600.adjusted)
-        weekView.backgroundColor = .orange
-        
-        [lineView1, lineView2].forEach { $0.equalToHeight(1.adjusted) }
+extension MainWeatherViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 1
+        } else {
+            return 25
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            let cell = UITableViewCell()
+            cell.backgroundColor = .purple
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeekSummaryTVC.reuseIdentifer, for: indexPath) as? WeekSummaryTVC else { fatalError("Fail") }
+            cell.setData()
+            return cell
+        }
+    }
+}
+
+extension MainWeatherViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 300
+        } else {
+            return UITableView.automaticDimension
+        }
     }
 }
