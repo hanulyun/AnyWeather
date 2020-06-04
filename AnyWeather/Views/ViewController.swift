@@ -24,11 +24,13 @@ class ViewController: UIViewController {
         
         Log.debug("launch")
         
+        let guide: UILayoutGuide = view.safeAreaLayoutGuide
+        
         view.addSubview(tempView)
         
-        tempView.equalToCenterX(to: view)
+        tempView.equalToLeading(toAnchor: guide.leadingAnchor)
+        tempView.equalToTrailing(toAnchor: guide.trailingAnchor)
         tempView.equalToCenterY(to: view)
-        tempView.equalToWidth(UIScreen.main.bounds.width)
         tempView.setData()
     }
 }
