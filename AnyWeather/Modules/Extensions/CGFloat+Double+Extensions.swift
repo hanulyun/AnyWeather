@@ -10,12 +10,12 @@ import UIKit
 
 extension CGFloat {
     var adjusted: CGFloat {
-        return self * (Sizes.screenWidth / 375)
+        return self * (CommonSizes.screenWidth / 375)
     }
 }
 
 extension Double {
     var adjusted: CGFloat {
-        return CGFloat(self) * (Sizes.screenWidth / 375)
+        return CGFloat(self) * (CommonSizes.screenWidth / 375)
     }
 }

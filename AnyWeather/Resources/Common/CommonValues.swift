@@ -8,8 +8,13 @@
 
 import UIKit
 
-struct Sizes {
+struct CommonSizes {
     static let screenWidth: CGFloat = UIScreen.main.bounds.width
+}
+
+struct MainSizes {
+    static let currentMaxHeight: CGFloat = 310
+    static let currentMinHeight: CGFloat = 100
 }
 
 public enum ColorSet {

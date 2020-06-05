@@ -8,14 +8,14 @@
 
 import UIKit
 
-let maxH: CGFloat = 300
-let minH: CGFloat = 100
-
 class MainWeatherViewController: BaseViewController {
     
-    let topview = UIView()
+    let currentWeatherview: MainTempView = MainTempView()
     private let tableView: UITableView = UITableView()
 
+    let maxH: CGFloat = MainSizes.currentMaxHeight
+    let minH: CGFloat = MainSizes.currentMinHeight
+    
     var topHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
@@ -27,32 +27,38 @@ class MainWeatherViewController: BaseViewController {
 //                Log.debug("model = \(model)")
 //
 //        }
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-//        tableView.register(<#T##aClass: AnyClass?##AnyClass?#>, forHeaderFooterViewReuseIdentifier: <#T##String#>)
-        
-        tableView.register(WeekSummaryTVC.self, forCellReuseIdentifier: WeekSummaryTVC.reuseIdentifer)
+        prepareTableView()
+    }
+    
+    override func bindData() {
+        currentWeatherview.setData()
     }
     
     override func configureAutolayouts() {
         view.addSubview(tableView)
-        view.addSubview(topview)
+        view.addSubview(currentWeatherview)
         
         tableView.equalToGuides(guide: self.guide)
         tableView.contentInset = UIEdgeInsets(top: maxH, left: 0, bottom: 0, right: 0)
+        currentWeatherview.isUserInteractionEnabled = false
         
-        topview.backgroundColor = .purple
-        topview.equalToTop(toAnchor: self.guide.topAnchor)
-        topview.equalToLeading(toAnchor: self.guide.leadingAnchor)
-        topview.equalToTrailing(toAnchor: self.guide.trailingAnchor)
+        currentWeatherview.equalToTop(toAnchor: self.guide.topAnchor)
+        currentWeatherview.equalToLeading(toAnchor: self.guide.leadingAnchor)
+        currentWeatherview.equalToTrailing(toAnchor: self.guide.trailingAnchor)
         if topHeight == nil {
-            topHeight = topview.heightAnchor.constraint(equalToConstant: maxH)
+            topHeight = currentWeatherview.heightAnchor.constraint(equalToConstant: maxH)
             topHeight.isActive = true
         }
         
         view.layoutIfNeeded()
+    }
+    
+    private func prepareTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+//        tableView.showsVerticalScrollIndicator = false
+        
+        tableView.register(WeekSummaryTVC.self, forCellReuseIdentifier: WeekSummaryTVC.reuseIdentifer)
     }
 }
 
@@ -74,15 +80,15 @@ extension MainWeatherViewController: UITableViewDataSource {
 
 extension MainWeatherViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return UITableView.automaticDimension
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            return TimeWeatherView()
+        return TimeWeatherView()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            return 180
+        return 130.adjusted
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -96,7 +102,9 @@ extension MainWeatherViewController: UITableViewDelegate {
         } else {
             scrollView.contentInset = UIEdgeInsets(top: height, left: 0, bottom: 0, right: 0)
         }
-
-        Log.debug("offsetY = \(offsetY)")
+        
+        currentWeatherview.updateLayoutWhenScroll(viewHeight: height)
+        
+        //        Log.debug("offsetY = \(offsetY)")
     }
 }

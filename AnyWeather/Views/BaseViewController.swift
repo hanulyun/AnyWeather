@@ -19,7 +19,9 @@ class BaseViewController: UIViewController {
         
         view.backgroundColor = .color(.background)
         configureAutolayouts()
+        bindData()
     }
 
     func configureAutolayouts() { }
+    func bindData() { }
 }
