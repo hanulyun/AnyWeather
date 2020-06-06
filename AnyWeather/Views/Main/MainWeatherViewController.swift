@@ -58,6 +58,7 @@ class MainWeatherViewController: BaseViewController {
         
         tableView.register(WeekSummaryTVC.self, forCellReuseIdentifier: WeekSummaryTVC.reuseIdentifer)
         tableView.register(TodayCommentTVC.self, forCellReuseIdentifier: TodayCommentTVC.reuseIdentifer)
+        tableView.register(TodayDetailTVC.self, forCellReuseIdentifier: TodayDetailTVC.reuseIdentifer)
     }
 }
 
@@ -88,11 +89,17 @@ extension MainWeatherViewController {
 
 extension MainWeatherViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (section == 0) ? 9 : 1
+        if section == CellType.week.rawValue {
+            return 9
+        } else if section == CellType.todayDetail.rawValue {
+            return 5
+        } else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -100,18 +107,24 @@ extension MainWeatherViewController: UITableViewDataSource {
         case CellType.week.rawValue:
             guard let cell = tableView
                 .dequeueReusableCell(withIdentifier: WeekSummaryTVC.reuseIdentifer, for: indexPath)
-                    as? WeekSummaryTVC else { fatalError("Fail") }
+                    as? WeekSummaryTVC else { fatalError("Fail to cast WeekSummaryTVC") }
             cell.setData()
             return cell
         case CellType.todayComment.rawValue:
             guard let cell = tableView
-                .dequeueReusableCell(withIdentifier: TodayCommentTVC.reuseIdentifer, for: indexPath) as? TodayCommentTVC else { fatalError("Fail") }
+                .dequeueReusableCell(withIdentifier: TodayCommentTVC.reuseIdentifer, for: indexPath)
+                as? TodayCommentTVC else { fatalError("Fail to cast TodayCommentTVC") }
+            cell.setData()
+            return cell
+        case CellType.todayDetail.rawValue:
+            guard let cell = tableView
+                .dequeueReusableCell(withIdentifier: TodayDetailTVC.reuseIdentifer, for: indexPath)
+                as? TodayDetailTVC else { fatalError("Fail to cast TodayDetailTVC") }
             cell.setData()
             return cell
         default:
             return UITableViewCell()
         }
-            
     }
 }
 
@@ -121,11 +134,11 @@ extension MainWeatherViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return (section == 0) ? TimeWeatherView() : nil
+        return (section == CellType.week.rawValue) ? TimeWeatherView() : nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return (section == 0) ? 130.adjusted : 0
+        return (section == CellType.week.rawValue) ? 130.adjusted : 0
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

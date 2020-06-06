@@ -34,15 +34,19 @@ public enum ColorSet {
 public enum FontSet {
     case mainBig
     case mainMiddle
+    case subBig
     case subMiddle
     case subSmall
+    case subTiny
     
     public var rawValue: UIFont {
         switch self {
-        case .mainBig: return .systemFont(ofSize: 60.adjusted, weight: .regular)
-        case .mainMiddle: return .systemFont(ofSize: 30.adjusted, weight: .regular)
-        case .subMiddle: return .systemFont(ofSize: 20.adjusted, weight: .regular)
-        case .subSmall: return .systemFont(ofSize: 15.adjusted, weight: .regular)
+        case .mainBig: return .systemFont(ofSize: 60.adjusted)
+        case .mainMiddle: return .systemFont(ofSize: 30.adjusted)
+        case .subBig: return .systemFont(ofSize: 26.adjusted)
+        case .subMiddle: return .systemFont(ofSize: 20.adjusted)
+        case .subSmall: return .systemFont(ofSize: 15.adjusted)
+        case .subTiny: return .systemFont(ofSize: 12.adjusted)
         }
     }
 }
