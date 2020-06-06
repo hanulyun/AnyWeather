@@ -17,7 +17,6 @@ class MainWeatherViewController: BaseViewController {
     private let footerView: FooterView = FooterView()
     
     let maskView = UIView()
-//    let stackView = UIStackView().basicStyle(.vertical)
     let contentView = UIView()
 
     private let viewModel: MainWeatherViewModel = MainWeatherViewModel()
@@ -77,7 +76,7 @@ class MainWeatherViewController: BaseViewController {
     private func prepareTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.showsVerticalScrollIndicator = false
+        tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.contentInset = UIEdgeInsets(top: maxH, left: 0, bottom: 0, right: 0)
@@ -90,12 +89,7 @@ class MainWeatherViewController: BaseViewController {
 
 extension MainWeatherViewController {
     private func viewsLayouts() {
-        
-//        tableView.equalToLeading(toAnchor: guide.leadingAnchor)
-//        tableView.equalToTrailing(toAnchor: guide.trailingAnchor)
-//        tableView.equalToTop(toAnchor: guide.topAnchor)
-//        tableView.equalToBottom(toAnchor: footerView.topAnchor)
-        
+
         currentWeatherview.isUserInteractionEnabled = false
         currentWeatherview.equalToTop(toAnchor: guide.topAnchor)
         currentWeatherview.equalToLeading(toAnchor: guide.leadingAnchor)
@@ -110,14 +104,7 @@ extension MainWeatherViewController {
             maskTop = maskView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: topHeight.constant)
             maskTop.isActive = true
         }
-//        maskView.equalToTop(toAnchor: scrollView.topAnchor, offset: topHeight.constant)
-//        maskView.equalToLeading(toAnchor: scrollView.leadingAnchor)
-//        maskView.equalToTrailing(toAnchor: scrollView.trailingAnchor)
-//        maskView.equalToWidth(CommonSizes.screenWidth)
-//        maskView.equalToBottom(toAnchor: scrollView.bottomAnchor)
-//
-//        maskView.equalToHeight(1200)
-        
+
         contentView.backgroundColor = UIColor.red.withAlphaComponent(0.3)
         contentView.frame = CGRect(x: 0, y: 0, width: CommonSizes.screenWidth, height: maxH + 1200)
         
@@ -192,7 +179,7 @@ extension MainWeatherViewController: UITableViewDelegate {
         let tempH: CGFloat = maxH - (offsetY + maxH)
         let height: CGFloat = min(max(tempH, minH), maxH * 1.5)
         
-        if offsetY > 200 {
+        if offsetY >= 200 {
             let yy = offsetY + 100
             maskView.frame = CGRect(x: 0, y: yy, width: CommonSizes.screenWidth, height: 500 + offsetY)
             contentView.frame = CGRect(x: 0, y: (300 - yy), width: CommonSizes.screenWidth, height: maxH + 1200)
