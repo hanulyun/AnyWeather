@@ -12,12 +12,12 @@ class MainFullView: CustomView {
     
     private let currentWeatherview: MainTempView = MainTempView()
     
-    private let hScrollView: UIScrollView = UIScrollView()
+    private let hScrollView: UIScrollView = UIScrollView().basicStyle()
     private let timeStackView: UIStackView = UIStackView().basicStyle(.horizontal)
     
-    private let vScrollView: UIScrollView = UIScrollView()
-    private let contentView: UIView = UIView().filledStyle(color: UIColor.purple.withAlphaComponent(0.5))
-    private let contentMaskView: UIView = UIView().filledStyle(color: UIColor.cyan.withAlphaComponent(0.3))
+    private let vScrollView: UIScrollView = UIScrollView().basicStyle()
+    private let contentView: UIView = UIView()
+    private let contentMaskView: UIView = UIView()
     
     // contentView
     private let dailyStackView: UIStackView = UIStackView().basicStyle(.vertical)
@@ -38,7 +38,7 @@ class MainFullView: CustomView {
     init() {
         super.init(frame: .zero)
         
-        setInit(.brown)
+        setInit()
     }
     
     required init?(coder: NSCoder) {
@@ -97,7 +97,6 @@ class MainFullView: CustomView {
         
         timeStackView.equalToEdges(to: hScrollView)
         
-        vScrollView.backgroundColor = UIColor.purple.withAlphaComponent(0.2)
         vScrollView.equalToTop(toAnchor: self.topAnchor)
         vScrollView.equalToLeading(toAnchor: self.leadingAnchor)
         vScrollView.equalToTrailing(toAnchor: self.trailingAnchor)

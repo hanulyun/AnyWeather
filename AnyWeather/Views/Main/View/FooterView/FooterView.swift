@@ -22,7 +22,7 @@ class FooterView: CustomView {
     init() {
         super.init(frame: .zero)
         
-        self.setInit(.purple)
+        self.setInit()
     }
     
     required init?(coder: NSCoder) {

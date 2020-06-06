@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 13.0, *) {
             Log.debug("iOS 13")
         } else {
-            let vc: MainWeatherViewController = MainWeatherViewController()
+            let vc: MainViewController = MainViewController()
             window = UIWindow(frame: UIScreen.main.bounds)
             window?.rootViewController = vc
             window?.makeKeyAndVisible()

@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: BaseViewController {
     
-    private let hScrollView: UIScrollView = UIScrollView()
+    private let hScrollView: UIScrollView = UIScrollView().basicStyle()
     private let hStackView: UIStackView = UIStackView().basicStyle(.horizontal)
     
     private let footerView: FooterView = FooterView()

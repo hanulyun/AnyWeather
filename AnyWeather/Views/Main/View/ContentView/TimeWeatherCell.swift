@@ -19,7 +19,7 @@ class TimeWeatherCell: CustomView {
     init() {
         super.init(frame: .zero)
         
-        setInit(.red)
+        setInit()
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +33,7 @@ class TimeWeatherCell: CustomView {
         tempLabel.text = "10"
         tempLabel.font = .font(.subMiddle)
         
-        iconImageView.backgroundColor = .cyan
+        iconImageView.backgroundColor = .blue
     }
     
     override func configureAutolayouts() {

@@ -9,10 +9,12 @@
 import UIKit
 
 extension UIScrollView {
-    func basicStyle() -> UIScrollView {
+    func basicStyle(backColor: UIColor = .clear) -> UIScrollView {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .color(.background)
+        scrollView.backgroundColor = backColor
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }
 }

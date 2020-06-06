@@ -15,7 +15,7 @@ class TodaySummaryView: CustomView {
     init() {
         super.init(frame: .zero)
         
-        setInit(UIColor.cyan.withAlphaComponent(0.5))
+        setInit()
     }
     
     required init?(coder: NSCoder) {

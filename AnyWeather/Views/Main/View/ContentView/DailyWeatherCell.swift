@@ -20,7 +20,7 @@ class DailyWeatherCell: CustomView {
     init() {
         super.init(frame: .zero)
         
-        setInit(UIColor.blue.withAlphaComponent(0.5))
+        setInit()
     }
     
     required init?(coder: NSCoder) {
@@ -31,7 +31,7 @@ class DailyWeatherCell: CustomView {
         weekLabel.text = "수요일"
         weekLabel.font = .font(.subMiddle)
         
-        iconImageView.backgroundColor = .cyan
+        iconImageView.backgroundColor = .blue
         
         maxTempLabel.text = "20"
         maxTempLabel.font = .font(.subMiddle)

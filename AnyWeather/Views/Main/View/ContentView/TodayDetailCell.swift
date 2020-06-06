@@ -19,7 +19,7 @@ class TodayDetailCell: CustomView {
     init() {
         super.init(frame: .zero)
         
-        setInit(UIColor.yellow.withAlphaComponent(0.5))
+        setInit()
     }
     
     required init?(coder: NSCoder) {
