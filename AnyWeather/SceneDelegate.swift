@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // MARK: iOS13 첫 화면 연결
         guard let winScene = (scene as? UIWindowScene) else { return }
-        let vc: MainWeatherViewController = MainWeatherViewController()
+        let vc: MainViewController = MainViewController()
         let win: UIWindow = UIWindow(windowScene: winScene)
         win.rootViewController = vc
         win.makeKeyAndVisible()

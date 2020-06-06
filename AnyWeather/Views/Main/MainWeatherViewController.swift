@@ -10,7 +10,9 @@ import UIKit
 
 class MainWeatherViewController: BaseViewController {
     
-    let scrollView = UIScrollView()
+    private let hScrollView: UIScrollView = UIScrollView()
+    
+    private let scrollView: UIScrollView = UIScrollView()
     
     private let currentWeatherview: MainTempView = MainTempView()
     private let timeWeatherView: TimeWeatherView = TimeWeatherView()
