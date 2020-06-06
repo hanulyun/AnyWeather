@@ -12,7 +12,7 @@ class FooterView: CustomView {
     
     private var pageControl: CustomPagerControl = CustomPagerControl()
     
-    private let listButton: UIButton = {
+    let listButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "listIcon"), for: .normal)
         button.alpha = 0.5
@@ -40,10 +40,6 @@ class FooterView: CustomView {
     
     func selectedPage(_ page: Int) {
         pageControl.selectIndex(page)
-    }
-    
-    func listButtonTapEvent() {
-//        listButton.addTarget(self, action: <#T##Selector#>, for: .touchUpInside)
     }
     
     override func configureAutolayouts() {

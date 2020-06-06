@@ -18,6 +18,10 @@ struct MainSizes {
     static let currentMinHeight: CGFloat = 100
 }
 
+public enum ObserverKey: String {
+    case contentSize = "contentSize"
+}
+
 public enum ColorSet {
     case background
     case main
