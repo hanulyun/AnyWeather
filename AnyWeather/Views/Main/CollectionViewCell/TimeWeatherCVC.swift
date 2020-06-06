@@ -33,20 +33,22 @@ class TimeWeatherCVC: UICollectionViewCell {
         
         tempLabel.text = "10"
         tempLabel.font = .font(.subMiddle)
+        
+        iconImageView.backgroundColor = .red
     }
 }
 
 extension TimeWeatherCVC {
     private func configureAutolayouts() {
-        [amPmLabel, iconImageView, tempLabel].forEach { contentView.addSubview($0) }
+        [amPmLabel, iconImageView, tempLabel].forEach { self.addSubview($0) }
         
-        iconImageView.equalToCenter(to: contentView)
-        iconImageView.equalToSize(18.adjusted)
+        iconImageView.equalToCenter(to: self)
+        iconImageView.equalToSize(24.adjusted)
         
         amPmLabel.equalToBottom(toAnchor: iconImageView.topAnchor, offset: -16.adjusted)
-        amPmLabel.equalToCenterX(xAnchor: contentView.centerXAnchor)
+        amPmLabel.equalToCenterX(xAnchor: self.centerXAnchor)
         
         tempLabel.equalToTop(toAnchor: iconImageView.bottomAnchor, offset: 16.adjusted)
-        tempLabel.equalToCenterX(xAnchor: contentView.centerXAnchor)
+        tempLabel.equalToCenterX(xAnchor: self.centerXAnchor)
     }
 }

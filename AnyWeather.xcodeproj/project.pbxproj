@@ -17,8 +17,11 @@
 		1C5931272489260200C4EF34 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5931262489260200C4EF34 /* UICollectionView+Extensions.swift */; };
 		1C593129248926E500C4EF34 /* TimeWeatherCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C593128248926E500C4EF34 /* TimeWeatherCVC.swift */; };
 		1C59312B24893E7A00C4EF34 /* UIScrollView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C59312A24893E7A00C4EF34 /* UIScrollView+Extensions.swift */; };
-		1C59312D24893F4E00C4EF34 /* WeekWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C59312C24893F4E00C4EF34 /* WeekWeatherView.swift */; };
 		1C5931302489404600C4EF34 /* WeekSummaryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C59312F2489404600C4EF34 /* WeekSummaryTVC.swift */; };
+		1C593132248B1B7B00C4EF34 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C593131248B1B7B00C4EF34 /* UILabel+Extensions.swift */; };
+		1CF76CD3248B21820021B42D /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF76CD2248B21820021B42D /* FooterView.swift */; };
+		1CF76CD5248B2E840021B42D /* CustomPagerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF76CD4248B2E840021B42D /* CustomPagerControl.swift */; };
+		1CF76CD7248B3E020021B42D /* TodayCommentTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF76CD6248B3E020021B42D /* TodayCommentTVC.swift */; };
 		313A367E24889633008DCF68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A367D24889633008DCF68 /* AppDelegate.swift */; };
 		313A368024889633008DCF68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A367F24889633008DCF68 /* SceneDelegate.swift */; };
 		313A368224889633008DCF68 /* MainWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A368124889633008DCF68 /* MainWeatherViewController.swift */; };
@@ -37,7 +40,6 @@
 		313A36C62488CA22008DCF68 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36C52488CA22008DCF68 /* CustomView.swift */; };
 		313A36C92488CD49008DCF68 /* CommonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36C82488CD49008DCF68 /* CommonProtocol.swift */; };
 		313A36CB2488CF5D008DCF68 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36CA2488CF5D008DCF68 /* UIView+Extensions.swift */; };
-		313A36CD2488D9FF008DCF68 /* TodaySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36CC2488D9FF008DCF68 /* TodaySummaryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,8 +70,11 @@
 		1C5931262489260200C4EF34 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		1C593128248926E500C4EF34 /* TimeWeatherCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeWeatherCVC.swift; sourceTree = "<group>"; };
 		1C59312A24893E7A00C4EF34 /* UIScrollView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extensions.swift"; sourceTree = "<group>"; };
-		1C59312C24893F4E00C4EF34 /* WeekWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekWeatherView.swift; sourceTree = "<group>"; };
 		1C59312F2489404600C4EF34 /* WeekSummaryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSummaryTVC.swift; sourceTree = "<group>"; };
+		1C593131248B1B7B00C4EF34 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
+		1CF76CD2248B21820021B42D /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		1CF76CD4248B2E840021B42D /* CustomPagerControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPagerControl.swift; sourceTree = "<group>"; };
+		1CF76CD6248B3E020021B42D /* TodayCommentTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCommentTVC.swift; sourceTree = "<group>"; };
 		313A367A24889633008DCF68 /* AnyWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnyWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		313A367D24889633008DCF68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		313A367F24889633008DCF68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,7 +99,6 @@
 		313A36C52488CA22008DCF68 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		313A36C82488CD49008DCF68 /* CommonProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProtocol.swift; sourceTree = "<group>"; };
 		313A36CA2488CF5D008DCF68 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
-		313A36CC2488D9FF008DCF68 /* TodaySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySummaryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				1C59312F2489404600C4EF34 /* WeekSummaryTVC.swift */,
+				1CF76CD6248B3E020021B42D /* TodayCommentTVC.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -298,6 +303,7 @@
 				1C593109248903C800C4EF34 /* CGFloat+Double+Extensions.swift */,
 				1C5931132489063D00C4EF34 /* UIColor+Extensions.swift */,
 				1C5931152489076A00C4EF34 /* UIFont+Extensions.swift */,
+				1C593131248B1B7B00C4EF34 /* UILabel+Extensions.swift */,
 				313A36CA2488CF5D008DCF68 /* UIView+Extensions.swift */,
 				1C59312A24893E7A00C4EF34 /* UIScrollView+Extensions.swift */,
 				1C593119248909DB00C4EF34 /* UIStackView+Extensions.swift */,
@@ -310,9 +316,8 @@
 			isa = PBXGroup;
 			children = (
 				313A36C22488C9B0008DCF68 /* MainTempView.swift */,
-				313A36CC2488D9FF008DCF68 /* TodaySummaryView.swift */,
 				1C593122248923E300C4EF34 /* TimeWeatherView.swift */,
-				1C59312C24893F4E00C4EF34 /* WeekWeatherView.swift */,
+				1CF76CD2248B21820021B42D /* FooterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				313A36C52488CA22008DCF68 /* CustomView.swift */,
+				1CF76CD4248B2E840021B42D /* CustomPagerControl.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -465,13 +471,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				313A368224889633008DCF68 /* MainWeatherViewController.swift in Sources */,
-				1C59312D24893F4E00C4EF34 /* WeekWeatherView.swift in Sources */,
 				1C59310A248903C800C4EF34 /* CGFloat+Double+Extensions.swift in Sources */,
+				1CF76CD3248B21820021B42D /* FooterView.swift in Sources */,
 				313A36B4248897D7008DCF68 /* WeatherAPI.swift in Sources */,
 				1C59312B24893E7A00C4EF34 /* UIScrollView+Extensions.swift in Sources */,
 				313A36B624889A63008DCF68 /* APIManager.swift in Sources */,
 				1C593123248923E300C4EF34 /* TimeWeatherView.swift in Sources */,
 				313A367E24889633008DCF68 /* AppDelegate.swift in Sources */,
+				1CF76CD5248B2E840021B42D /* CustomPagerControl.swift in Sources */,
 				313A36C02488C13C008DCF68 /* ForecastModel.swift in Sources */,
 				313A36CB2488CF5D008DCF68 /* UIView+Extensions.swift in Sources */,
 				1C5931142489063D00C4EF34 /* UIColor+Extensions.swift in Sources */,
@@ -479,12 +486,13 @@
 				1C5931162489076A00C4EF34 /* UIFont+Extensions.swift in Sources */,
 				313A36C62488CA22008DCF68 /* CustomView.swift in Sources */,
 				1C593110248904E900C4EF34 /* CommonValues.swift in Sources */,
+				1CF76CD7248B3E020021B42D /* TodayCommentTVC.swift in Sources */,
 				1C59311E24890B8C00C4EF34 /* BaseViewController.swift in Sources */,
+				1C593132248B1B7B00C4EF34 /* UILabel+Extensions.swift in Sources */,
 				313A36BC2488B4C2008DCF68 /* CurrentModel.swift in Sources */,
 				313A36BA2488B08C008DCF68 /* String+Extensions.swift in Sources */,
 				313A36BE2488B928008DCF68 /* Log.swift in Sources */,
 				1C593129248926E500C4EF34 /* TimeWeatherCVC.swift in Sources */,
-				313A36CD2488D9FF008DCF68 /* TodaySummaryView.swift in Sources */,
 				1C5931272489260200C4EF34 /* UICollectionView+Extensions.swift in Sources */,
 				313A36C92488CD49008DCF68 /* CommonProtocol.swift in Sources */,
 				1C59311A248909DB00C4EF34 /* UIStackView+Extensions.swift in Sources */,

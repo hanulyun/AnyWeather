@@ -68,25 +68,27 @@ class MainTempView: CustomView {
         var constant: CGFloat = 50.adjusted - minusConst
         if constant < 0 {
             constant = 0
+        } else if constant > 50.adjusted {
+            constant = 50.adjusted
         }
         centerTopConstraint.constant = constant
         
-        let alpha = 1 - ((maxH - viewHeight) / maxH * 2)
-        tempLabel.alpha = alpha
-        Log.debug("alpha = \(alpha)")
-    }
-    
-    private func updateLayoutWithLabelWidth() {
-        let labels: [UILabel] = [cityLabel, descLabel, tempLabel]
-        let maxLabel: UILabel = getMaxIndexLabel(labels)
-        maxLabel.equalToLeading(toAnchor: centerContainerView.leadingAnchor)
-        maxLabel.equalToTrailing(toAnchor: centerContainerView.trailingAnchor)
+        let alpha: CGFloat = 1 - ((maxH - viewHeight) / maxH * 3)
+        [tempLabel, summaryContainerView].forEach { $0.alpha = alpha }
     }
     
     override func configureAutolayouts() {
         [centerContainerView, summaryContainerView].forEach { addSubview($0) }
         [cityLabel, descLabel, tempLabel].forEach { centerContainerView.addSubview($0) }
+        [weekLabel, todayLabel, maxTempLabel, minTempLabel].forEach { summaryContainerView.addSubview($0) }
         
+        centerTopContainerLayouts()
+        summaryContainerLayouts()
+    }
+}
+
+extension MainTempView {
+    private func centerTopContainerLayouts() {
         if centerTopConstraint == nil {
             centerTopConstraint
                 = centerContainerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 50.adjusted)
@@ -105,5 +107,31 @@ class MainTempView: CustomView {
         tempLabel.equalToBottom(toAnchor: superView.bottomAnchor)
         tempLabel.equalToCenterX(xAnchor: superView.centerXAnchor)
     }
+    
+    private func summaryContainerLayouts() {
+        summaryContainerView.equalToLeading(toAnchor: self.leadingAnchor)
+        summaryContainerView.equalToTrailing(toAnchor: self.trailingAnchor)
+        summaryContainerView.equalToBottom(toAnchor: self.bottomAnchor)
+        
+        let superView: UIView = summaryContainerView
+        weekLabel.equalToLeading(toAnchor: superView.leadingAnchor, offset: 16.adjusted)
+        weekLabel.equalToTop(toAnchor: superView.topAnchor)
+        weekLabel.equalToBottom(toAnchor: superView.bottomAnchor, offset: -8.adjusted)
+        
+        todayLabel.equalToLeading(toAnchor: weekLabel.trailingAnchor, offset: 8.adjusted)
+        todayLabel.equalToBottom(toAnchor: weekLabel.bottomAnchor)
+        
+        minTempLabel.equalToCenterY(yAnchor: weekLabel.centerYAnchor)
+        minTempLabel.equalToTrailing(toAnchor: superView.trailingAnchor, offset: -16.adjusted)
+        
+        maxTempLabel.equalToTrailing(toAnchor: minTempLabel.leadingAnchor, offset: -24.adjusted)
+        maxTempLabel.equalToCenterY(yAnchor: weekLabel.centerYAnchor)
+    }
+    
+    private func updateLayoutWithLabelWidth() {
+        let labels: [UILabel] = [cityLabel, descLabel, tempLabel]
+        let maxLabel: UILabel = getMaxIndexLabel(labels)
+        maxLabel.equalToLeading(toAnchor: centerContainerView.leadingAnchor)
+        maxLabel.equalToTrailing(toAnchor: centerContainerView.trailingAnchor)
+    }
 }
-
