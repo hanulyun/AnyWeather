@@ -67,6 +67,10 @@ class MainFullView: CustomView {
             detailCell.setData()
             todayDetailStackView.addArrangedSubview(detailCell)
         }
+        
+        vScrollView.delegate = self
+        
+        prepareViewsFrame()
     }
     
     override func configureAutolayouts() {
@@ -111,18 +115,52 @@ class MainFullView: CustomView {
         todayDetailStackView.equalToTop(toAnchor: todaySummaryView.bottomAnchor)
         todayDetailStackView.equalToLeading(toAnchor: contentView.leadingAnchor)
         todayDetailStackView.equalToTrailing(toAnchor: contentView.trailingAnchor)
-        
-        prepareViewsFrame()
     }
     
     private func prepareViewsFrame() {
+        self.layoutIfNeeded()
+        Layout.contentHeight
+            = dailyStackView.frame.height + todaySummaryView.frame.height + todayDetailStackView.frame.height
+            + 40.adjusted
+        Log.debug("height = \(dailyStackView.frame.height)")
         contentView.frame = CGRect(x: 0, y: 0, width: CommonSizes.screenWidth,
                                  height: Layout.contentHeight)
         contentMaskView.frame = CGRect(x: 0, y: Layout.fullHeader,
                                        width: CommonSizes.screenWidth, height: Layout.contentHeight)
         vScrollView.contentSize = CGSize(width: CommonSizes.screenWidth,
-                                        height: Layout.fullHeader + contentView.frame.height)
+                                         height: Layout.fullHeader + Layout.contentHeight)
         
         contentMaskView.clipsToBounds = true
+    }
+}
+
+extension MainFullView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY: CGFloat = scrollView.contentOffset.y
+//        Log.debug("y = \(offsetY)")
+        var height: CGFloat = Layout.headerMaxH - offsetY
+        if Layout.headerMaxH - offsetY <= Layout.headerMinH {
+            height = Layout.headerMinH
+        }
+        topHeight.constant = height
+
+        if height == Layout.headerMinH {
+            let headerBottomY: CGFloat = offsetY + Layout.headerMinH + Layout.timeWeatherHeight
+            contentMaskView.frame = CGRect(x: 0, y: headerBottomY,
+                                    width: CommonSizes.screenWidth, height: Layout.contentHeight + offsetY)
+            contentView.frame = CGRect(x: 0, y: (Layout.fullHeader - headerBottomY),
+                                     width: CommonSizes.screenWidth,
+                                     height: Layout.contentHeight)
+        } else {
+            contentMaskView.frame = CGRect(x: 0, y: Layout.fullHeader,
+                                    width: CommonSizes.screenWidth, height: Layout.contentHeight + offsetY)
+            contentView.frame = CGRect(x: 0, y: 0,
+                                     width: CommonSizes.screenWidth,
+                                     height: Layout.contentHeight)
+        }
+
+        DispatchQueue.main.async {
+            self.currentWeatherview.updateLayoutWhenScroll(viewHeight: self.topHeight.constant)
+        }
     }
 }
