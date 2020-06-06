@@ -19,7 +19,7 @@ class MainTempView: CustomView {
     private let todayLabel: UILabel = {
         let label = UILabel()
         label.text = "오늘"
-        label.font = .font(.subSmall)
+        label.setFont(.font(.subSmall), color: .color(.main))
         return label
     }()
     private let maxTempLabel: UILabel = UILabel()
@@ -30,34 +30,34 @@ class MainTempView: CustomView {
     init() {
         super.init(frame: .zero)
         
-        self.setInit(.yellow)
+        self.setInit()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    func setData() {
-        cityLabel.text = "City"
-        cityLabel.font = .font(.mainMiddle)
-        cityLabel.backgroundColor = .red
+    func setData(model: CurrentModel) {
+        cityLabel.text = model.name
+        cityLabel.setFont(.font(.mainMiddle), color: .color(.main))
         
-        descLabel.text = "30303030"
-        descLabel.font = .font(.subSmall)
-        descLabel.backgroundColor = .brown
+        descLabel.text = model.weather?.first?.description
+        descLabel.setFont(.font(.subSmall), color: .color(.main))
         
-        tempLabel.text = "29"
-        tempLabel.font = .font(.mainBig)
-        tempLabel.backgroundColor = .cyan
+        let temp: Int = Int(model.main?.temp ?? 0)
+        tempLabel.text = "\(String(temp))°"
+        tempLabel.setFont(.font(.mainBig), color: .color(.main))
         
         weekLabel.text = "수요일"
-        weekLabel.font = .font(.subMiddle)
+        weekLabel.setFont(.font(.subMiddle), color: .color(.main))
         
-        maxTempLabel.text = "30"
-        maxTempLabel.font = .font(.subMiddle)
+        let maxTemp: Int = Int(model.main?.temp_max ?? 0)
+        maxTempLabel.text = String(maxTemp)
+        maxTempLabel.setFont(.font(.subMiddle), color: .color(.main))
         
-        minTempLabel.text = "20"
-        minTempLabel.font = .font(.subMiddle)
+        let minTemp: Int = Int(model.main?.temp_min ?? 0)
+        minTempLabel.text = String(minTemp)
+        minTempLabel.setFont(.font(.subMiddle), color: .color(.translucentMain))
         
         updateLayoutWithLabelWidth()
     }

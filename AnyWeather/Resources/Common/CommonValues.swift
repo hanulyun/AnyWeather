@@ -41,7 +41,7 @@ public enum FontSet {
     
     public var rawValue: UIFont {
         switch self {
-        case .mainBig: return .systemFont(ofSize: 60.adjusted)
+        case .mainBig: return .systemFont(ofSize: 65.adjusted, weight: .light)
         case .mainMiddle: return .systemFont(ofSize: 30.adjusted)
         case .subBig: return .systemFont(ofSize: 26.adjusted)
         case .subMiddle: return .systemFont(ofSize: 20.adjusted)

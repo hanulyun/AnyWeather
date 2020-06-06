@@ -17,7 +17,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .color(.background)
+        view.backgroundColor = .lightGray
         configureAutolayouts()
         bindData()
     }

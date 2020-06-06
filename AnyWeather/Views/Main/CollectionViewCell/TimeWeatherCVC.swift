@@ -18,7 +18,7 @@ class TimeWeatherCVC: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .color(.background)
+        backgroundColor = .clear
         
         configureAutolayouts()
     }

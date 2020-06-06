@@ -14,10 +14,12 @@ class MainWeatherViewController: BaseViewController {
     private let tableView: UITableView = UITableView()
     private let footerView: FooterView = FooterView()
 
-    let maxH: CGFloat = MainSizes.currentMaxHeight
-    let minH: CGFloat = MainSizes.currentMinHeight
+    private let viewModel: MainWeatherViewModel = MainWeatherViewModel()
     
-    var topHeight: NSLayoutConstraint!
+    private let maxH: CGFloat = MainSizes.currentMaxHeight
+    private let minH: CGFloat = MainSizes.currentMinHeight
+    
+    private var topHeight: NSLayoutConstraint!
     
     enum CellType: Int {
         case week = 0
@@ -28,19 +30,19 @@ class MainWeatherViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // lat: 51.51, lon: -0.13)
-//        APIManager.shared
-//            .request(CurrentModel.self, url: Urls.current, param: ["q": "seoul"]) { model in
-//                Log.debug("model = \(model)")
-//
-//        }
         prepareTableView()
         
         footerView.setPageControl(withOutGps: 3)
     }
     
     override func bindData() {
-        currentWeatherview.setData()
+        viewModel.requestCurrentGps { [weak self] model in
+            if let model: CurrentModel = model {
+                DispatchQueue.main.async {
+                    self?.currentWeatherview.setData(model: model)
+                }
+            }
+        }
     }
     
     override func configureAutolayouts() {
@@ -54,6 +56,7 @@ class MainWeatherViewController: BaseViewController {
         tableView.dataSource = self
 //        tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
         tableView.contentInset = UIEdgeInsets(top: maxH, left: 0, bottom: 0, right: 0)
         
         tableView.register(WeekSummaryTVC.self, forCellReuseIdentifier: WeekSummaryTVC.reuseIdentifer)

@@ -11,7 +11,7 @@ import UIKit
 extension UICollectionView {
     func basicCollectionViewStyle() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .color(.background)
+        backgroundColor = .clear
         contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         showsHorizontalScrollIndicator = false
     }

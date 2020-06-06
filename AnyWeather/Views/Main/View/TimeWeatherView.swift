@@ -22,7 +22,7 @@ class TimeWeatherView: CustomView {
     init() {
         super.init(frame: .zero)
         
-        self.setInit(.red)
+        self.setInit()
         
         configureAutolayouts()
     }
