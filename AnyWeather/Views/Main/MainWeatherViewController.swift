@@ -13,19 +13,24 @@ class MainWeatherViewController: BaseViewController {
     let scrollView = UIScrollView()
     
     private let currentWeatherview: MainTempView = MainTempView()
+    private let timeWeatherView: TimeWeatherView = TimeWeatherView()
+    
     private let tableView: UITableView = UITableView()
     private let footerView: FooterView = FooterView()
     
-    let maskView = UIView()
-    let contentView = UIView()
+    private let maskView = UIView()
+    private let contentView = UIView()
+    
+    struct Layout {
+        static let headerMaxH: CGFloat = MainSizes.currentMaxHeight
+        static let headerMinH: CGFloat = MainSizes.currentMinHeight
+        static let timeWeatherHeight: CGFloat = 130.adjusted
+        static let fullHeader: CGFloat = Layout.headerMaxH + Layout.timeWeatherHeight
+    }
 
     private let viewModel: MainWeatherViewModel = MainWeatherViewModel()
     
-    private let maxH: CGFloat = MainSizes.currentMaxHeight
-    private let minH: CGFloat = MainSizes.currentMinHeight
-    
     private var topHeight: NSLayoutConstraint!
-    private var maskTop: NSLayoutConstraint!
     
     enum CellType: Int {
         case week = 0
@@ -35,13 +40,13 @@ class MainWeatherViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         
-        prepareTableView()
-        
-        footerView.setPageControl(withOutGps: 3)
     }
     
     override func bindData() {
+        footerView.setPageControl(withOutGps: 3)
+        
         viewModel.requestCurrentGps { [weak self] model in
             if let model: CurrentModel = model {
                 DispatchQueue.main.async {
@@ -52,17 +57,38 @@ class MainWeatherViewController: BaseViewController {
     }
     
     override func configureAutolayouts() {
-        [currentWeatherview, scrollView, footerView].forEach { view.addSubview($0) }
-        [maskView].forEach { scrollView.addSubview($0) }
-        
+        [currentWeatherview, timeWeatherView, scrollView, footerView].forEach { view.addSubview($0) }
+        scrollView.addSubview(maskView)
         maskView.addSubview(contentView)
         maskView.clipsToBounds = true
+        
+        headerFooterViewsLayouts()
+        scrollViewLayouts()
+    }
+}
+
+extension MainWeatherViewController {
+    private func headerFooterViewsLayouts() {
+        currentWeatherview.equalToTop(toAnchor: guide.topAnchor)
+        currentWeatherview.equalToLeading(toAnchor: guide.leadingAnchor)
+        currentWeatherview.equalToTrailing(toAnchor: guide.trailingAnchor)
+        if topHeight == nil {
+            topHeight = currentWeatherview.heightAnchor.constraint(equalToConstant: Layout.headerMaxH)
+            topHeight.isActive = true
+        }
+        
+        timeWeatherView.equalToTop(toAnchor: currentWeatherview.bottomAnchor)
+        timeWeatherView.equalToLeading(toAnchor: guide.leadingAnchor)
+        timeWeatherView.equalToTrailing(toAnchor: guide.trailingAnchor)
+        timeWeatherView.equalToHeight(Layout.timeWeatherHeight)
         
         footerView.equalToBottom(toAnchor: guide.bottomAnchor)
         footerView.equalToLeading(toAnchor: guide.leadingAnchor)
         footerView.equalToTrailing(toAnchor: guide.trailingAnchor)
         footerView.equalToHeight(50.adjusted)
-        
+    }
+    
+    private func scrollViewLayouts() {
         scrollView.delegate = self
         scrollView.backgroundColor = UIColor.purple.withAlphaComponent(0.2)
         scrollView.equalToTop(toAnchor: guide.topAnchor)
@@ -70,52 +96,16 @@ class MainWeatherViewController: BaseViewController {
         scrollView.equalToTrailing(toAnchor: guide.trailingAnchor)
         scrollView.equalToBottom(toAnchor: footerView.topAnchor)
         
-        viewsLayouts()
-    }
-    
-    private func prepareTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.showsVerticalScrollIndicator = false
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
-        tableView.contentInset = UIEdgeInsets(top: maxH, left: 0, bottom: 0, right: 0)
-        
-        tableView.register(WeekSummaryTVC.self, forCellReuseIdentifier: WeekSummaryTVC.reuseIdentifer)
-        tableView.register(TodayCommentTVC.self, forCellReuseIdentifier: TodayCommentTVC.reuseIdentifer)
-        tableView.register(TodayDetailTVC.self, forCellReuseIdentifier: TodayDetailTVC.reuseIdentifer)
-    }
-}
-
-extension MainWeatherViewController {
-    private func viewsLayouts() {
-
-        currentWeatherview.isUserInteractionEnabled = false
-        currentWeatherview.equalToTop(toAnchor: guide.topAnchor)
-        currentWeatherview.equalToLeading(toAnchor: guide.leadingAnchor)
-        currentWeatherview.equalToTrailing(toAnchor: guide.trailingAnchor)
-        if topHeight == nil {
-            topHeight = currentWeatherview.heightAnchor.constraint(equalToConstant: maxH)
-            topHeight.isActive = true
-        }
-        
         maskView.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
-        if maskTop == nil {
-            maskTop = maskView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: topHeight.constant)
-            maskTop.isActive = true
-        }
-
         contentView.backgroundColor = UIColor.red.withAlphaComponent(0.3)
-        contentView.frame = CGRect(x: 0, y: 0, width: CommonSizes.screenWidth, height: maxH + 1200)
         
+        contentView.frame = CGRect(x: 0, y: 0, width: CommonSizes.screenWidth, height: Layout.headerMaxH + 1200)
         
         view.layoutIfNeeded()
         
-        maskView.frame = CGRect(x: 0, y: maxH, width: CommonSizes.screenWidth, height: 500)
-//        maskView.equalToHeight(stackView.frame.height)
-        scrollView.contentSize = CGSize(width: CommonSizes.screenWidth, height: maxH + contentView.frame.height)
+        maskView.frame = CGRect(x: 0, y: Layout.fullHeader, width: CommonSizes.screenWidth, height: 500)
+        scrollView.contentSize = CGSize(width: CommonSizes.screenWidth, height: Layout.headerMaxH + contentView.frame.height)
         
-        Log.debug("h = \(contentView.frame)")
         view.layoutIfNeeded()
     }
 }
@@ -166,42 +156,27 @@ extension MainWeatherViewController: UITableViewDelegate {
         return UITableView.automaticDimension
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return (section == CellType.week.rawValue) ? TimeWeatherView() : nil
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return (section == CellType.week.rawValue) ? 130.adjusted : 0
-//    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY: CGFloat = scrollView.contentOffset.y
-        let tempH: CGFloat = maxH - (offsetY + maxH)
-        let height: CGFloat = min(max(tempH, minH), maxH * 1.5)
-        
-        if offsetY >= 200 {
-            let yy = offsetY + 100
-            maskView.frame = CGRect(x: 0, y: yy, width: CommonSizes.screenWidth, height: 500 + offsetY)
-            contentView.frame = CGRect(x: 0, y: (300 - yy), width: CommonSizes.screenWidth, height: maxH + 1200)
-        } else {
-            maskView.frame = CGRect(x: 0, y: maxH, width: CommonSizes.screenWidth, height: 500 + offsetY)
-            contentView.frame = CGRect(x: 0, y: 0, width: CommonSizes.screenWidth, height: maxH + 1200)
+        var height: CGFloat = Layout.headerMaxH - offsetY
+        if Layout.headerMaxH - offsetY <= Layout.headerMinH {
+            height = Layout.headerMinH
         }
+        topHeight.constant = height
         
-        Log.debug("stack = \(contentView.frame)")
+        Log.debug("stack = \(height)")
+        
+        if height == Layout.headerMinH {
+            let yy = offsetY + Layout.headerMinH + Layout.timeWeatherHeight
+            maskView.frame = CGRect(x: 0, y: yy, width: CommonSizes.screenWidth, height: 500 + offsetY)
+            contentView.frame = CGRect(x: 0, y: (Layout.headerMaxH - yy), width: CommonSizes.screenWidth, height: Layout.headerMaxH + 1200)
+        } else {
+            maskView.frame = CGRect(x: 0, y: Layout.fullHeader, width: CommonSizes.screenWidth, height: 500 + offsetY)
+            contentView.frame = CGRect(x: 0, y: 0, width: CommonSizes.screenWidth, height: Layout.headerMaxH + 1200)
+        }
         
         DispatchQueue.main.async {
-//            self.topHeight.constant = height
-            
-//            if offsetY < -self.maxH {
-//                scrollView.contentInset = UIEdgeInsets(top: self.maxH, left: 0, bottom: 0, right: 0)
-//            } else {
-//                scrollView.contentInset = UIEdgeInsets(top: height, left: 0, bottom: 0, right: 0)
-//            }
-//
-//            self.currentWeatherview.updateLayoutWhenScroll(viewHeight: height)
+            self.currentWeatherview.updateLayoutWhenScroll(viewHeight: self.topHeight.constant)
         }
-        
-        //        Log.debug("offsetY = \(offsetY)")
     }
 }
