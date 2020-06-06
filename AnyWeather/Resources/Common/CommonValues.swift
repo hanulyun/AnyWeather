@@ -10,6 +10,7 @@ import UIKit
 
 struct CommonSizes {
     static let screenWidth: CGFloat = UIScreen.main.bounds.width
+    static let screenHeight: CGFloat = UIScreen.main.bounds.height
 }
 
 struct MainSizes {
