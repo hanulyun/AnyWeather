@@ -61,8 +61,12 @@ class ListViewController: BaseViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+//        tableView.dragDelegate = self
+        
         tableView.separatorStyle = .none
         tableView.backgroundColor = .black
+//        tableView.dragInteractionEnabled = true
+        tableView.isEditing = true
         
         tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseId)
         tableView.register(ListTailTableViewCell.self, forCellReuseIdentifier: ListTailTableViewCell.reuseId)
@@ -116,10 +120,31 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        Log.debug("row tap")
         if indexPath.section == 0, self.models.count > 0 {
             self.dismiss(animated: true, completion: nil)
             self.delegate?.selectedIndex(index: indexPath.row)
         }
     }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row != 0
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        Log.debug("😀index = \(sourceIndexPath.row), \(destinationIndexPath.row)")
+        let move = models[sourceIndexPath.row]
+        models.remove(at: sourceIndexPath.row)
+        models.insert(move, at: destinationIndexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+//    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath,
+//                   toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+//
+//    }
 }
