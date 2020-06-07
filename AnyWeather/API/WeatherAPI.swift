@@ -12,6 +12,7 @@ struct Urls {
     static let base: String = "https://api.openweathermap.org/data/2.5"
     static let current: String = "/weather"
     static let forecast: String = "/forecast"
+    static let onecall: String = "/onecall"
     static let several: String = ""
 }
 
@@ -29,4 +30,5 @@ public enum ParamKey: String {
     case lang = "lang"
     case cnt = "cnt"
     case units = "units"
+    case exclued = "exclude"
 }

@@ -24,7 +24,21 @@ class MainViewController: BaseViewController {
     
     private let viewModel: MainWeatherViewModel = MainWeatherViewModel()
     
-    var models = [CurrentModel]()
+    var cModels: [CurrentModel] = [CurrentModel]()
+    var models = [WeatherModel]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.footerView.setPageControl(withOutGps: self.models.count - 1)
+                
+                self.hStackView.removeAllSubviews()
+                for model in self.models {
+                    let fullView = MainFullView()
+                    fullView.setData(model: model)
+                    self.hStackView.addArrangedSubview(fullView)
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,20 +47,11 @@ class MainViewController: BaseViewController {
     }
     
     override func bindData() {
-        footerView.setPageControl(withOutGps: 3)
-        
-        viewModel.requestCurrentGps { [weak self] model in
-            if let model: CurrentModel = model {
+        viewModel.requestCurrentGps()
+//        viewModel.requestSavedLocation()
                 
-                DispatchQueue.main.async {
-                    self?.hStackView.removeAllSubviews()
-                    for _ in 0..<4 {
-                        let fullView = MainFullView()
-                        fullView.setData(model: model)
-                        self?.hStackView.addArrangedSubview(fullView)
-                    }
-                }
-            }
+        viewModel.currentModels = { [weak self] models in
+            self?.models = models
         }
     }
     
@@ -70,7 +75,7 @@ class MainViewController: BaseViewController {
     }
     
     @objc func listButtonTap() {
-        bindData()
+//        bindData()
     }
 }
 

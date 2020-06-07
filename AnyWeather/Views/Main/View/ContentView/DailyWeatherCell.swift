@@ -27,16 +27,19 @@ class DailyWeatherCell: CustomView {
         super.init(coder: coder)
     }
     
-    func setData() {
-        weekLabel.text = "수요일"
-        weekLabel.font = .font(.subMiddle)
+    func setData(model: WeatherModel.Daily?) {
+        let week: String? = model?.dt?.timestampToString(format: "EEEE")
+        weekLabel.text = week
+        weekLabel.setFont(.font(.subMiddle), color: .color(.main))
         
         iconImageView.backgroundColor = .blue
         
-        maxTempLabel.text = "20"
-        maxTempLabel.font = .font(.subMiddle)
+        let max: Int = Int(model?.temp?.max ?? 0)
+        maxTempLabel.text = max.description
+        maxTempLabel.setFont(.font(.subMiddle), color: .color(.main))
         
-        minTempLabel.text = "8"
+        let min: Int = Int(model?.temp?.min ?? 0)
+        minTempLabel.text = min.description
         minTempLabel.setFont(.font(.subMiddle), color: .color(.translucentMain))
     }
     

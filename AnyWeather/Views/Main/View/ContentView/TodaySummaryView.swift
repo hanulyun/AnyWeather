@@ -25,10 +25,23 @@ class TodaySummaryView: CustomView {
         super.init(coder: coder)
     }
     
-    func setData() {
+    func setData(model: WeatherModel) {
         commentLabel.numberOfLines = 0
         commentLabel.setFont(.font(.subSmall), color: .color(.main))
-        commentLabel.text = "오늘은 대체로 어쩌구 저쩌구 내일은 어떻고 저떻고 최고 기온이 어떻고 알알알 내일은 맑을지 잘 모르겠음. 블라블라아아아아아~~~ 블라아아아"
+        
+        var comment: String = "오늘: "
+        if let desc: String = model.current?.weather?.first?.description {
+            comment.append(desc)
+        }
+        if let max: Double = model.daily?.first?.temp?.max {
+            let maxInt: Int = Int(max)
+            comment.append(", 최고 기온은 \(maxInt.description)\(degSymbol)입니다.")
+        }
+        if let min: Double = model.daily?.first?.temp?.min {
+            let minInt: Int = Int(min)
+            comment.append(" 최저 기온은 \(minInt.description)\(degSymbol)입니다.")
+        }
+        commentLabel.text = comment
     }
     
     override func configureAutolayouts() {

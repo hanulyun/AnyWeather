@@ -37,25 +37,26 @@ class MainTempView: CustomView {
         super.init(coder: coder)
     }
     
-    func setData(model: CurrentModel) {
-        cityLabel.text = model.name
+    func setData(model: WeatherModel) {
+        cityLabel.text = model.city
         cityLabel.setFont(.font(.mainMiddle), color: .color(.main))
         
-        descLabel.text = model.weather?.first?.description
+        descLabel.text = model.current?.weather?.first?.description
         descLabel.setFont(.font(.subSmall), color: .color(.main))
         
-        let temp: Int = Int(model.main?.temp ?? 0)
+        let temp: Int = Int(model.current?.temp ?? 0)
         tempLabel.text = "\(String(temp))°"
         tempLabel.setFont(.font(.mainBig), color: .color(.main))
         
-        weekLabel.text = "수요일"
+        let week = model.current?.dt?.timestampToString(format: "EEEE")
+        weekLabel.text = week
         weekLabel.setFont(.font(.subMiddle), color: .color(.main))
         
-        let maxTemp: Int = Int(model.main?.temp_max ?? 0)
+        let maxTemp: Int = Int(model.daily?.first?.temp?.max ?? 0)
         maxTempLabel.text = String(maxTemp)
         maxTempLabel.setFont(.font(.subMiddle), color: .color(.main))
         
-        let minTemp: Int = Int(model.main?.temp_min ?? 0)
+        let minTemp: Int = Int(model.daily?.first?.temp?.min ?? 0)
         minTempLabel.text = String(minTemp)
         minTempLabel.setFont(.font(.subMiddle), color: .color(.translucentMain))
         

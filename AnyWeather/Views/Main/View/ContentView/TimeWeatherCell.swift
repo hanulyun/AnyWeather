@@ -29,12 +29,13 @@ class TimeWeatherCell: CustomView {
         super.init(coder: coder)
     }
     
-    func setData() {
-        amPmLabel.text = "오전"
-        amPmLabel.font = .font(.subSmall)
+    func setData(model: WeatherModel.Hourly?, isFirst: Bool = false) {
+        let time = isFirst ? "지금" : model?.dt?.timestampToString(format: "a h시")
+        amPmLabel.text = time
+        amPmLabel.setFont(.font(.subSmall), color: .color(.main))
         
-        tempLabel.text = "10"
-        tempLabel.font = .font(.subMiddle)
+        tempLabel.text = Int(model?.temp ?? 0).description + degSymbol
+        tempLabel.setFont(.font(.subMiddle), color: .color(.main))
         
         iconImageView.backgroundColor = .blue
     }

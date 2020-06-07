@@ -28,17 +28,17 @@ class TodayDetailCell: CustomView {
         super.init(coder: coder)
     }
     
-    func setData(isLast: Bool) {
-        miniLabel1.text = "일출"
+    func setData(model: DetailModel, isLast: Bool) {
+        miniLabel1.text = model.title1
         miniLabel1.setFont(.font(.subTiny), color: .color(.translucentMain))
         
-        miniLabel2.text = "일몰"
+        miniLabel2.text = model.title2
         miniLabel2.setFont(.font(.subTiny), color: .color(.translucentMain))
         
-        valueLabel1.text = "오전 00시"
+        valueLabel1.text = model.value1
         valueLabel1.setFont(.font(.subBig), color: .color(.main))
         
-        valueLabel2.text = "오후 00시"
+        valueLabel2.text = model.value2
         valueLabel2.setFont(.font(.subBig), color: .color(.main))
         
         lineView.isHidden = isLast
@@ -50,7 +50,7 @@ class TodayDetailCell: CustomView {
         miniLabel1.equalToTop(toAnchor: self.topAnchor, offset: 8.adjusted)
         miniLabel1.equalToLeading(toAnchor: self.leadingAnchor, offset: 16.adjusted)
         
-        valueLabel1.equalToTop(toAnchor: miniLabel1.bottomAnchor, offset: 8.adjusted)
+        valueLabel1.equalToTop(toAnchor: miniLabel1.bottomAnchor, offset: 4.adjusted)
         valueLabel1.equalToLeading(toAnchor: miniLabel1.leadingAnchor)
         valueLabel1.equalToBottom(toAnchor: self.bottomAnchor, offset: -8.adjusted)
         

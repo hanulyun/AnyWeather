@@ -8,12 +8,19 @@
 
 import UIKit
 
+struct DetailModel {
+    var title1: String
+    var value1: String?
+    var title2: String
+    var value2: String?
+}
+
 class MainFullView: CustomView {
     
     private let currentWeatherview: MainTempView = MainTempView()
     
     private let hScrollView: UIScrollView = UIScrollView().basicStyle()
-    private let timeStackView: UIStackView = UIStackView().basicStyle(.horizontal)
+    private let hourlyStackView: UIStackView = UIStackView().basicStyle(.horizontal)
     
     private let vScrollView: UIScrollView = UIScrollView().basicStyle()
     private let contentView: UIView = UIView()
@@ -45,35 +52,83 @@ class MainFullView: CustomView {
         super.init(coder: coder)
     }
     
-    func setData(model: CurrentModel) {
+    func setData(model: WeatherModel) {
+        // HeaderView
         currentWeatherview.setData(model: model)
+        setHourly(model: model)
         
-        timeStackView.removeAllSubviews()
-        for _ in 0..<9 {
-            let timeCell: TimeWeatherCell = TimeWeatherCell()
-            timeCell.setData()
-            timeStackView.addArrangedSubview(timeCell)
+        // ContentView
+        vScrollView.delegate = self
+        setDaily(model: model)
+        todaySummaryView.setData(model: model)
+        setTodayDetail(model: model.current)
+        
+        // Content Layout
+        prepareViewsFrame()
+    }
+    
+    private func setHourly(model: WeatherModel) {
+        hourlyStackView.removeAllSubviews()
+        if let hourModels = model.hourly, hourModels.count >= 24 {
+            for index in 0..<24 {
+                let timeCell: TimeWeatherCell = TimeWeatherCell()
+                timeCell.setData(model: hourModels[index + 1], isFirst: index == 0)
+                hourlyStackView.addArrangedSubview(timeCell)
+            }
         }
-        
+    }
+    
+    private func setDaily(model: WeatherModel) {
         dailyStackView.removeAllSubviews()
-        for _ in 0..<9 {
-            let dailyCell: DailyWeatherCell = DailyWeatherCell()
-            dailyCell.setData()
-            dailyStackView.addArrangedSubview(dailyCell)
+        if let dailyModels = model.daily, dailyModels.count >= 8 {
+            for index in 0..<7 {
+                let dailyCell: DailyWeatherCell = DailyWeatherCell()
+                dailyCell.setData(model: model.daily?[index + 1])
+                dailyStackView.addArrangedSubview(dailyCell)
+            }
         }
-        
-        todaySummaryView.setData()
+    }
+    
+    private func setTodayDetail(model: WeatherModel.Current?) {
+        let sunrise: String? = model?.sunrise?.timestampToString(format: "a H:m")
+        let sunset: String? = model?.sunset?.timestampToString(format: "a H:m")
+        let windDeg: String? = model?.wind_deg?.description
+        let humi: String? = "\(Int(model?.humidity ?? 0).description)%"
+        let feels: String? = "\(model?.feels_like?.description ?? "")\(degSymbol)"
+        let press: String? = "\(Int(model?.pressure ?? 0).description)hPa"
+        let visi: String? = "\(((model?.visibility ?? 0) / 1000).description)km"
+        let uvi: String? = Int(model?.uvi ?? 0).description
+        let details: [DetailModel] = [
+            DetailModel(title1: "일출", value1: sunrise, title2: "일몰", value2: sunset),
+            DetailModel(title1: "바람", value1: windDeg, title2: "습도", value2: humi),
+            DetailModel(title1: "체감", value1: feels, title2: "기압", value2: press),
+            DetailModel(title1: "가시거리", value1: visi, title2: "자외선 지수", value2: uvi)
+        ]
         
         todayDetailStackView.removeAllSubviews()
-        for i in 0..<5 {
+        for index in details.indices {
             let detailCell: TodayDetailCell = TodayDetailCell()
-            detailCell.setData(isLast: i == 4)
+            detailCell.setData(model: details[index], isLast: index == (details.count - 1))
             todayDetailStackView.addArrangedSubview(detailCell)
         }
+    }
+    
+    private func prepareViewsFrame() {
+        self.layoutIfNeeded()
+        Layout.contentHeight
+            = dailyStackView.frame.height + todaySummaryView.frame.height + todayDetailStackView.frame.height
+            + 20.adjusted
+        Log.debug("height = \(dailyStackView.frame.height)")
+        contentView.frame = CGRect(x: 0, y: 0, width: CommonSizes.screenWidth,
+                                 height: Layout.contentHeight)
+        contentMaskView.frame = CGRect(x: 0, y: Layout.fullHeader,
+                                       width: CommonSizes.screenWidth, height: Layout.contentHeight)
+        vScrollView.contentSize = CGSize(width: CommonSizes.screenWidth,
+                                         height: Layout.fullHeader + Layout.contentHeight)
         
-        vScrollView.delegate = self
+        contentMaskView.clipsToBounds = true
         
-        prepareViewsFrame()
+        vScrollView.setContentOffset(CGPoint(x: 0, y: scrollY), animated: false)
     }
     
     override func configureAutolayouts() {
@@ -81,7 +136,7 @@ class MainFullView: CustomView {
         vScrollView.addSubview(contentMaskView)
         contentMaskView.addSubview(contentView)
         [dailyStackView, todaySummaryView, todayDetailStackView].forEach { contentView.addSubview($0) }
-        hScrollView.addSubview(timeStackView)
+        hScrollView.addSubview(hourlyStackView)
         
         currentWeatherview.equalToTop(toAnchor: self.topAnchor)
         currentWeatherview.equalToLeading(toAnchor: self.leadingAnchor)
@@ -98,7 +153,7 @@ class MainFullView: CustomView {
         hScrollView.equalToHeight(Layout.timeWeatherHeight)
         hScrollView.equalToWidth(CommonSizes.screenWidth)
         
-        timeStackView.equalToEdges(to: hScrollView)
+        hourlyStackView.equalToEdges(to: hScrollView)
         
         vScrollView.equalToTop(toAnchor: self.topAnchor)
         vScrollView.equalToLeading(toAnchor: self.leadingAnchor)
@@ -118,31 +173,12 @@ class MainFullView: CustomView {
         todayDetailStackView.equalToLeading(toAnchor: contentView.leadingAnchor)
         todayDetailStackView.equalToTrailing(toAnchor: contentView.trailingAnchor)
     }
-    
-    private func prepareViewsFrame() {
-        self.layoutIfNeeded()
-        Layout.contentHeight
-            = dailyStackView.frame.height + todaySummaryView.frame.height + todayDetailStackView.frame.height
-            + 40.adjusted
-        Log.debug("height = \(dailyStackView.frame.height)")
-        contentView.frame = CGRect(x: 0, y: 0, width: CommonSizes.screenWidth,
-                                 height: Layout.contentHeight)
-        contentMaskView.frame = CGRect(x: 0, y: Layout.fullHeader,
-                                       width: CommonSizes.screenWidth, height: Layout.contentHeight)
-        vScrollView.contentSize = CGSize(width: CommonSizes.screenWidth,
-                                         height: Layout.fullHeader + Layout.contentHeight)
-        
-        contentMaskView.clipsToBounds = true
-        
-        vScrollView.setContentOffset(CGPoint(x: 0, y: scrollY), animated: false)
-    }
 }
 
 extension MainFullView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY: CGFloat = scrollView.contentOffset.y
         scrollY = offsetY
-//        Log.debug("y = \(offsetY)")
         var height: CGFloat = Layout.headerMaxH - offsetY
         if Layout.headerMaxH - offsetY <= Layout.headerMinH {
             height = Layout.headerMinH
