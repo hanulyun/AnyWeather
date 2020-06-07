@@ -13,7 +13,7 @@ class TimeWeatherCell: CustomView {
     private let containerView: UIView = UIView()
     
     private let amPmLabel: UILabel = UILabel()
-    private let iconImageView: UIImageView = UIImageView()
+    private let iconImageView: CustomImageView = CustomImageView()
     private let tempLabel: UILabel = UILabel()
     
     private let lineView1: UIView = UIView().filledStyle(color: .color(.translucentMain))
@@ -37,7 +37,8 @@ class TimeWeatherCell: CustomView {
         tempLabel.text = Int(model?.temp ?? 0).description + degSymbol
         tempLabel.setFont(.font(.subMiddle), color: .color(.main))
         
-        iconImageView.backgroundColor = .blue
+        iconImageView.contentMode = .scaleAspectFill
+        iconImageView.loadImageUrl(model?.weather?.first?.icon)
     }
     
     override func configureAutolayouts() {
@@ -49,7 +50,7 @@ class TimeWeatherCell: CustomView {
         containerView.equalToWidth(80.adjusted)
         
         iconImageView.equalToCenter(to: self)
-        iconImageView.equalToSize(24.adjusted)
+        iconImageView.equalToSize(40.adjusted)
         
         amPmLabel.equalToBottom(toAnchor: iconImageView.topAnchor, offset: -16.adjusted)
         amPmLabel.equalToCenterX(xAnchor: self.centerXAnchor)

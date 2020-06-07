@@ -90,11 +90,12 @@ class MainFullView: CustomView {
     }
     
     private func setTodayDetail(model: WeatherModel.Current?) {
-        let sunrise: String? = model?.sunrise?.timestampToString(format: "a H:m")
-        let sunset: String? = model?.sunset?.timestampToString(format: "a H:m")
-        let windDeg: String? = model?.wind_deg?.description
+        let sunrise: String? = model?.sunrise?.timestampToString(format: "a h:m")
+        let sunset: String? = model?.sunset?.timestampToString(format: "a h:m")
+        let windDeg: String?
+            = "\(model?.wind_deg?.calcWindDirection() ?? "") \(Int(model?.wind_speed ?? 0).description )m/s"
         let humi: String? = "\(Int(model?.humidity ?? 0).description)%"
-        let feels: String? = "\(model?.feels_like?.description ?? "")\(degSymbol)"
+        let feels: String? = "\(Int(model?.feels_like ?? 0).description)\(degSymbol)"
         let press: String? = "\(Int(model?.pressure ?? 0).description)hPa"
         let visi: String? = "\(((model?.visibility ?? 0) / 1000).description)km"
         let uvi: String? = Int(model?.uvi ?? 0).description

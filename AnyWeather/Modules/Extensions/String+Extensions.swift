@@ -6,7 +6,7 @@
 //  Copyright © 2020 hanulyun. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension String {
     func convertToDictionary() -> [String: Any]? {
@@ -18,5 +18,15 @@ extension String {
             }
         }
         return nil
+    }
+    
+    func convertToImage() -> UIImage? {
+        var image: UIImage? = nil
+        if let url: URL = URL(string: Urls.icon + self + ".png"),
+            let data: Data = try? Data(contentsOf: url) {
+            image = UIImage(data: data)
+        }
+        
+        return image
     }
 }

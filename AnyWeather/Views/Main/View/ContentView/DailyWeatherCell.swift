@@ -13,7 +13,7 @@ class DailyWeatherCell: CustomView {
     private let containerView: UIView = UIView()
     
     private let weekLabel: UILabel = UILabel()
-    private let iconImageView: UIImageView = UIImageView()
+    private let iconImageView: CustomImageView = CustomImageView()
     private let maxTempLabel: UILabel = UILabel()
     private let minTempLabel: UILabel = UILabel()
     
@@ -32,7 +32,8 @@ class DailyWeatherCell: CustomView {
         weekLabel.text = week
         weekLabel.setFont(.font(.subMiddle), color: .color(.main))
         
-        iconImageView.backgroundColor = .blue
+        iconImageView.contentMode = .scaleAspectFill
+        iconImageView.loadImageUrl(model?.weather?.first?.icon)
         
         let max: Int = Int(model?.temp?.max ?? 0)
         maxTempLabel.text = max.description
@@ -55,7 +56,7 @@ class DailyWeatherCell: CustomView {
         weekLabel.equalToBottom(toAnchor: superView.bottomAnchor, offset: -8.adjusted)
         
         iconImageView.equalToCenter(to: superView)
-        iconImageView.equalToSize(24.adjusted)
+        iconImageView.equalToSize(36.adjusted)
         
         minTempLabel.equalToCenterY(yAnchor: weekLabel.centerYAnchor)
         minTempLabel.equalToTrailing(toAnchor: superView.trailingAnchor, offset: -16.adjusted)

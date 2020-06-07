@@ -33,6 +33,7 @@ struct WeatherModel: Codable {
         var humidity: Double? // 습도
         var uvi: Double? // 자외선지수
         var wind_deg: Double? // 바람 방향
+        var wind_speed: Double? // 풍속
         var visibility: Double? // 가시거리 단위 m
         
         var weather: [Weather]?

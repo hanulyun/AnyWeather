@@ -37,4 +37,11 @@ extension Double {
         
         return dateString
     }
+    
+    func calcWindDirection() -> String {
+        let direction: [String] = ["북", "북북동", "북동", "동북동", "동", "동남동", "서동", "서서동", "남",
+                                   "남남서", "남서", "서남서", "서", "서북서", "북서", "북북서"]
+        let index: Int = Int((self + 11.25) / 22.5)
+        return direction[index]
+    }
 }

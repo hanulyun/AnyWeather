@@ -11,9 +11,9 @@ import Foundation
 struct Urls {
     static let base: String = "https://api.openweathermap.org/data/2.5"
     static let current: String = "/weather"
-    static let forecast: String = "/forecast"
     static let onecall: String = "/onecall"
     static let several: String = ""
+    static let icon: String = "https://api.openweathermap.org/img/w/"
 }
 
 struct Parameters {
