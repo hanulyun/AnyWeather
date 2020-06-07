@@ -29,7 +29,8 @@ class MainViewController: BaseViewController {
         didSet {
             DispatchQueue.main.async {
                 self.footerView.setPageControl(withOutGps: self.models.count - 1)
-                
+                self.changeBackColor(model: self.models.first)
+                    
                 self.hStackView.removeAllSubviews()
                 for model in self.models {
                     let fullView = MainFullView()
@@ -48,7 +49,7 @@ class MainViewController: BaseViewController {
     
     override func bindData() {
         viewModel.requestCurrentGps()
-//        viewModel.requestSavedLocation()
+        viewModel.requestSavedLocation()
                 
         viewModel.currentModels = { [weak self] models in
             self?.models = models
@@ -77,11 +78,20 @@ class MainViewController: BaseViewController {
     @objc func listButtonTap() {
 //        bindData()
     }
+    
+    private func changeBackColor(model: WeatherModel?) {
+        UIView.animate(withDuration: 0.5) {
+            self.view.backgroundColor = .getWeatherColor(model?.current?.weather?.first?.id)
+        }
+    }
 }
 
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        footerView.selectedPage(Int(pageNumber))
+        let pageNumber: CGFloat = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+        let index: Int = Int(pageNumber)
+        footerView.selectedPage(index)
+        
+        self.changeBackColor(model: self.models[index])
     }
 }

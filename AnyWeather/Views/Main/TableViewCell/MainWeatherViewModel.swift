@@ -37,9 +37,7 @@ class MainWeatherViewModel: NSObject {
                         model.city = self.gpsCity
                         self.tempoModel.insert(model, at: 0)
                         self.currentModels?(self.tempoModel)
-                    }
-                    
-                    self.requestForecast(lat: lat.description, lon: lon.description)
+                    }                    
                 }
             }
         }
@@ -64,16 +62,6 @@ class MainWeatherViewModel: NSObject {
         ]
         APIManager.shared.request(WeatherModel.self, url: Urls.onecall, param: param) { model in
             isCompleted(model)
-            Log.debug("model = \(model)")
-        }
-    }
-    
-    private func requestForecast(lat: String, lon: String) {
-        let param: [String: Any] = [
-            ParamKey.lat.rawValue: lat.description,
-            ParamKey.lon.rawValue: lon.description,
-        ]
-        APIManager.shared.request(WeatherModel.self, url: Urls.onecall, param: param) { model in
             Log.debug("model = \(model)")
         }
     }

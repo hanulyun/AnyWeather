@@ -57,7 +57,3 @@ public enum FontSet {
         }
     }
 }
-
-public enum Direction: String {
-    case n
-}
