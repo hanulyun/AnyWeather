@@ -48,12 +48,14 @@ class MainFullView: CustomView {
     func setData(model: CurrentModel) {
         currentWeatherview.setData(model: model)
         
+        timeStackView.removeAllSubviews()
         for _ in 0..<9 {
             let timeCell: TimeWeatherCell = TimeWeatherCell()
             timeCell.setData()
             timeStackView.addArrangedSubview(timeCell)
         }
         
+        dailyStackView.removeAllSubviews()
         for _ in 0..<9 {
             let dailyCell: DailyWeatherCell = DailyWeatherCell()
             dailyCell.setData()
@@ -62,9 +64,10 @@ class MainFullView: CustomView {
         
         todaySummaryView.setData()
         
-        for _ in 0..<5 {
+        todayDetailStackView.removeAllSubviews()
+        for i in 0..<5 {
             let detailCell: TodayDetailCell = TodayDetailCell()
-            detailCell.setData()
+            detailCell.setData(isLast: i == 4)
             todayDetailStackView.addArrangedSubview(detailCell)
         }
         

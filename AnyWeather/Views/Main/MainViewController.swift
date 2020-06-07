@@ -10,16 +10,24 @@ import UIKit
 
 class MainViewController: BaseViewController {
     
-    private let hScrollView: UIScrollView = UIScrollView().basicStyle()
+    lazy var hScrollView: UIScrollView = {
+        let scrollView = UIScrollView().basicStyle()
+        scrollView.delegate = self
+        scrollView.isPagingEnabled = true
+        return scrollView
+    }()
     private let hStackView: UIStackView = UIStackView().basicStyle(.horizontal)
     
     private let footerView: FooterView = FooterView()
     
     private let viewModel: MainWeatherViewModel = MainWeatherViewModel()
     
+    var models = [CurrentModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        buttonEvent()
     }
     
     override func bindData() {
@@ -27,9 +35,10 @@ class MainViewController: BaseViewController {
         
         viewModel.requestCurrentGps { [weak self] model in
             if let model: CurrentModel = model {
+                
                 DispatchQueue.main.async {
-//                    self?.currentWeatherview.setData(model: model)
-                    for _ in 0..<3 {
+                    self?.hStackView.removeAllSubviews()
+                    for _ in 0..<4 {
                         let fullView = MainFullView()
                         fullView.setData(model: model)
                         self?.hStackView.addArrangedSubview(fullView)
@@ -52,5 +61,20 @@ class MainViewController: BaseViewController {
         footerView.equalToLeading(toAnchor: guide.leadingAnchor)
         footerView.equalToTrailing(toAnchor: guide.trailingAnchor)
         footerView.equalToHeight(50.adjusted)
+    }
+    
+    private func buttonEvent() {
+        footerView.listButton.addTarget(self, action: #selector(listButtonTap), for: .touchUpInside)
+    }
+    
+    @objc func listButtonTap() {
+        bindData()
+    }
+}
+
+extension MainViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+        footerView.selectedPage(Int(pageNumber))
     }
 }

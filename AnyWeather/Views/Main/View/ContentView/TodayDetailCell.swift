@@ -16,6 +16,8 @@ class TodayDetailCell: CustomView {
     private let miniLabel2: UILabel = UILabel()
     private let valueLabel2: UILabel = UILabel()
     
+    private let lineView: UIView = UIView().filledStyle(color: .color(.translucentMain))
+    
     init() {
         super.init(frame: .zero)
         
@@ -26,7 +28,7 @@ class TodayDetailCell: CustomView {
         super.init(coder: coder)
     }
     
-    func setData() {
+    func setData(isLast: Bool) {
         miniLabel1.text = "일출"
         miniLabel1.setFont(.font(.subTiny), color: .color(.translucentMain))
         
@@ -38,10 +40,12 @@ class TodayDetailCell: CustomView {
         
         valueLabel2.text = "오후 00시"
         valueLabel2.setFont(.font(.subBig), color: .color(.main))
+        
+        lineView.isHidden = isLast
     }
     
     override func configureAutolayouts() {
-        [miniLabel1, miniLabel2, valueLabel1, valueLabel2].forEach { addSubview($0) }
+        [miniLabel1, miniLabel2, valueLabel1, valueLabel2, lineView].forEach { addSubview($0) }
         
         miniLabel1.equalToTop(toAnchor: self.topAnchor, offset: 8.adjusted)
         miniLabel1.equalToLeading(toAnchor: self.leadingAnchor, offset: 16.adjusted)
@@ -55,5 +59,10 @@ class TodayDetailCell: CustomView {
         
         valueLabel2.equalToLeading(toAnchor: miniLabel2.leadingAnchor)
         valueLabel2.equalToCenterY(yAnchor: valueLabel1.centerYAnchor)
+        
+        lineView.equalToLeading(toAnchor: self.leadingAnchor, offset: 16.adjusted)
+        lineView.equalToTrailing(toAnchor: self.trailingAnchor, offset: -16.adjusted)
+        lineView.equalToBottom(toAnchor: self.bottomAnchor)
+        lineView.equalToHeight(1)
     }
 }

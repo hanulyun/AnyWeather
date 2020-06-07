@@ -12,12 +12,16 @@ class FooterView: CustomView {
     
     private var pageControl: CustomPagerControl = CustomPagerControl()
     
+    private let lineView: UIView = UIView().filledStyle(color: .color(.translucentMain))
+    
     let listButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "listIcon"), for: .normal)
         button.alpha = 0.5
         return button
     }()
+    
+    var currentPageNum: Int = 0
     
     init() {
         super.init(frame: .zero)
@@ -35,20 +39,26 @@ class FooterView: CustomView {
             controls.append(.dot)
         }
         pageControl.setControls(controls: controls)
-        pageControl.selectIndex(0)
+        selectedPage(currentPageNum)
     }
     
     func selectedPage(_ page: Int) {
         pageControl.selectIndex(page)
+        currentPageNum = page
     }
     
     override func configureAutolayouts() {
-        [pageControl, listButton].forEach { addSubview($0) }
+        [pageControl, listButton, lineView].forEach { addSubview($0) }
         
         pageControl.equalToCenter(to: self)
         
         listButton.equalToCenterY(yAnchor: self.centerYAnchor)
         listButton.equalToTrailing(toAnchor: self.trailingAnchor, offset: -16.adjusted)
         listButton.equalToSize(16.adjusted)
+        
+        lineView.equalToTop(toAnchor: self.topAnchor)
+        lineView.equalToLeading(toAnchor: self.leadingAnchor)
+        lineView.equalToTrailing(toAnchor: self.trailingAnchor)
+        lineView.equalToHeight(1)
     }
 }

@@ -24,7 +24,7 @@ class MainTempView: CustomView {
     }()
     private let maxTempLabel: UILabel = UILabel()
     private let minTempLabel: UILabel = UILabel()
-    
+        
     private var centerTopConstraint: NSLayoutConstraint!
     
     init() {
@@ -113,16 +113,16 @@ extension MainTempView {
         summaryContainerView.equalToTrailing(toAnchor: self.trailingAnchor)
         summaryContainerView.equalToBottom(toAnchor: self.bottomAnchor)
         
-        let superView: UIView = summaryContainerView
-        weekLabel.equalToLeading(toAnchor: superView.leadingAnchor, offset: 16.adjusted)
-        weekLabel.equalToTop(toAnchor: superView.topAnchor)
-        weekLabel.equalToBottom(toAnchor: superView.bottomAnchor, offset: -8.adjusted)
+        let parentView: UIView = summaryContainerView
+        weekLabel.equalToLeading(toAnchor: parentView.leadingAnchor, offset: 16.adjusted)
+        weekLabel.equalToTop(toAnchor: parentView.topAnchor)
+        weekLabel.equalToBottom(toAnchor: parentView.bottomAnchor, offset: -8.adjusted)
         
         todayLabel.equalToLeading(toAnchor: weekLabel.trailingAnchor, offset: 8.adjusted)
         todayLabel.equalToBottom(toAnchor: weekLabel.bottomAnchor)
         
         minTempLabel.equalToCenterY(yAnchor: weekLabel.centerYAnchor)
-        minTempLabel.equalToTrailing(toAnchor: superView.trailingAnchor, offset: -16.adjusted)
+        minTempLabel.equalToTrailing(toAnchor: parentView.trailingAnchor, offset: -16.adjusted)
         
         maxTempLabel.equalToTrailing(toAnchor: minTempLabel.leadingAnchor, offset: -24.adjusted)
         maxTempLabel.equalToCenterY(yAnchor: weekLabel.centerYAnchor)

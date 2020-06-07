@@ -12,6 +12,9 @@ class TodaySummaryView: CustomView {
     
     private let commentLabel: UILabel = UILabel()
     
+    private let lineView1: UIView = UIView().filledStyle(color: .color(.translucentMain))
+    private let lineView2: UIView = UIView().filledStyle(color: .color(.translucentMain))
+    
     init() {
         super.init(frame: .zero)
         
@@ -29,11 +32,21 @@ class TodaySummaryView: CustomView {
     }
     
     override func configureAutolayouts() {
-        addSubview(commentLabel)
+        [commentLabel, lineView1, lineView2].forEach { addSubview($0) }
         
         commentLabel.equalToTop(toAnchor: self.topAnchor, offset: 16.adjusted)
         commentLabel.equalToLeading(toAnchor: self.leadingAnchor, offset: 16.adjusted)
         commentLabel.equalToTrailing(toAnchor: self.trailingAnchor, offset: -16.adjusted)
         commentLabel.equalToBottom(toAnchor: self.bottomAnchor, offset: -16.adjusted)
+        
+        lineView1.equalToLeading(toAnchor: self.leadingAnchor)
+        lineView1.equalToTrailing(toAnchor: self.trailingAnchor)
+        lineView1.equalToTop(toAnchor: self.topAnchor)
+        lineView1.equalToHeight(1)
+        
+        lineView2.equalToLeading(toAnchor: self.leadingAnchor)
+        lineView2.equalToTrailing(toAnchor: self.trailingAnchor)
+        lineView2.equalToBottom(toAnchor: self.bottomAnchor)
+        lineView2.equalToHeight(1)
     }
 }

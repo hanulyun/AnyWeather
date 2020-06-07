@@ -16,6 +16,9 @@ class TimeWeatherCell: CustomView {
     private let iconImageView: UIImageView = UIImageView()
     private let tempLabel: UILabel = UILabel()
     
+    private let lineView1: UIView = UIView().filledStyle(color: .color(.translucentMain))
+    private let lineView2: UIView = UIView().filledStyle(color: .color(.translucentMain))
+    
     init() {
         super.init(frame: .zero)
         
@@ -38,7 +41,7 @@ class TimeWeatherCell: CustomView {
     
     override func configureAutolayouts() {
         addSubview(containerView)
-        [amPmLabel, iconImageView, tempLabel].forEach { containerView.addSubview($0) }
+        [amPmLabel, iconImageView, tempLabel, lineView1, lineView2].forEach { containerView.addSubview($0) }
         
         containerView.equalToEdges(to: self)
         containerView.equalToHeight(130.adjusted)
@@ -52,5 +55,15 @@ class TimeWeatherCell: CustomView {
         
         tempLabel.equalToTop(toAnchor: iconImageView.bottomAnchor, offset: 16.adjusted)
         tempLabel.equalToCenterX(xAnchor: self.centerXAnchor)
+        
+        lineView1.equalToLeading(toAnchor: containerView.leadingAnchor)
+        lineView1.equalToTrailing(toAnchor: containerView.trailingAnchor)
+        lineView1.equalToTop(toAnchor: containerView.topAnchor)
+        lineView1.equalToHeight(1)
+        
+        lineView2.equalToLeading(toAnchor: containerView.leadingAnchor)
+        lineView2.equalToTrailing(toAnchor: containerView.trailingAnchor)
+        lineView2.equalToBottom(toAnchor: containerView.bottomAnchor)
+        lineView2.equalToHeight(1)
     }
 }

@@ -17,4 +17,10 @@ extension UIStackView {
         stackView.spacing = 0
         return stackView
     }
+    
+    func removeAllSubviews() {
+        if self.subviews.count > 0 {
+            self.subviews.forEach { self.removeArrangedSubview($0) }
+        }
+    }
 }
