@@ -26,12 +26,7 @@ extension Double {
     
     func timestampToString(format: String) -> String {
         let date: Date = Date(timeIntervalSince1970: self)
-        let dateFormatter: DateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        dateFormatter.amSymbol = "오전"
-        dateFormatter.pmSymbol = "오후"
-        dateFormatter.weekdaySymbols = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"]
-        dateFormatter.timeZone = TimeZone.current
+        let dateFormatter: DateFormatter = .basicStyle(format: format)
         
         let dateString: String = dateFormatter.string(from: date)
         

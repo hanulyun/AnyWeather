@@ -45,7 +45,7 @@ class MainTempView: CustomView {
         descLabel.setFont(.font(.subSmall), color: .color(.main))
         
         let temp: Int = Int(model.current?.temp ?? 0)
-        tempLabel.text = "\(String(temp))°"
+        tempLabel.text = "\(String(temp))\(degSymbol)"
         tempLabel.setFont(.font(.mainBig), color: .color(.main))
         
         let week = model.current?.dt?.timestampToString(format: "EEEE")

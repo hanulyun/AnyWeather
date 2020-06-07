@@ -41,6 +41,15 @@ class MainViewController: BaseViewController {
         }
     }
     
+    var currentIndex: Int = 0 {
+        didSet {
+            DispatchQueue.main.async {
+                self.footerView.selectedPage(self.currentIndex)
+                self.changeBackColor(model: self.models[self.currentIndex])
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,7 +85,9 @@ class MainViewController: BaseViewController {
     }
     
     @objc func listButtonTap() {
-//        bindData()
+        let vc: ListViewController = ListViewController(viewModel: self.viewModel)
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
     }
     
     private func changeBackColor(model: WeatherModel?) {
@@ -90,8 +101,14 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber: CGFloat = round(scrollView.contentOffset.x / scrollView.frame.size.width)
         let index: Int = Int(pageNumber)
-        footerView.selectedPage(index)
-        
-        self.changeBackColor(model: self.models[index])
+        self.currentIndex = index
+    }
+}
+
+extension MainViewController: ListViewContollerDelegate {
+    func selectedIndex(index: Int) {
+        self.currentIndex = index
+        let xOffset: CGFloat = CommonSizes.screenWidth * CGFloat(index)
+        hScrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: false)
     }
 }

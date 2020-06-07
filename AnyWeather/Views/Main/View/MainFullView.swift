@@ -72,7 +72,7 @@ class MainFullView: CustomView {
         if let hourModels = model.hourly, hourModels.count >= 24 {
             for index in 0..<24 {
                 let timeCell: TimeWeatherCell = TimeWeatherCell()
-                timeCell.setData(model: hourModels[index + 1], isFirst: index == 0)
+                timeCell.setData(model: hourModels[index], isFirst: index == 0)
                 hourlyStackView.addArrangedSubview(timeCell)
             }
         }

@@ -9,5 +9,20 @@
 import Foundation
 
 extension Date {
-    
+    func dateToString(format: String) -> String {
+        let dateFormatter: DateFormatter = .basicStyle(format: format)
+        return dateFormatter.string(from: self)
+    }
+}
+
+extension DateFormatter {
+    static func basicStyle(format: String) -> DateFormatter {
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.amSymbol = "오전"
+        dateFormatter.pmSymbol = "오후"
+        dateFormatter.weekdaySymbols = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"]
+        dateFormatter.timeZone = TimeZone.current
+        return dateFormatter
+    }
 }

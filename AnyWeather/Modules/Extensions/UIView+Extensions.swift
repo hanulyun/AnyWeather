@@ -13,13 +13,13 @@ extension UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func equalToEdges(to: UIView) {
+    func equalToEdges(to: UIView, offset: CGFloat = 0) {
         prepareConstraints()
         let edges: [NSLayoutConstraint] = [
-            topAnchor.constraint(equalTo: to.topAnchor),
-            leadingAnchor.constraint(equalTo: to.leadingAnchor),
-            trailingAnchor.constraint(equalTo: to.trailingAnchor),
-            bottomAnchor.constraint(equalTo: to.bottomAnchor)
+            topAnchor.constraint(equalTo: to.topAnchor, constant: offset),
+            leadingAnchor.constraint(equalTo: to.leadingAnchor, constant: offset),
+            trailingAnchor.constraint(equalTo: to.trailingAnchor, constant: -offset),
+            bottomAnchor.constraint(equalTo: to.bottomAnchor, constant: -offset)
         ]
         edges.forEach { $0.isActive = true }
     }
