@@ -8,6 +8,8 @@
 
 import UIKit
 
+public var scrollY: CGFloat = 0
+
 class MainViewController: BaseViewController {
     
     lazy var hScrollView: UIScrollView = {

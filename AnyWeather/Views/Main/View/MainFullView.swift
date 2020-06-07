@@ -133,12 +133,15 @@ class MainFullView: CustomView {
                                          height: Layout.fullHeader + Layout.contentHeight)
         
         contentMaskView.clipsToBounds = true
+        
+        vScrollView.setContentOffset(CGPoint(x: 0, y: scrollY), animated: false)
     }
 }
 
 extension MainFullView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY: CGFloat = scrollView.contentOffset.y
+        scrollY = offsetY
 //        Log.debug("y = \(offsetY)")
         var height: CGFloat = Layout.headerMaxH - offsetY
         if Layout.headerMaxH - offsetY <= Layout.headerMinH {
