@@ -111,4 +111,8 @@ extension MainViewController: ListViewContollerDelegate {
         let xOffset: CGFloat = CommonSizes.screenWidth * CGFloat(index)
         hScrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: false)
     }
+    
+    func changeWeatherList(isChanged: Bool) {
+        
+    }
 }
