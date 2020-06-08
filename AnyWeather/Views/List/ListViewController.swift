@@ -88,6 +88,12 @@ class ListViewController: BaseViewController {
         }
         isC = !isC
     }
+    
+    private func goToSearchViewCon() {
+        let vc: SearchViewController = SearchViewController()
+        let navi: UINavigationController = UINavigationController(rootViewController: vc)
+        self.present(navi, animated: true, completion: nil)
+    }
 }
 
 extension ListViewController: UITableViewDataSource {
@@ -117,7 +123,7 @@ extension ListViewController: UITableViewDataSource {
                 if tag == .deg {
                     self?.changeDegree()
                 } else {
-                    Log.debug("tap!!!")
+                    self?.goToSearchViewCon()
                 }
             }
             return cell

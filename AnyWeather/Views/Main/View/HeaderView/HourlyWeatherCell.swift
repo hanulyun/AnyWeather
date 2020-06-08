@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimeWeatherCell: CustomView {
+class HourlyWeatherCell: CustomView {
     
     private let containerView: UIView = UIView()
     
@@ -30,7 +30,7 @@ class TimeWeatherCell: CustomView {
     }
     
     func setData(model: WeatherModel.Hourly?, isFirst: Bool = false) {
-        let time = isFirst ? "지금" : model?.dt?.timestampToString(format: "a h시")
+        let time = isFirst ? "지금" : "\(model?.dt?.timestampToString(format: "a h") ?? "")시"
         amPmLabel.text = time
         amPmLabel.setFont(.font(.subSmall), color: .color(.main))
         

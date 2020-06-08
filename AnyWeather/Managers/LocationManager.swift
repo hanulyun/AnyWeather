@@ -6,7 +6,7 @@
 //  Copyright © 2020 hanulyun. All rights reserved.
 //
 
-import CoreLocation
+import MapKit
 
 class LocationManager {
     static let shared: LocationManager = LocationManager()

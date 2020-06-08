@@ -87,6 +87,7 @@ class MainViewController: BaseViewController {
     @objc func listButtonTap() {
         let vc: ListViewController = ListViewController(viewModel: self.viewModel)
         vc.delegate = self
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     

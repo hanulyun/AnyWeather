@@ -19,14 +19,15 @@ class MainFullView: CustomView {
     
     private let currentWeatherview: MainTempView = MainTempView()
     
+    // HeaderView
     private let hScrollView: UIScrollView = UIScrollView().basicStyle()
     private let hourlyStackView: UIStackView = UIStackView().basicStyle(.horizontal)
     
+    // ContentView
     private let vScrollView: UIScrollView = UIScrollView().basicStyle()
     private let contentView: UIView = UIView()
     private let contentMaskView: UIView = UIView()
     
-    // contentView
     private let dailyStackView: UIStackView = UIStackView().basicStyle(.vertical)
     private let todaySummaryView: TodaySummaryView = TodaySummaryView()
     private let todayDetailStackView: UIStackView = UIStackView().basicStyle(.vertical)
@@ -71,9 +72,9 @@ class MainFullView: CustomView {
         hourlyStackView.removeAllSubviews()
         if let hourModels = model.hourly, hourModels.count >= 24 {
             for index in 0..<24 {
-                let timeCell: TimeWeatherCell = TimeWeatherCell()
-                timeCell.setData(model: hourModels[index], isFirst: index == 0)
-                hourlyStackView.addArrangedSubview(timeCell)
+                let hourlyCell: HourlyWeatherCell = HourlyWeatherCell()
+                hourlyCell.setData(model: hourModels[index], isFirst: index == 0)
+                hourlyStackView.addArrangedSubview(hourlyCell)
             }
         }
     }
