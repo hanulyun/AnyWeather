@@ -43,4 +43,12 @@ extension Double {
             return direction[index]
         }
     }
+    
+    func calcTempUnit(to unit: TempUnit) -> Double {
+        if unit == .c {
+            return (self - 32) / 1.8
+        } else {
+            return self * 1.8 + 32
+        }
+    }
 }

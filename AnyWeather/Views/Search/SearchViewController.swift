@@ -11,7 +11,7 @@ import UIKit
 // https://medium.com/@pravinbendre772/search-for-places-and-display-results-using-mapkit-a987bd6504df
 // https://devmjun.github.io/archive/SearchController
 
-class SearchViewController: UIViewController {
+class SearchViewController: BaseViewController {
     
     private var searchController: UISearchController = UISearchController()
     
@@ -57,13 +57,17 @@ class SearchViewController: UIViewController {
         let searchBar = self.searchController.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "검색"
+        searchBar.delegate = self
         self.navigationItem.searchController = self.searchController
         
-        let textField = searchController.searchBar.value(forKey: "searchField") as! UITextField
-
+        let textField = searchBar.value(forKey: "searchField") as! UITextField
+        textField.textColor = .white
+        
         let glassIconView = textField.leftView as! UIImageView
         glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
         glassIconView.tintColor = .lightGray
+        
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .darkGray
         
         searchBar.setValue("취소", forKey:"cancelButtonText")
         let cancelAtt: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.white]
@@ -75,5 +79,11 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
+    }
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

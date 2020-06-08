@@ -19,15 +19,19 @@ protocol ListViewContollerDelegate {
 
 class ListViewController: BaseViewController {
     
+    private let topView: UIView = UIView()
     private let tableView: UITableView = UITableView()
     
     private let viewModel: MainWeatherViewModel?
     
     var delegate: ListViewContollerDelegate?
     
-    private var isC: Bool = true {
+    var topOffset: NSLayoutConstraint!
+    
+    private var unit: TempUnit = .c {
         didSet {
             DispatchQueue.main.async {
+                self.viewModel?.unit = self.unit
                 self.tableView.reloadData()
             }
         }
@@ -35,13 +39,12 @@ class ListViewController: BaseViewController {
     
     private var models: [WeatherModel] = [WeatherModel]()
     
-    init(viewModel: MainWeatherViewModel?) {
+    init(viewModel: MainWeatherViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
-        if let models = self.viewModel?.tempoModel {
-            self.models = models
-        }
+        self.models = viewModel.tempoModel
+        self.unit = viewModel.unit
     }
     
     required init?(coder: NSCoder) {
@@ -60,9 +63,19 @@ class ListViewController: BaseViewController {
     }
     
     override func configureAutolayouts() {
-        view.addSubview(tableView)
+        [tableView, topView].forEach { view.addSubview($0) }
         
         tableView.equalToEdges(to: self.view)
+
+        if topOffset == nil {
+            topOffset = topView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0)
+            topOffset.isActive = true
+        }
+        topView.equalToLeading(toAnchor: self.view.leadingAnchor)
+        topView.equalToTrailing(toAnchor: self.view.trailingAnchor)
+        topView.equalToHeight(self.getStatusHeight())
+        
+        topView.backgroundColor = .getWeatherColor(models.first?.current?.weather?.first?.id)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -77,16 +90,13 @@ class ListViewController: BaseViewController {
         tableView.register(ListTailTableViewCell.self, forCellReuseIdentifier: ListTailTableViewCell.reuseId)
     }
     
-    private func changeDegree() {
+    private func changeDegree(to unit: TempUnit) {
         for index in models.indices {
             let temp: Double = models[index].current?.temp ?? 0
-            if isC { // F로 변환
-                models[index].current?.temp = temp * 1.8 + 32
-            } else { // C로 변환
-                models[index].current?.temp = (temp - 32) / 1.8
-            }
+            models[index].current?.temp = temp.calcTempUnit(to: unit)
         }
-        isC = !isC
+        
+        self.unit = unit
     }
     
     private func goToSearchViewCon() {
@@ -121,7 +131,8 @@ extension ListViewController: UITableViewDataSource {
                     as? ListTailTableViewCell else { fatalError("Failed to cast ListTailTableViewCell") }
             cell.buttonTapEvent = { [weak self] tag in
                 if tag == .deg {
-                    self?.changeDegree()
+                    let changeUnit: TempUnit = (self?.unit == .c) ? .f : .c
+                    self?.changeDegree(to: changeUnit)
                 } else {
                     self?.goToSearchViewCon()
                 }
@@ -136,6 +147,16 @@ extension ListViewController: UITableViewDelegate {
         if indexPath.section == 0, self.models.count > 0 {
             self.dismiss(animated: true, completion: nil)
             self.delegate?.selectedIndex(index: indexPath.row)
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY: CGFloat = scrollView.contentOffset.y
+        let statusHeight: CGFloat = self.getStatusHeight()
+        if offsetY < -statusHeight {
+            self.topOffset.constant = (offsetY * -1) - statusHeight
+        } else {
+            self.topOffset.constant = 0
         }
     }
 }

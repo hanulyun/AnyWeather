@@ -16,6 +16,8 @@ class MainWeatherViewModel: NSObject {
     private var isCompletedGetGps: ((_ lat: CGFloat, _ lon: CGFloat) -> Void)?
     private var getGpsFlag: Bool = false
     
+    // 외부 접근 변수
+    var unit: TempUnit = .c
     var tempoModel: [WeatherModel] = [WeatherModel]()
     var currentModels: (([WeatherModel]) -> Void)?
     var gpsCity: String?
