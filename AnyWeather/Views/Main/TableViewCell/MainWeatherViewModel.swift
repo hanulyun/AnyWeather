@@ -83,6 +83,12 @@ class MainWeatherViewModel: NSObject {
 }
 
 extension MainWeatherViewModel: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse || status == .authorizedAlways {
+            LocationManager.shared.requestLocation()
+        }
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location: CLLocation = locations[locations.count - 1]
         let longitude: CLLocationDegrees = location.coordinate.longitude

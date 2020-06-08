@@ -81,7 +81,7 @@ class MainViewController: BaseViewController {
     }
     
     private func buttonEvent() {
-        footerView.listButton.addTarget(self, action: #selector(listButtonTap), for: .touchUpInside)
+        footerView.listContainerButton.addTarget(self, action: #selector(listButtonTap), for: .touchUpInside)
     }
     
     @objc func listButtonTap() {

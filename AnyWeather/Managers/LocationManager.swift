@@ -40,6 +40,10 @@ class LocationManager {
         }
     }
     
+    func requestLocation() {
+        locationManager.requestLocation()
+    }
+    
     func startUpdateLocation() {
         locationManager.startUpdatingLocation()
     }

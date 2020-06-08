@@ -12,7 +12,7 @@ import UIKit
 // change 했을 때 값 변경하는 부분 viewModel에 저장 -> delegate로 메인에서 반영
 // 추가 또는 삭제 시 viewModel 저장 -> delegate로 메인에서 반영
 
-protocol ListViewContollerDelegate {
+protocol ListViewContollerDelegate: class {
     func selectedIndex(index: Int)
     func changeWeatherList(isChanged: Bool)
 }
@@ -24,7 +24,7 @@ class ListViewController: BaseViewController {
     
     private let viewModel: MainWeatherViewModel?
     
-    var delegate: ListViewContollerDelegate?
+    weak var delegate: ListViewContollerDelegate?
     
     var topOffset: NSLayoutConstraint!
     
@@ -101,8 +101,15 @@ class ListViewController: BaseViewController {
     
     private func goToSearchViewCon() {
         let vc: SearchViewController = SearchViewController()
+        vc.delegate = self
         let navi: UINavigationController = UINavigationController(rootViewController: vc)
         self.present(navi, animated: true, completion: nil)
+    }
+}
+
+extension ListViewController: SearchViewControllerDelegate {
+    func isSelectMapItem(city: String, lat: Double, lon: Double) {
+        Log.debug("selected = \(city), \(lat), \(lon)")
     }
 }
 
@@ -123,7 +130,6 @@ extension ListViewController: UITableViewDataSource {
             let model: WeatherModel = self.models[indexPath.row]
             let isFirst: Bool = (indexPath.row == 0)
             cell.setData(model: model, isFirst: isFirst)
-            cell.isUserInteractionEnabled = !isFirst
             return cell
         } else {
             guard let cell =

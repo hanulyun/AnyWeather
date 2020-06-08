@@ -14,11 +14,11 @@ class FooterView: CustomView {
     
     private let lineView: UIView = UIView().filledStyle(color: .color(.translucentMain))
     
-    let listButton: UIButton = {
-        let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "listIcon"), for: .normal)
-        button.alpha = 0.5
-        return button
+    let listContainerButton: UIButton = UIButton()
+    private let listImageView: UIImageView = {
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "listIcon"))
+        imageView.alpha = 0.6
+        return imageView
     }()
     
     var currentPageNum: Int = 0
@@ -48,17 +48,21 @@ class FooterView: CustomView {
     }
     
     override func configureAutolayouts() {
-        [pageControl, listButton, lineView].forEach { addSubview($0) }
+        [pageControl, listContainerButton, lineView].forEach { addSubview($0) }
+        listContainerButton.addSubview(listImageView)
         
         pageControl.equalToCenter(to: self)
         
-        listButton.equalToCenterY(yAnchor: self.centerYAnchor)
-        listButton.equalToTrailing(toAnchor: self.trailingAnchor, offset: -16.adjusted)
-        listButton.equalToSize(16.adjusted)
+        listContainerButton.equalToCenterY(yAnchor: self.centerYAnchor)
+        listContainerButton.equalToTrailing(toAnchor: self.trailingAnchor, offset: -16.adjusted)
+        listContainerButton.equalToSize(25.adjusted)
         
         lineView.equalToTop(toAnchor: self.topAnchor)
         lineView.equalToLeading(toAnchor: self.leadingAnchor)
         lineView.equalToTrailing(toAnchor: self.trailingAnchor)
         lineView.equalToHeight(1)
+        
+        listImageView.equalToSize(16.adjusted)
+        listImageView.equalToCenter(to: listContainerButton)
     }
 }
