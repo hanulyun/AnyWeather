@@ -12,7 +12,7 @@ class APIManager {
     static let shared: APIManager = APIManager()
     
     func request<T: Decodable>(_ type: T.Type, url: String, param: [String: Any],
-                               result: @escaping ((T) -> Void)) {
+                               result: @escaping ((T?) -> Void)) {
         guard var component: URLComponents = URLComponents(string: Urls.base + url) else {
             Log.debug("Failed to load UrlComponents: \(url)"); return
         }
@@ -34,7 +34,7 @@ class APIManager {
                     (200 ..< 300) ~= res.statusCode,
                     error == nil {
                     
-                    let jsonString = String(decoding: data, as: UTF8.self)
+                    let jsonString: String = String(decoding: data, as: UTF8.self)
                     let dict = jsonString.convertToDictionary()
                     Log.debug("dict: \(String(describing: dict))")
                     
@@ -44,6 +44,7 @@ class APIManager {
                     
                     result(loaded)
                 } else {
+                    result(nil)
                     Log.debug("error: \(String(describing: error?.localizedDescription))")
                 }
             }

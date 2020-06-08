@@ -10,6 +10,8 @@ import UIKit
 
 struct WeatherModel: Codable {
     var city: String?
+    var isGps: Bool? = false
+    
     var lat: Double?
     var lon: Double?
     var current: Current?

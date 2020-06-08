@@ -8,8 +8,13 @@
 
 import UIKit
 
+// 구현할 것
+// change 했을 때 값 변경하는 부분 viewModel에 저장 -> delegate로 메인에서 반영
+// 추가 또는 삭제 시 viewModel 저장 -> delegate로 메인에서 반영
+
 protocol ListViewContollerDelegate {
     func selectedIndex(index: Int)
+    func changeWeatherList(isChanged: Bool)
 }
 
 class ListViewController: BaseViewController {
@@ -61,12 +66,12 @@ class ListViewController: BaseViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.dragDelegate = self
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = .black
-//        tableView.dragInteractionEnabled = true
-        tableView.isEditing = true
+        tableView.dragInteractionEnabled = true
         
         tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseId)
         tableView.register(ListTailTableViewCell.self, forCellReuseIdentifier: ListTailTableViewCell.reuseId)
@@ -100,7 +105,9 @@ extension ListViewController: UITableViewDataSource {
                 tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseId, for: indexPath)
                     as? ListTableViewCell else { fatalError("Failed to cast ListTableViewCell") }
             let model: WeatherModel = self.models[indexPath.row]
-            cell.setData(model: model, isFirst: indexPath.row == 0)
+            let isFirst: Bool = (indexPath.row == 0)
+            cell.setData(model: model, isFirst: isFirst)
+            cell.isUserInteractionEnabled = !isFirst
             return cell
         } else {
             guard let cell =
@@ -125,26 +132,70 @@ extension ListViewController: UITableViewDelegate {
             self.delegate?.selectedIndex(index: indexPath.row)
         }
     }
-    
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.row != 0
+}
+
+extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession,
+                   withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        if destinationIndexPath?.row == 0 {
+            return UITableViewDropProposal(operation: .forbidden)
+        }
+        
+        if tableView.hasActiveDrag {
+            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        }
+        
+        return UITableViewDropProposal(operation: .forbidden)
     }
     
+    // drop 했을 때
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        var destiIndexPath: IndexPath
+        
+        if let indexPath: IndexPath = coordinator.destinationIndexPath {
+            destiIndexPath = indexPath
+        } else {
+            let row: Int = tableView.numberOfRows(inSection: 0)
+            destiIndexPath = IndexPath(row: row - 1, section: 0)
+        }
+        
+        if coordinator.proposal.operation == .move {
+            self.reorderRows(tableView: tableView, coordinator: coordinator, destiIndexPath: destiIndexPath)
+        }
+    }
+    
+    // drag 시작 시
     func tableView(_ tableView: UITableView,
-                   moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        Log.debug("😀index = \(sourceIndexPath.row), \(destinationIndexPath.row)")
-        let move = models[sourceIndexPath.row]
-        models.remove(at: sourceIndexPath.row)
-        models.insert(move, at: destinationIndexPath.row)
+                   itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        if indexPath.row == 0 {
+            return []
+        }
+        
+        let item: WeatherModel = models[indexPath.row]
+        let itemProvider: NSItemProvider = NSItemProvider()
+        let dragItem: UIDragItem = UIDragItem(itemProvider: itemProvider)
+        dragItem.localObject = item
+        return [dragItem]
     }
     
-    func tableView(_ tableView: UITableView,
-                   editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .none
+    // drop 했을 때. 여기서 작업할 것
+    private func reorderRows(tableView: UITableView,
+                             coordinator: UITableViewDropCoordinator, destiIndexPath: IndexPath) {
+        if let item: UITableViewDropItem = coordinator.items.first,
+            let sourceIndex: IndexPath = item.sourceIndexPath {
+            tableView.performBatchUpdates({
+                
+                self.models.remove(at: sourceIndex.row)
+                self.models.insert(item.dragItem.localObject as! WeatherModel, at: destiIndexPath.row)
+                
+                tableView.deleteRows(at: [sourceIndex], with: .automatic)
+                tableView.insertRows(at: [destiIndexPath], with: .automatic)
+                
+                self.delegate?.changeWeatherList(isChanged: true)
+                
+            }, completion: nil)
+            
+            coordinator.drop(item.dragItem, toRowAt: destiIndexPath)
+        }
     }
-    
-//    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath,
-//                   toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-//
-//    }
 }
