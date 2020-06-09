@@ -10,10 +10,10 @@ import UIKit
 
 /*
  추가 해결과제
- - Slpash에서 위치허용 물어본 후 진입 하는걸로
- - 일몰 이후일 경우 background 어둡게
+ - Slpash에서 위치허용 물어본 후 진입 하는걸로..
+ - 첫 권한 허용 시 location 요청 여부
+ - 권한 비허용 시 어떻게 되는지 확인할 것.
  - 하단 버튼 누르면 사파리로 이동
- - 위치정보 허용 안했을 경우 pageControl
  - 온도 단위 변환했을 때 메인에서도 반영되게
  */
 
@@ -26,7 +26,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         configureAutolayouts()
         bindData()
     }

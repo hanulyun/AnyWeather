@@ -82,7 +82,8 @@ class ListViewController: BaseViewController {
         topView.equalToTrailing(toAnchor: self.view.trailingAnchor)
         topView.equalToHeight(self.getStatusHeight())
 
-        topView.backgroundColor = .getWeatherColor(models.first?.current?.weather?.first?.id)
+        topView.backgroundColor = .getWeatherColor(models.first?.current?.weather?.first?.id,
+                                                   icon: models.first?.current?.weather?.first?.icon)
         
         tableView.delegate = self
         tableView.dataSource = self

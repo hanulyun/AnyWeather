@@ -12,6 +12,7 @@ public var scrollY: CGFloat = 0
 
 class MainViewController: BaseViewController {
     
+    private let backgroundView: UIView = UIView().filledStyle(color: .white)
     lazy var hScrollView: UIScrollView = {
         let scrollView = UIScrollView().basicStyle()
         scrollView.delegate = self
@@ -27,7 +28,8 @@ class MainViewController: BaseViewController {
     var models: [WeatherModel] = [WeatherModel]() {
         didSet {
             DispatchQueue.main.async {
-                self.footerView.setPageControl(withOutGps: self.models.count - 1)
+                self.footerView.setPageControl(numberOfPage: self.models.count,
+                                               firstId: self.models.first?.id ?? 0)
                 self.changeBackColor(model: self.models.first)
                 
                 self.setHStackView()
@@ -60,8 +62,10 @@ class MainViewController: BaseViewController {
     }
     
     override func configureAutolayouts() {
-        [hScrollView, footerView].forEach { view.addSubview($0) }
+        [backgroundView, hScrollView, footerView].forEach { view.addSubview($0) }
         hScrollView.addSubview(hStackView)
+        
+        backgroundView.equalToEdges(to: self.view)
         
         hScrollView.equalToGuides(guide: self.guide)
         
@@ -87,7 +91,8 @@ class MainViewController: BaseViewController {
     
     private func changeBackColor(model: WeatherModel?) {
         UIView.animate(withDuration: 0.5) {
-            self.view.backgroundColor = .getWeatherColor(model?.current?.weather?.first?.id)
+            self.backgroundView.backgroundColor = .getWeatherColor(model?.current?.weather?.first?.id,
+                                                                   icon: model?.current?.weather?.first?.icon)
         }
     }
     

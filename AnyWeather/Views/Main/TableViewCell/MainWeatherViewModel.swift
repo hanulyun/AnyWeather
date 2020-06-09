@@ -28,7 +28,6 @@ class MainWeatherViewModel: NSObject {
     func requestCurrentGps() {
         LocationManager.shared.locationAuthorizaionCheck(delegate: self) { [weak self] isPermit in
             guard let self = self else { return }
-            self.onGps = isPermit
             
             if isPermit {
                 LocationManager.shared.startUpdateLocation()
@@ -41,6 +40,8 @@ class MainWeatherViewModel: NSObject {
                         
                         self.requestLatLonPoint(lat: lat.description, lon: lon.description) { model in
                             if let model: WeatherModel = model {
+                                self.onGps = true
+                                
                                 LocationManager.shared.stopUpdateLocation()
                                 
                                 var model: WeatherModel = model
@@ -56,6 +57,8 @@ class MainWeatherViewModel: NSObject {
                         }
                     }
                 }
+            } else {
+                self.onGps = false
             }
         }
     }
