@@ -11,7 +11,9 @@ import UIKit
 /*
  최우선 과제
  - unit test
+ https://www.raywenderlich.com/960290-ios-unit-testing-and-ui-testing-tutorial
  - constraint warning 해결
+ - 공통 함수 protocol 로 추가
  
  추가 해결과제
  - Slpash에서 위치허용 물어본 후 진입 하는걸로..
