@@ -24,19 +24,13 @@ class MainViewController: BaseViewController {
     
     private let viewModel: MainWeatherViewModel = MainWeatherViewModel()
     
-    var cModels: [CurrentModel] = [CurrentModel]()
     var models: [WeatherModel] = [WeatherModel]() {
         didSet {
             DispatchQueue.main.async {
                 self.footerView.setPageControl(withOutGps: self.models.count - 1)
                 self.changeBackColor(model: self.models.first)
-                    
-                self.hStackView.removeAllSubviews()
-                for model in self.models {
-                    let fullView = MainFullView()
-                    fullView.setData(model: model)
-                    self.hStackView.addArrangedSubview(fullView)
-                }
+                
+                self.setHStackView()
             }
         }
     }
@@ -94,6 +88,15 @@ class MainViewController: BaseViewController {
     private func changeBackColor(model: WeatherModel?) {
         UIView.animate(withDuration: 0.5) {
             self.view.backgroundColor = .getWeatherColor(model?.current?.weather?.first?.id)
+        }
+    }
+    
+    private func setHStackView() {
+        self.hStackView.removeAllSubviews()
+        for model in self.models {
+            let fullView = MainFullView()
+            fullView.setData(model: model)
+            self.hStackView.addArrangedSubview(fullView)
         }
     }
 }

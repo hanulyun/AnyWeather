@@ -246,8 +246,7 @@ extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate {
                 tableView.deleteRows(at: [sourceIndex], with: .automatic)
                 tableView.insertRows(at: [destiIndexPath], with: .automatic)
                 
-                self.viewModel?.editWeatherList(isCompleted: { isCompleted in
-                    self.viewModel?.tempoModel = self.models
+                self.viewModel?.editWeatherList(models: self.models, isCompleted: { isCompleted in
                     self.delegate?.changeWeatherList(isChanged: isCompleted)
                 })
             }, completion: nil)

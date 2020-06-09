@@ -56,7 +56,7 @@ class CoreDataManager {
         }
     }
     
-    func editDataList(data: [WeatherModel], isEditDone: @escaping ((Bool) -> Void)) {
+    func editDataList(data: [WeatherModel], onGps: Bool, isEditDone: @escaping ((Bool) -> Void)) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult>
             = NSFetchRequest<NSFetchRequestResult>(entityName: LocalKey.model)
         fetchRequest.returnsObjectsAsFaults = false
@@ -75,15 +75,20 @@ class CoreDataManager {
         }
         
         // 다시 저장
+        let localCount: Int = onGps ? data.count - 1 : data.count
         var editCount: Int = 0
+        Log.debug("😀re = \(data.map { ($0.id, $0.city) })")
         for (index, weather) in data.enumerated() {
-            if index != 0 {
-                self.saveData(id: index, city: weather.city, lat: weather.lat!, lon: weather.lon!) { isSaved in
+            if index == 0, onGps {
+                Log.debug("Gps 날씨 데이터")
+            } else {
+                self.saveData(id: index,
+                              city: weather.city, lat: weather.lat!, lon: weather.lon!) { isSaved in
                     editCount += 1
                 }
             }
         }
-        isEditDone(editCount == (data.count - 1))
+        isEditDone(editCount == localCount)
     }
     
     func deleteData(filterId: Int, onSuccess: @escaping ((Bool) -> Void)) {
@@ -91,8 +96,6 @@ class CoreDataManager {
         
         do {
             if let results: [Weather] = try context?.fetch(fetchRequest) as? [Weather] {
-                Log.debug("😀DeleteResult = \(results)")
-                
                 if results.count != 0 {
                     context?.delete(results[0])
                 }

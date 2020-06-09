@@ -9,6 +9,7 @@
 import UIKit
 
 struct WeatherModel: Codable {
+    var id: Int?
     var city: String?
     var isGps: Bool? = false
     

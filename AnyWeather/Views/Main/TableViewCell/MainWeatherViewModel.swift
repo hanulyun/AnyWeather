@@ -20,14 +20,17 @@ class MainWeatherViewModel: NSObject {
     var unit: TempUnit = .c
     var tempoModel: [WeatherModel] = [WeatherModel]()
     var gpsCity: String?
+    var onGps: Bool = false
     
     var currentModels: (([WeatherModel]) -> Void)?
     
     // 현재 위치 날씨 요청
     func requestCurrentGps() {
-        LocationManager.shared.locationAuthorizaionCheck(delegate: self) { isPermit in
+        LocationManager.shared.locationAuthorizaionCheck(delegate: self) { [weak self] isPermit in
+            guard let self = self else { return }
+            self.onGps = isPermit
+            
             if isPermit {
-                
                 LocationManager.shared.startUpdateLocation()
                 
                 self.isCompletedGetGps = { [weak self] (lat, lon) in
@@ -41,6 +44,7 @@ class MainWeatherViewModel: NSObject {
                                 LocationManager.shared.stopUpdateLocation()
                                 
                                 var model: WeatherModel = model
+                                model.id = 0
                                 model.city = self.gpsCity
                                 model.isGps = true
                                 
@@ -57,13 +61,23 @@ class MainWeatherViewModel: NSObject {
     }
     
     // 저장된 지역 날씨 요청. 현재 런던 임시로 호출
-    private func requestSavedLocation(city: String?, lat: Double, lon: Double) {
+    private func requestSavedLocation(id: Int, city: String?, lat: Double, lon: Double) {
         requestLatLonPoint(lat: lat.description, lon: lon.description) { [weak self] model in
             guard let self = self else { return }
             
             if var model: WeatherModel = model {
+                model.id = id
                 model.city = city
                 self.tempoModel.append(model)
+            
+                // 정렬
+                if self.tempoModel.count > 1 {
+                    let sortModel = self.tempoModel.sorted { (model0, model1) -> Bool in
+                        (model0.id ?? 0) < (model1.id ?? 0)
+                    }
+                    self.tempoModel = sortModel
+                }
+                
                 self.currentModels?(self.tempoModel)
             }
         }
@@ -88,7 +102,7 @@ extension MainWeatherViewModel {
         CoreDataManager.shared.saveData(id: saveId, city: city, lat: lat, lon: lon) { [weak self] isSaved in
             if isSaved {
                 guard let self = self else { return }
-                self.requestSavedLocation(city: city, lat: lat, lon: lon)
+                self.requestSavedLocation(id: saveId, city: city, lat: lat, lon: lon)
             }
         }
     }
@@ -96,7 +110,7 @@ extension MainWeatherViewModel {
     func getSearchWeather() {
         let weathers: [Weather] = CoreDataManager.shared.getData(ascending: true)
         weathers.forEach {
-            requestSavedLocation(city: $0.city, lat: $0.lat, lon: $0.lon)
+            requestSavedLocation(id: Int($0.id), city: $0.city, lat: $0.lat, lon: $0.lon)
         }
     }
     
@@ -110,8 +124,9 @@ extension MainWeatherViewModel {
         }
     }
     
-    func editWeatherList(isCompleted: @escaping ((Bool) -> Void)) {
-        CoreDataManager.shared.editDataList(data: self.tempoModel) { isDone in
+    func editWeatherList(models: [WeatherModel], isCompleted: @escaping ((Bool) -> Void)) {
+        CoreDataManager.shared.editDataList(data: models, onGps: onGps) { [weak self] isDone in
+            self?.tempoModel = models
             isCompleted(isDone)
         }
     }
