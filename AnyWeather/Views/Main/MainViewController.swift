@@ -25,7 +25,7 @@ class MainViewController: BaseViewController {
     private let viewModel: MainWeatherViewModel = MainWeatherViewModel()
     
     var cModels: [CurrentModel] = [CurrentModel]()
-    var models = [WeatherModel]() {
+    var models: [WeatherModel] = [WeatherModel]() {
         didSet {
             DispatchQueue.main.async {
                 self.footerView.setPageControl(withOutGps: self.models.count - 1)
@@ -58,7 +58,7 @@ class MainViewController: BaseViewController {
     
     override func bindData() {
         viewModel.requestCurrentGps()
-        viewModel.requestSavedLocation()
+        viewModel.getSearchWeather()
                 
         viewModel.currentModels = { [weak self] models in
             self?.models = models
@@ -114,6 +114,8 @@ extension MainViewController: ListViewContollerDelegate {
     }
     
     func changeWeatherList(isChanged: Bool) {
-        
+        if isChanged {
+            self.models = viewModel.tempoModel
+        }
     }
 }

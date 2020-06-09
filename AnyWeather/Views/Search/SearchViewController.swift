@@ -213,11 +213,7 @@ extension SearchViewController: UISearchResultsUpdating {
 
         let search: MKLocalSearch = MKLocalSearch(request: request)
         search.start { (response, _) in
-            guard let response = response else {
-                self.mapItems = []
-                Log.debug("Place now found");
-                return
-            }
+            guard let response = response else { self.mapItems = []; return }
 
             let center: CLLocationCoordinate2D = response.boundingRegion.center
             self.pointAnnotation.title = searchController.searchBar.text

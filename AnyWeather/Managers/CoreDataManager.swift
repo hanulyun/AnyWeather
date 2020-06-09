@@ -92,6 +92,8 @@ class CoreDataManager {
         
         do {
             if let results: [Weather] = try context?.fetch(fetchRequest) as? [Weather] {
+                Log.debug("😀DeleteResult = \(results)")
+                
                 if results.count != 0 {
                     context?.delete(results[0])
                 }

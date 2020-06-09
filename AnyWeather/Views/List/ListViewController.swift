@@ -37,7 +37,13 @@ class ListViewController: BaseViewController {
         }
     }
     
-    private var models: [WeatherModel] = [WeatherModel]()
+    private var models: [WeatherModel] = [WeatherModel]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     init(viewModel: MainWeatherViewModel) {
         self.viewModel = viewModel
@@ -57,8 +63,10 @@ class ListViewController: BaseViewController {
     }
     
     override func bindData() {
-        viewModel?.currentModels = { models in
-            Log.debug("😀models = \(models)")
+        viewModel?.currentModels = { [weak self] models in
+            self?.models = models
+            self?.delegate?.changeWeatherList(isChanged: true)
+            Log.debug("List가 변경되었다!")
         }
     }
     
@@ -66,8 +74,7 @@ class ListViewController: BaseViewController {
         [tableView, topView].forEach { view.addSubview($0) }
         
         tableView.equalToEdges(to: self.view)
-//        tableView.equalToEdges(to: self.view, offset: -20)
-//
+
         if topOffset == nil {
             topOffset = topView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0)
             topOffset.isActive = true
@@ -77,7 +84,6 @@ class ListViewController: BaseViewController {
         topView.equalToHeight(self.getStatusHeight())
 
         topView.backgroundColor = .getWeatherColor(models.first?.current?.weather?.first?.id)
-//        topView.isHidden = true
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -111,7 +117,7 @@ class ListViewController: BaseViewController {
 
 extension ListViewController: SearchViewControllerDelegate {
     func isSelectMapItem(city: String, lat: Double, lon: Double) {
-        Log.debug("selected = \(city), \(lat), \(lon)")
+        viewModel?.saveSearchWeather(city: city, lat: lat, lon: lon)
     }
 }
 
@@ -155,6 +161,17 @@ extension ListViewController: UITableViewDelegate {
         if indexPath.section == 0, self.models.count > 0 {
             self.dismiss(animated: true, completion: nil)
             self.delegate?.selectedIndex(index: indexPath.row)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel?.deleteWeather(id: indexPath.row)
         }
     }
     

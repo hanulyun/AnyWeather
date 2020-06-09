@@ -19,8 +19,10 @@ class MainWeatherViewModel: NSObject {
     // 외부 접근 변수
     var unit: TempUnit = .c
     var tempoModel: [WeatherModel] = [WeatherModel]()
-    var currentModels: (([WeatherModel]) -> Void)?
+    var localModels: [Weather] = [Weather]()
     var gpsCity: String?
+    
+    var currentModels: (([WeatherModel]) -> Void)?
     
     // 현재 위치 날씨 요청
     func requestCurrentGps() {
@@ -56,15 +58,13 @@ class MainWeatherViewModel: NSObject {
     }
     
     // 저장된 지역 날씨 요청. 현재 런던 임시로 호출
-    func requestSavedLocation() {
-        requestLatLonPoint(lat: "51.51", lon: "-0.13") { [weak self] model in
+    private func requestSavedLocation(city: String, lat: Double, lon: Double) {
+        requestLatLonPoint(lat: lat.description, lon: lon.description) { [weak self] model in
             guard let self = self else { return }
             
-            if let model: WeatherModel = model {
-                for _ in 0..<3 {
-                    self.tempoModel.append(model)
-                }
-                
+            if var model: WeatherModel = model {
+                model.city = city
+                self.tempoModel.append(model)
                 self.currentModels?(self.tempoModel)
             }
         }
@@ -78,6 +78,36 @@ class MainWeatherViewModel: NSObject {
         ]
         APIManager.shared.request(WeatherModel.self, url: Urls.onecall, param: param) { model in
             isCompleted(model)
+        }
+    }
+}
+
+// MARK: - LocalData 작업 부분
+extension MainWeatherViewModel {
+    func saveSearchWeather(city: String, lat: Double, lon: Double) {
+        let saveId: Int = tempoModel.count
+        CoreDataManager.shared.saveData(id: saveId, city: city, lat: lat, lon: lon) { [weak self] isSaved in
+            if isSaved {
+                guard let self = self else { return }
+                self.requestSavedLocation(city: city, lat: lat, lon: lon)
+            }
+        }
+    }
+    
+    func getSearchWeather() {
+        let weathers: [Weather] = CoreDataManager.shared.getData()
+        weathers.forEach {
+            requestSavedLocation(city: $0.city!, lat: $0.lat, lon: $0.lon)
+        }
+    }
+    
+    func deleteWeather(id: Int) {
+        CoreDataManager.shared.deleteData(filterId: id) { [weak self] isDeleted in
+            if isDeleted {
+                guard let self = self else { return }
+                self.tempoModel.remove(at: id)
+                self.currentModels?(self.tempoModel)
+            }
         }
     }
 }
