@@ -66,7 +66,8 @@ class ListViewController: BaseViewController {
         [tableView, topView].forEach { view.addSubview($0) }
         
         tableView.equalToEdges(to: self.view)
-
+//        tableView.equalToEdges(to: self.view, offset: -20)
+//
         if topOffset == nil {
             topOffset = topView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0)
             topOffset.isActive = true
@@ -74,8 +75,9 @@ class ListViewController: BaseViewController {
         topView.equalToLeading(toAnchor: self.view.leadingAnchor)
         topView.equalToTrailing(toAnchor: self.view.trailingAnchor)
         topView.equalToHeight(self.getStatusHeight())
-        
+
         topView.backgroundColor = .getWeatherColor(models.first?.current?.weather?.first?.id)
+//        topView.isHidden = true
         
         tableView.delegate = self
         tableView.dataSource = self

@@ -99,33 +99,38 @@ class SearchViewController: BaseViewController {
             whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelAtt, for: .normal)
     }
     
-    private func getAttText(_ text: String) {
-        if let searchText: String = searchController.searchBar.text, !searchText.isEmpty {
-            let att: NSMutableAttributedString = NSMutableAttributedString()
-        }
-    }
-    
-    func changeAllOccurrence(allString: String, matchString: String){
-        let attString: NSMutableAttributedString = NSMutableAttributedString(string: allString)
-        let allLength: Int = allString.count
-        var range: NSRange = NSRange(location: 0, length: allLength)
-            var rangeArray = [NSRange]()
+    private func getAttText(_ text: String) -> NSMutableAttributedString? {
+        if let findText: String = searchController.searchBar.text {
             
+            let attOriginText: NSMutableAttributedString = NSMutableAttributedString(string: text)
+            let originCount: Int = text.count
+            let originRange: NSRange = NSRange(location: 0, length: originCount)
+            var range: NSRange = NSRange(location: 0, length: originCount)
+            var rangeAtt: [NSRange] = [NSRange]()
+
             while (range.location != NSNotFound) {
-                
-                range = (attString.string as NSString).range(of: matchString, options: .caseInsensitive, range: range)
-                rangeArray.append(range)
+                range = (attOriginText.string as NSString).range(of: findText, options: .caseInsensitive,
+                                                                 range: range)
+                rangeAtt.append(range)
 
                 if (range.location != NSNotFound) {
-                    range = NSRange(location: range.location + range.length, length: allString.count - (range.location + range.length))
-                    
+                    let location: Int = range.location + range.length
+                    range = NSRange(location: location, length: originCount - location)
                 }
-                
             }
-            rangeArray.forEach { (range) in
-                attString.addAttribute(.foregroundColor, value: UIColor.blue, range: range)
+
+            attOriginText.addAttribute(.foregroundColor, value: UIColor.color(.translucentMain),
+                                       range: originRange)
+            if self.mapItems.count > 0 {
+                rangeAtt.forEach {
+                    attOriginText.addAttribute(.foregroundColor, value: UIColor.color(.main), range: $0)
+                }
             }
+            
+            return attOriginText
         }
+        return nil
+    }
 }
 
 extension SearchViewController: UITableViewDataSource {
@@ -149,9 +154,9 @@ extension SearchViewController: UITableViewDataSource {
             text = "발견된 결과가 없습니다."
         }
         
-        cell.textLabel?.text = text
+//        cell.textLabel?.text = text
+        cell.textLabel?.attributedText = getAttText(text!)
         
-        cell.textLabel?.textColor = .white
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
         cell.isUserInteractionEnabled = text != ""
@@ -201,7 +206,7 @@ extension SearchViewController: UITableViewDelegate {
 
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchBarText = searchController.searchBar.text else { return }
+        guard let searchBarText = searchController.searchBar.text else { self.mapItems = []; return }
     
         let request: MKLocalSearch.Request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchBarText
