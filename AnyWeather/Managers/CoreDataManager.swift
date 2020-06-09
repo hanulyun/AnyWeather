@@ -37,7 +37,7 @@ class CoreDataManager {
     }
     
     
-    func saveData(id: Int, city: String, lat: Double, lon: Double,
+    func saveData(id: Int, city: String?, lat: Double, lon: Double,
                        onSuccess: @escaping ((Bool) -> Void)) {
         if let context = context,
             let entity: NSEntityDescription = NSEntityDescription.entity(forEntityName: LocalKey.model,
@@ -56,35 +56,34 @@ class CoreDataManager {
         }
     }
     
-    func editData(id: Int, city: String, lat: Double, lon: Double,
-                       editObject: @escaping ((Weather?) -> Void)) {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = filteredRequest(id: id)
+    func editDataList(data: [WeatherModel], isEditDone: @escaping ((Bool) -> Void)) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult>
+            = NSFetchRequest<NSFetchRequestResult>(entityName: LocalKey.model)
+        fetchRequest.returnsObjectsAsFaults = false
         
+        // 전체 삭제 후
         do {
-            if let result: [Weather] = try context?.fetch(fetchRequest) as? [Weather] {
-                if result.count > 0 {
-                    result[0].id = Int64(id)
-                    result[0].city = city
-                    result[0].lat = lat
-                    result[0].lon = lon
+            if let results = try context?.fetch(fetchRequest) {
+                for object in results {
+                    guard let objectData = object as? NSManagedObject else { continue }
+                    context?.delete(objectData)
                 }
             }
         } catch let error as NSError {
-            Log.debug("Could not fatch🥺: \(error), \(error.userInfo)")
+            isEditDone(false)
+            Log.debug("Could not DeleteAll🥺: \(error), \(error.userInfo)")
         }
         
-        contextSave { [weak self] onSuccess in
-            if onSuccess {
-                do {
-                    if let results: [Weather] = try self?.context?.fetch(fetchRequest) as? [Weather] {
-                        editObject(results[0])
-                    }
-                } catch let error as NSError {
-                    editObject(nil)
-                    Log.debug("Could not refatch🥺: \(error), \(error.userInfo)")
+        // 다시 저장
+        var editCount: Int = 0
+        for (index, weather) in data.enumerated() {
+            if index != 0 {
+                self.saveData(id: index, city: weather.city, lat: weather.lat!, lon: weather.lon!) { isSaved in
+                    editCount += 1
                 }
             }
         }
+        isEditDone(editCount == (data.count - 1))
     }
     
     func deleteData(filterId: Int, onSuccess: @escaping ((Bool) -> Void)) {

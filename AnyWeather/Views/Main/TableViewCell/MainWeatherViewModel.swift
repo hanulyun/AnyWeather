@@ -19,7 +19,6 @@ class MainWeatherViewModel: NSObject {
     // 외부 접근 변수
     var unit: TempUnit = .c
     var tempoModel: [WeatherModel] = [WeatherModel]()
-    var localModels: [Weather] = [Weather]()
     var gpsCity: String?
     
     var currentModels: (([WeatherModel]) -> Void)?
@@ -58,7 +57,7 @@ class MainWeatherViewModel: NSObject {
     }
     
     // 저장된 지역 날씨 요청. 현재 런던 임시로 호출
-    private func requestSavedLocation(city: String, lat: Double, lon: Double) {
+    private func requestSavedLocation(city: String?, lat: Double, lon: Double) {
         requestLatLonPoint(lat: lat.description, lon: lon.description) { [weak self] model in
             guard let self = self else { return }
             
@@ -95,9 +94,9 @@ extension MainWeatherViewModel {
     }
     
     func getSearchWeather() {
-        let weathers: [Weather] = CoreDataManager.shared.getData()
+        let weathers: [Weather] = CoreDataManager.shared.getData(ascending: true)
         weathers.forEach {
-            requestSavedLocation(city: $0.city!, lat: $0.lat, lon: $0.lon)
+            requestSavedLocation(city: $0.city, lat: $0.lat, lon: $0.lon)
         }
     }
     
@@ -108,6 +107,12 @@ extension MainWeatherViewModel {
                 self.tempoModel.remove(at: id)
                 self.currentModels?(self.tempoModel)
             }
+        }
+    }
+    
+    func editWeatherList(isCompleted: @escaping ((Bool) -> Void)) {
+        CoreDataManager.shared.editDataList(data: self.tempoModel) { isDone in
+            isCompleted(isDone)
         }
     }
 }

@@ -39,7 +39,7 @@ class ListTableViewCell: UITableViewCell {
         backgroundColor = .getWeatherColor(model.current?.weather?.first?.id)
         
         let now: Date = Date()
-        timeLabel.text = now.dateToString(format: "a h:m")
+        timeLabel.text = now.dateToString(format: "a h:mm")
         timeLabel.setFont(.font(.subTiny), color: .color(.main))
         
         cityLabel.text = model.city

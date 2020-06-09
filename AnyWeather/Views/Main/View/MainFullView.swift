@@ -91,8 +91,8 @@ class MainFullView: CustomView {
     }
     
     private func setTodayDetail(model: WeatherModel.Current?) {
-        let sunrise: String? = model?.sunrise?.timestampToString(format: "a h:m")
-        let sunset: String? = model?.sunset?.timestampToString(format: "a h:m")
+        let sunrise: String? = model?.sunrise?.timestampToString(format: "a h:mm")
+        let sunset: String? = model?.sunset?.timestampToString(format: "a h:mm")
         let windDeg: String?
             = "\(model?.wind_deg?.calcWindDirection() ?? "") \(Int(model?.wind_speed ?? 0).description )m/s"
         let humi: String? = "\(Int(model?.humidity ?? 0).description)%"

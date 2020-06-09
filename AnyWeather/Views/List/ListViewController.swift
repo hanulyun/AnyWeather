@@ -27,7 +27,7 @@ class ListViewController: BaseViewController {
     weak var delegate: ListViewContollerDelegate?
     
     var topOffset: NSLayoutConstraint!
-    
+        
     private var unit: TempUnit = .c {
         didSet {
             DispatchQueue.main.async {
@@ -37,13 +37,7 @@ class ListViewController: BaseViewController {
         }
     }
     
-    private var models: [WeatherModel] = [WeatherModel]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
+    private var models: [WeatherModel] = [WeatherModel]()
     
     init(viewModel: MainWeatherViewModel) {
         self.viewModel = viewModel
@@ -64,7 +58,12 @@ class ListViewController: BaseViewController {
     
     override func bindData() {
         viewModel?.currentModels = { [weak self] models in
+            
             self?.models = models
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+            
             self?.delegate?.changeWeatherList(isChanged: true)
             Log.debug("List가 변경되었다!")
         }
@@ -227,6 +226,7 @@ extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate {
         let itemProvider: NSItemProvider = NSItemProvider()
         let dragItem: UIDragItem = UIDragItem(itemProvider: itemProvider)
         dragItem.localObject = item
+        
         return [dragItem]
     }
     
@@ -237,14 +237,19 @@ extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate {
             let sourceIndex: IndexPath = item.sourceIndexPath {
             tableView.performBatchUpdates({
                 
-                self.models.remove(at: sourceIndex.row)
-                self.models.insert(item.dragItem.localObject as! WeatherModel, at: destiIndexPath.row)
+                let removeId: Int = sourceIndex.row
+                let insertId: Int = destiIndexPath.row
+                
+                self.models.remove(at: removeId)
+                self.models.insert(item.dragItem.localObject as! WeatherModel, at: insertId)
                 
                 tableView.deleteRows(at: [sourceIndex], with: .automatic)
                 tableView.insertRows(at: [destiIndexPath], with: .automatic)
                 
-                self.delegate?.changeWeatherList(isChanged: true)
-                
+                self.viewModel?.editWeatherList(isCompleted: { isCompleted in
+                    self.viewModel?.tempoModel = self.models
+                    self.delegate?.changeWeatherList(isChanged: isCompleted)
+                })
             }, completion: nil)
             
             coordinator.drop(item.dragItem, toRowAt: destiIndexPath)
