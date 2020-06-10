@@ -8,12 +8,6 @@
 
 import UIKit
 
-/*
- 추가 해결과제
- - 리스트에서 해외일 경우 현재 시간 표기
- - 하단 버튼 누르면 사파리로 이동
- */
-
 class BaseViewController: UIViewController, ViewProtocol {
     
     var guide: UILayoutGuide {
