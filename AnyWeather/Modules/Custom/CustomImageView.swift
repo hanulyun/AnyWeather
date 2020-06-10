@@ -25,7 +25,7 @@ class CustomImageView: UIImageView {
                 return
             }
             
-            URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+            URLSession.shared.dataTask(with: url) { [weak self] (data, _, _) in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     if let unwrapData: Data = data, let imageToCache: UIImage = UIImage(data: unwrapData) {
