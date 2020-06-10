@@ -34,7 +34,7 @@ class CoreDataTests: XCTestCase {
     
     // 모두 지우고 테스트 시작
     func testDeletAllData() {
-        for index in 1..<3 {
+        for index in 0..<4 {
             coreDataManager.deleteData(filterId: index) { (isDeleted, type) in
                 XCTAssertEqual(isDeleted, true)
             }

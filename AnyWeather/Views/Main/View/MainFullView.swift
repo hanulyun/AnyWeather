@@ -170,10 +170,12 @@ class MainFullView: CustomView {
         todaySummaryView.equalToTop(toAnchor: dailyStackView.bottomAnchor)
         todaySummaryView.equalToLeading(toAnchor: contentView.leadingAnchor)
         todaySummaryView.equalToTrailing(toAnchor: contentView.trailingAnchor)
+        todaySummaryView.equalToWidth(CommonSizes.screenWidth)
         
         todayDetailStackView.equalToTop(toAnchor: todaySummaryView.bottomAnchor)
         todayDetailStackView.equalToLeading(toAnchor: contentView.leadingAnchor)
         todayDetailStackView.equalToTrailing(toAnchor: contentView.trailingAnchor)
+        todayDetailStackView.equalToWidth(CommonSizes.screenWidth)
     }
 }
 

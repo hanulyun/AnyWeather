@@ -49,7 +49,7 @@ class TodaySummaryView: CustomView {
         
         commentLabel.equalToTop(toAnchor: self.topAnchor, offset: 16.adjusted)
         commentLabel.equalToLeading(toAnchor: self.leadingAnchor, offset: 16.adjusted)
-        commentLabel.equalToTrailing(toAnchor: self.trailingAnchor, offset: -16.adjusted)
+        commentLabel.equalToWidth(CommonSizes.screenWidth - 16.adjusted * 2)
         commentLabel.equalToBottom(toAnchor: self.bottomAnchor, offset: -16.adjusted)
         
         lineView1.equalToLeading(toAnchor: self.leadingAnchor)

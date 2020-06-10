@@ -69,7 +69,9 @@ class MainViewController: BaseViewController {
         
         hScrollView.equalToGuides(guide: self.guide)
         
-        hStackView.equalToEdges(to: hScrollView)
+        hStackView.equalToTop(toAnchor: hScrollView.topAnchor)
+        hStackView.equalToLeading(toAnchor: hScrollView.leadingAnchor)
+        hStackView.equalToTrailing(toAnchor: hScrollView.trailingAnchor)
         hStackView.equalToBottom(toAnchor: footerView.topAnchor)
         
         footerView.equalToBottom(toAnchor: guide.bottomAnchor)
@@ -99,7 +101,7 @@ class MainViewController: BaseViewController {
     private func setHStackView() {
         self.hStackView.removeAllSubviews()
         for model in self.models {
-            let fullView = MainFullView()
+            let fullView: MainFullView = MainFullView()
             fullView.setData(model: model)
             self.hStackView.addArrangedSubview(fullView)
         }
