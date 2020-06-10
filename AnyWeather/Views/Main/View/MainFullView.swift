@@ -194,18 +194,14 @@ class MainFullView: CustomView {
 extension MainFullView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY: CGFloat = scrollView.contentOffset.y
-        var height: CGFloat = Layout.headerMaxH - offsetY
+        let scrollUpOffsetY: CGFloat = Layout.headerMaxH - offsetY
         
-        if Layout.headerMaxH - offsetY <= Layout.headerMinH {
-            height = Layout.headerMinH
-            self.contentTop.constant = Layout.headerMinH + Layout.timeWeatherHeight
-                - (Layout.timeWeatherHeight - Layout.headerMinH) - offsetY
-        }
-        headerHeight.constant = height
-        
-        if height == Layout.headerMinH {
+        if scrollUpOffsetY <= Layout.headerMinH {
+            self.headerHeight.constant = Layout.headerMinH
             self.maskTop.constant = Layout.headerMinH + Layout.timeWeatherHeight
+            self.contentTop.constant = (Layout.headerMaxH - Layout.headerMinH) - offsetY
         } else {
+            self.headerHeight.constant = scrollUpOffsetY
             self.maskTop.constant = Layout.fullHeader - offsetY
             self.contentTop.constant = 0
         }

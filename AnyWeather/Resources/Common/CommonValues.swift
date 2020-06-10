@@ -16,8 +16,8 @@ struct CommonSizes {
 }
 
 struct MainSizes {
-    static let currentMaxHeight: CGFloat = 310
-    static let currentMinHeight: CGFloat = 100
+    static let currentMaxHeight: CGFloat = 310.adjusted
+    static let currentMinHeight: CGFloat = 100.adjusted
 }
 
 public enum TempUnit {
