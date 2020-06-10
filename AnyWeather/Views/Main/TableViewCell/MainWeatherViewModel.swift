@@ -63,7 +63,6 @@ class MainWeatherViewModel: NSObject {
         }
     }
     
-    // 저장된 지역 날씨 요청. 현재 런던 임시로 호출
     private func requestSavedLocation(id: Int, city: String?, lat: Double, lon: Double) {
         requestLatLonPoint(lat: lat.description, lon: lon.description) { [weak self] model in
             guard let self = self else { return }
@@ -118,8 +117,8 @@ extension MainWeatherViewModel {
     }
     
     func deleteWeather(id: Int) {
-        CoreDataManager.shared.deleteData(filterId: id) { [weak self] isDeleted in
-            if isDeleted {
+        CoreDataManager.shared.deleteData(filterId: id) { [weak self] isDeleted, type in
+            if isDeleted, type == .success {
                 guard let self = self else { return }
                 self.tempoModel.remove(at: id)
                 self.currentModels?(self.tempoModel)

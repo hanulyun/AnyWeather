@@ -10,8 +10,6 @@ import UIKit
 
 /*
  최우선 과제
- - unit test
- https://www.raywenderlich.com/960290-ios-unit-testing-and-ui-testing-tutorial
  - constraint warning 해결
  - 공통 함수 protocol 로 추가
  
