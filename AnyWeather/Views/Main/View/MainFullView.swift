@@ -117,12 +117,27 @@ class MainFullView: CustomView {
     
     override func configureAutolayouts() {
         [currentWeatherview, vScrollView, hScrollView].forEach { addSubview($0) }
+        
+        hScrollView.addSubview(hourlyStackView)
+        
         vScrollView.addSubview(contentMaskView)
         contentMaskView.addSubview(contentView)
         [dailyStackView, todaySummaryView, todayDetailStackView].forEach { contentView.addSubview($0) }
-        hScrollView.addSubview(hourlyStackView)
+        
+        vScrollView.equalToTop(toAnchor: self.topAnchor)
+        vScrollView.equalToLeading(toAnchor: self.leadingAnchor)
+        vScrollView.equalToTrailing(toAnchor: self.trailingAnchor)
+        vScrollView.equalToBottom(toAnchor: self.bottomAnchor)
+        vScrollView.equalToWidth(CommonSizes.screenWidth)
         
         // HeaderViews
+        headerViewsLayouts()
+        
+        // ContentViews
+        contentViewLayouts()
+    }
+    
+    private func headerViewsLayouts() {
         currentWeatherview.equalToTop(toAnchor: self.topAnchor)
         currentWeatherview.equalToLeading(toAnchor: self.leadingAnchor)
         currentWeatherview.equalToTrailing(toAnchor: self.trailingAnchor)
@@ -139,14 +154,9 @@ class MainFullView: CustomView {
         hScrollView.equalToWidth(CommonSizes.screenWidth)
         
         hourlyStackView.equalToEdges(to: hScrollView)
-        
-        // ContentViews
-        vScrollView.equalToTop(toAnchor: self.topAnchor)
-        vScrollView.equalToLeading(toAnchor: self.leadingAnchor)
-        vScrollView.equalToTrailing(toAnchor: self.trailingAnchor)
-        vScrollView.equalToBottom(toAnchor: self.bottomAnchor)
-        vScrollView.equalToWidth(CommonSizes.screenWidth)
-        
+    }
+    
+    private func contentViewLayouts() {
         contentMaskView.equalToLeading(toAnchor: vScrollView.leadingAnchor)
         contentMaskView.equalToTrailing(toAnchor: vScrollView.trailingAnchor)
         contentMaskView.equalToBottom(toAnchor: vScrollView.bottomAnchor)
