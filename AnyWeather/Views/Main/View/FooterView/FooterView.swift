@@ -35,12 +35,17 @@ class FooterView: CustomView {
     
     func setPageControl(numberOfPage: Int, firstId: Int) {
         var controls: [PagerControl] = []
-        if firstId == 0 {
-            controls.append(.gps)
-        }
         
-        for _ in 0..<numberOfPage {
-            controls.append(.dot)
+        for index in 0..<numberOfPage {
+            if index == 0 {
+                if firstId == 0 {
+                    controls.append(.gps)
+                } else {
+                    controls.append(.dot)
+                }
+            } else {
+                controls.append(.dot)
+            }
         }
         pageControl.setControls(controls: controls)
         selectedPage(currentPageNum)
