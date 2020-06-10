@@ -20,7 +20,6 @@ class MainViewController: BaseViewController {
         return scrollView
     }()
     
-    private let hContentView: UIView = UIView()
     private let hStackView: UIStackView = UIStackView().basicStyle(.horizontal)
     
     private let footerView: FooterView = FooterView()
@@ -65,15 +64,11 @@ class MainViewController: BaseViewController {
     
     override func configureAutolayouts() {
         [backgroundView, hScrollView, footerView].forEach { view.addSubview($0) }
-        hScrollView.addSubview(hContentView)
-        hContentView.addSubview(hStackView)
+        hScrollView.addSubview(hStackView)
         
         backgroundView.equalToEdges(to: self.view)
         
         hScrollView.equalToGuides(guide: self.guide)
-        
-        hContentView.equalToEdges(to: hScrollView)
-        hContentView.equalToCenter(to: hScrollView)
         
         hStackView.equalToTop(toAnchor: hScrollView.topAnchor)
         hStackView.equalToLeading(toAnchor: hScrollView.leadingAnchor)
