@@ -14,15 +14,15 @@ extension UIColor {
         return set.rawValue
     }
     
-    static func getWeatherColor(_ id: Int?, icon: String?) -> UIColor {
+    static func getWeatherColor(model: WeatherModel?) -> UIColor {
         var color: UIColor = .darkGray
         var alpha: CGFloat = 1
         
-        if let icon: String = icon, icon.contains("n") {
+        if let icon: String = model?.hourly?.first?.weather?.first?.icon, icon.contains("n") {
             alpha = 0.6
         }
         
-        if let intId: Int = id {
+        if let intId: Int = model?.current?.weather?.first?.id {
             switch intId {
             case 200..<299: // Thunderstorm
                 color = .getRGBColor(r: 105, g: 105, b: 105, alpha: alpha)

@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: BaseViewController {
     
-    private let backgroundView: UIView = UIView().filledStyle(color: .white)
+    private let backgroundView: UIView = UIView().filledStyle(color: .darkGray)
     lazy var hScrollView: UIScrollView = {
         let scrollView = UIScrollView().basicStyle()
         scrollView.delegate = self
@@ -52,8 +52,11 @@ class MainViewController: BaseViewController {
     }
     
     override func bindData() {
-        viewModel.requestCurrentGps()
         viewModel.getSearchWeather()
+        
+        viewModel.gpsIsPermitCheck { [weak self] isPermit in
+            self?.viewModel.requestCurrentGps()
+        }
                 
         viewModel.currentModels = { [weak self] models in
             self?.models = models
@@ -92,8 +95,7 @@ class MainViewController: BaseViewController {
     
     private func changeBackColor(model: WeatherModel?) {
         UIView.animate(withDuration: 0.5) {
-            self.backgroundView.backgroundColor = .getWeatherColor(model?.current?.weather?.first?.id,
-                                                                   icon: model?.current?.weather?.first?.icon)
+            self.backgroundView.backgroundColor = .getWeatherColor(model: model)
         }
     }
     

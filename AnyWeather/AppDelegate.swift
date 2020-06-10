@@ -13,17 +13,6 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
-    // MARK: - CoreData
-//    lazy var persistentContainer: NSPersistentContainer = {
-//        let container = NSPersistentContainer(name: LocalKey.model)
-//        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-//            if let error = error {
-//                fatalError("Unresolved error, \((error as NSError).userInfo)")
-//            }
-//        })
-//        return container
-//    }()
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

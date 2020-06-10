@@ -36,8 +36,7 @@ class ListTableViewCell: UITableViewCell {
     }
     
     func setData(model: WeatherModel, isFirst: Bool) {
-        backgroundColor = .getWeatherColor(model.current?.weather?.first?.id,
-                                           icon: model.current?.weather?.first?.icon)
+        backgroundColor = .getWeatherColor(model: model)
         
         let now: Date = Date()
         timeLabel.text = now.dateToString(format: "a h:mm")

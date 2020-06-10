@@ -19,19 +19,21 @@ class LocationManager {
         return manager
     }()
     
-    func locationAuthorizaionCheck(delegate: CLLocationManagerDelegate,
-                                   isPermited: @escaping ((Bool) -> Void)) {
+    func locationAuthorCall(delegate: CLLocationManagerDelegate) {
+        CLLocationManager.locationServicesEnabled()
+        locationManager.delegate = delegate
+    }
+    
+    func locationAuthorizaionCheck(isPermited: @escaping ((Bool) -> Void)) {
         if CLLocationManager.locationServicesEnabled() {
             switch CLLocationManager.authorizationStatus() {
             case .notDetermined:
                 Log.debug("location notDetermined")
-                locationManager.delegate = delegate
                 isPermited(false)
             case .restricted, .denied:
                 Log.debug("위치권한 허용 안함.")
                 isPermited(false)
             case .authorizedWhenInUse, .authorizedAlways:
-                locationManager.delegate = delegate
                 Log.debug("location 사용 가능")
                 isPermited(true)
             @unknown default:

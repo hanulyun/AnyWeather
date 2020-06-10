@@ -19,7 +19,7 @@ protocol ListViewContollerDelegate: class {
 
 class ListViewController: BaseViewController {
     
-    private let topView: UIView = UIView()
+    private let topMaskView: UIView = UIView()
     private let tableView: UITableView = UITableView()
     
     private let viewModel: MainWeatherViewModel?
@@ -70,22 +70,24 @@ class ListViewController: BaseViewController {
     }
     
     override func configureAutolayouts() {
-        [tableView, topView].forEach { view.addSubview($0) }
+        [tableView, topMaskView].forEach { view.addSubview($0) }
         
         tableView.equalToEdges(to: self.view)
 
         if topOffset == nil {
-            topOffset = topView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0)
+            topOffset = topMaskView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0)
             topOffset.isActive = true
         }
-        topView.equalToLeading(toAnchor: self.view.leadingAnchor)
-        topView.equalToTrailing(toAnchor: self.view.trailingAnchor)
-        topView.equalToHeight(self.getStatusHeight())
+        topMaskView.equalToLeading(toAnchor: self.view.leadingAnchor)
+        topMaskView.equalToTrailing(toAnchor: self.view.trailingAnchor)
+        topMaskView.equalToHeight(self.getStatusHeight())
 
-        topView.backgroundColor = .getWeatherColor(models.first?.current?.weather?.first?.id,
-                                                   icon: models.first?.current?.weather?.first?.icon)
-        
+        self.prepareTopMaskView()
         self.prepareTableView()
+    }
+    
+    private func prepareTopMaskView() {
+        topMaskView.backgroundColor = .getWeatherColor(model: self.models.first)
     }
     
     private func prepareTableView() {
@@ -248,8 +250,8 @@ extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate {
                 self.models.remove(at: removeId)
                 self.models.insert(item.dragItem.localObject as! WeatherModel, at: insertId)
                 
-                tableView.deleteRows(at: [sourceIndex], with: .automatic)
-                tableView.insertRows(at: [destiIndexPath], with: .automatic)
+                tableView.deleteRows(at: [sourceIndex], with: .fade)
+                tableView.insertRows(at: [destiIndexPath], with: .fade)
                 
                 self.viewModel?.editWeatherList(models: self.models, isCompleted: { isCompleted in
                     self.delegate?.changeWeatherList(isChanged: isCompleted)

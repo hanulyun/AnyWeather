@@ -41,7 +41,6 @@
 		1CF76D32248BC7C40021B42D /* TodayDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF76D31248BC7C40021B42D /* TodayDetailCell.swift */; };
 		313A367E24889633008DCF68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A367D24889633008DCF68 /* AppDelegate.swift */; };
 		313A368024889633008DCF68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A367F24889633008DCF68 /* SceneDelegate.swift */; };
-		313A368524889633008DCF68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 313A368324889633008DCF68 /* Main.storyboard */; };
 		313A368724889636008DCF68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 313A368624889636008DCF68 /* Assets.xcassets */; };
 		313A368A24889636008DCF68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 313A368824889636008DCF68 /* LaunchScreen.storyboard */; };
 		313A36A024889636008DCF68 /* AnyWeatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A369F24889636008DCF68 /* AnyWeatherUITests.swift */; };
@@ -112,7 +111,6 @@
 		313A367A24889633008DCF68 /* AnyWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnyWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		313A367D24889633008DCF68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		313A367F24889633008DCF68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		313A368424889633008DCF68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		313A368624889636008DCF68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		313A368924889636008DCF68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		313A368B24889636008DCF68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -338,7 +336,6 @@
 		313A36B024889679008DCF68 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				313A368324889633008DCF68 /* Main.storyboard */,
 				313A368824889636008DCF68 /* LaunchScreen.storyboard */,
 				313A368624889636008DCF68 /* Assets.xcassets */,
 				314A5B74248E00F50090845A /* Data */,
@@ -554,7 +551,6 @@
 			files = (
 				313A368A24889636008DCF68 /* LaunchScreen.storyboard in Resources */,
 				313A368724889636008DCF68 /* Assets.xcassets in Resources */,
-				313A368524889633008DCF68 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,14 +656,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		313A368324889633008DCF68 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				313A368424889633008DCF68 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		313A368824889636008DCF68 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -13,6 +13,7 @@ import UIKit
 // 런던: lat 51.51, lon -0.13
 class MainWeatherViewModel: NSObject {
     
+    private var gpsIsPermit: ((Bool) -> Void)? // 권한 요청 후 권한 허용 상태에 따라 API 요청
     private var isCompletedGetGps: ((_ lat: CGFloat, _ lon: CGFloat) -> Void)?
     private var getGpsFlag: Bool = false
     
@@ -24,10 +25,18 @@ class MainWeatherViewModel: NSObject {
     
     var currentModels: (([WeatherModel]) -> Void)?
     
+    func gpsIsPermitCheck(isPermit: @escaping ((Bool) -> Void)) {
+        LocationManager.shared.locationAuthorCall(delegate: self)
+        
+        gpsIsPermit = { isPermited in
+            isPermit(isPermited)
+        }
+    }
+    
     // 현재 위치 날씨 요청
     // 현재 위치를 받아오면 API request 후 model array에 저장
     func requestCurrentGps() {
-        LocationManager.shared.locationAuthorizaionCheck(delegate: self) { [weak self] isPermit in
+        LocationManager.shared.locationAuthorizaionCheck() { [weak self] isPermit in
             guard let self = self else { return }
             
             if isPermit {
@@ -52,6 +61,7 @@ class MainWeatherViewModel: NSObject {
                                 
                                 self.tempoModel.insert(model, at: 0)
                                 self.currentModels?(self.tempoModel)
+                                Log.debug("서버 요청을 하였소")
                             } else {
                                 self.getGpsFlag = false
                             }
@@ -140,6 +150,7 @@ extension MainWeatherViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             LocationManager.shared.requestLocation()
+            self.gpsIsPermit?(true)
         }
     }
     
@@ -153,7 +164,7 @@ extension MainWeatherViewModel: CLLocationManagerDelegate {
         // 지역명 찾을 때, 아직 안쓰고 있음.
         let findLocation: CLLocation = CLLocation(latitude: latitude, longitude: longitude)
         let geoCoder: CLGeocoder = CLGeocoder()
-        let local = Locale(identifier: "Ko-kr")
+        let local: Locale = Locale(identifier: "Ko-kr")
         // 위치정보를 사용할 때
         geoCoder.reverseGeocodeLocation(findLocation, preferredLocale: local) { [weak self] (place, error) in
             if let address: [CLPlacemark] = place {
