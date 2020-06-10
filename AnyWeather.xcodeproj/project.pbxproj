@@ -32,7 +32,7 @@
 		1CF117342490711A00439C72 /* APIManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF117332490711A00439C72 /* APIManagerTests.swift */; };
 		1CF76CD3248B21820021B42D /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF76CD2248B21820021B42D /* FooterView.swift */; };
 		1CF76CD5248B2E840021B42D /* CustomPagerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF76CD4248B2E840021B42D /* CustomPagerControl.swift */; };
-		1CF76CDC248B4C620021B42D /* MainWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF76CDB248B4C620021B42D /* MainWeatherViewModel.swift */; };
+		1CF76CDC248B4C620021B42D /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF76CDB248B4C620021B42D /* WeatherViewModel.swift */; };
 		1CF76D28248BB9B80021B42D /* HourlyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF76D27248BB9B80021B42D /* HourlyWeatherCell.swift */; };
 		1CF76D2A248BBA9A0021B42D /* MainFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF76D29248BBA9A0021B42D /* MainFullView.swift */; };
 		1CF76D2C248BBCD20021B42D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF76D2B248BBCD20021B42D /* MainViewController.swift */; };
@@ -101,7 +101,7 @@
 		1CF117332490711A00439C72 /* APIManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManagerTests.swift; sourceTree = "<group>"; };
 		1CF76CD2248B21820021B42D /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		1CF76CD4248B2E840021B42D /* CustomPagerControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPagerControl.swift; sourceTree = "<group>"; };
-		1CF76CDB248B4C620021B42D /* MainWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainWeatherViewModel.swift; path = AnyWeather/Views/Main/TableViewCell/MainWeatherViewModel.swift; sourceTree = SOURCE_ROOT; };
+		1CF76CDB248B4C620021B42D /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherViewModel.swift; path = AnyWeather/ViewModels/WeatherViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1CF76D27248BB9B80021B42D /* HourlyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherCell.swift; sourceTree = "<group>"; };
 		1CF76D29248BBA9A0021B42D /* MainFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFullView.swift; sourceTree = "<group>"; };
 		1CF76D2B248BBCD20021B42D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -209,15 +209,6 @@
 				1CC6CDDC249097FB00BCE2C1 /* MockModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		1CF76CDA248B4C550021B42D /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				1CF76CDB248B4C620021B42D /* MainWeatherViewModel.swift */,
-			);
-			name = Main;
-			path = AnyWeather/ViewModels/Main;
 			sourceTree = "<group>";
 		};
 		1CF76D26248BB98C0021B42D /* ContentView */ = {
@@ -328,7 +319,7 @@
 		313A36AF2488966C008DCF68 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				1CF76CDA248B4C550021B42D /* Main */,
+				1CF76CDB248B4C620021B42D /* WeatherViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -603,7 +594,7 @@
 				1CC6CDE12490984D00BCE2C1 /* MockURLSession.swift in Sources */,
 				313A36C32488C9B0008DCF68 /* MainTempView.swift in Sources */,
 				314A5B7F248E03400090845A /* CoreDataManager.swift in Sources */,
-				1CF76CDC248B4C620021B42D /* MainWeatherViewModel.swift in Sources */,
+				1CF76CDC248B4C620021B42D /* WeatherViewModel.swift in Sources */,
 				1C5931162489076A00C4EF34 /* UIFont+Extensions.swift in Sources */,
 				314A5B7B248E01DE0090845A /* Weather+CoreDataClass.swift in Sources */,
 				313A36C62488CA22008DCF68 /* CustomView.swift in Sources */,

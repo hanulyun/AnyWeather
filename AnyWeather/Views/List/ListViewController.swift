@@ -22,7 +22,7 @@ class ListViewController: BaseViewController {
     private let topMaskView: UIView = UIView()
     private let tableView: UITableView = UITableView()
     
-    private let viewModel: MainWeatherViewModel?
+    private let viewModel: WeatherViewModel?
     
     weak var delegate: ListViewContollerDelegate?
     
@@ -39,7 +39,7 @@ class ListViewController: BaseViewController {
     
     private var models: [WeatherModel] = [WeatherModel]()
     
-    init(viewModel: MainWeatherViewModel) {
+    init(viewModel: WeatherViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         

@@ -31,7 +31,7 @@ class MainViewController: BaseViewController {
     
     private let footerView: FooterView = FooterView()
     
-    private let viewModel: MainWeatherViewModel = MainWeatherViewModel()
+    private let viewModel: WeatherViewModel = WeatherViewModel()
     
     var models: [WeatherModel] = [WeatherModel]() {
         didSet {
@@ -69,6 +69,7 @@ class MainViewController: BaseViewController {
                 
         viewModel.currentModels = { [weak self] models in
             self?.models = models
+            Log.debug("timeZone = \(models.map{ $0.timezone })")
         }
     }
     

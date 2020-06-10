@@ -15,6 +15,7 @@ struct WeatherModel: Codable {
     
     var lat: Double?
     var lon: Double?
+    var timezone: String?
     var current: Current?
     var hourly: [Hourly]?
     var daily: [Daily]?

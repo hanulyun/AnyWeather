@@ -39,7 +39,7 @@ class ListTableViewCell: UITableViewCell {
         backgroundColor = .getWeatherColor(model: model)
         
         let now: Date = Date()
-        timeLabel.text = now.dateToString(format: "a h:mm")
+        timeLabel.text = now.dateToString(format: "a h:mm", timeZone: model.timezone)
         timeLabel.setFont(.font(.subTiny), color: .color(.main))
         
         cityLabel.text = model.city
@@ -50,6 +50,12 @@ class ListTableViewCell: UITableViewCell {
         tempLabel.setFont(.font(.mainBig), color: .color(.main))
         
         gpsImageView.isHidden = !isFirst
+    }
+    
+    func dateToString(date: Date, format: String, timeZone: String?) -> String {
+        let dateFormatter: DateFormatter = .basicStyle(format: format)
+        dateFormatter.timeZone = TimeZone(identifier: timeZone!)
+        return dateFormatter.string(from: date)
     }
 }
 

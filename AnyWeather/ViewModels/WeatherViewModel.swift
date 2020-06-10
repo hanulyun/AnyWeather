@@ -11,7 +11,7 @@ import UIKit
 
 // Seoul: lat 37.57, lon 126.98
 // 런던: lat 51.51, lon -0.13
-class MainWeatherViewModel: NSObject {
+class WeatherViewModel: NSObject {
     
     private var gpsIsPermit: ((Bool) -> Void)? // 권한 요청 후 권한 허용 상태에 따라 API 요청
     private var isCompletedGetGps: ((_ lat: CGFloat, _ lon: CGFloat) -> Void)?
@@ -109,7 +109,7 @@ class MainWeatherViewModel: NSObject {
 }
 
 // MARK: - LocalData 작업 부분
-extension MainWeatherViewModel {
+extension WeatherViewModel {
     func saveSearchWeather(city: String, lat: Double, lon: Double) {
         let saveId: Int = tempoModel.count
         CoreDataManager.shared.saveData(id: saveId, city: city, lat: lat, lon: lon) { [weak self] isSaved in
@@ -146,7 +146,7 @@ extension MainWeatherViewModel {
 }
 
 // MARK: Location Delegate
-extension MainWeatherViewModel: CLLocationManagerDelegate {
+extension WeatherViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             LocationManager.shared.requestLocation()
