@@ -33,16 +33,12 @@ class FooterView: CustomView {
         super.init(coder: coder)
     }
     
-    func setPageControl(numberOfPage: Int, firstId: Int) {
+    func setPageControl(numberOfPage: Int, onGps: Bool) {
         var controls: [PagerControl] = []
         
         for index in 0..<numberOfPage {
             if index == 0 {
-                if firstId == 0 {
-                    controls.append(.gps)
-                } else {
-                    controls.append(.dot)
-                }
+                controls.append(onGps ? .gps : .dot)
             } else {
                 controls.append(.dot)
             }

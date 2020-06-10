@@ -183,16 +183,20 @@ extension SearchViewController: UITableViewDataSource {
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Log.debug("tap = \(indexPath.row), \(mapItems.count)")
         if mapItems.count > 0 {
             let item: MKMapItem = mapItems[indexPath.row]
             let lat: Double? = item.placemark.location?.coordinate.latitude
             let lon: Double? = item.placemark.location?.coordinate.longitude
+            let mark: MKPlacemark = item.placemark
+            let titles: [String?] = [mark.locality, mark.administrativeArea, mark.isoCountryCode, mark.country]
             var city: String? = item.placemark.locality
-            if city?.count == 0 {
-                city = item.placemark.administrativeArea
-            }
-            if city?.count == 0 {
-                city = item.placemark.country
+            
+            for title in titles {
+                if let unwrapTitle: String = title {
+                    city = unwrapTitle
+                    break
+                }
             }
             
             if let lat = lat, let lon = lon, let city = city {
@@ -221,6 +225,7 @@ extension SearchViewController: UISearchResultsUpdating {
                                                                      longitude: center.longitude)
 
             self.mapItems = response.mapItems
+            Log.debug("item = \(self.mapItems.map { $0.placemark.locality } ), \(self.mapItems.map { $0.placemark.countryCode})")
         }
     }
 }

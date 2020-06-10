@@ -37,7 +37,7 @@ class MainViewController: BaseViewController {
         didSet {
             DispatchQueue.main.async {
                 self.footerView.setPageControl(numberOfPage: self.models.count,
-                                               firstId: self.models.first?.id ?? 0)
+                                               onGps: self.viewModel.onGps)
                 self.changeBackColor(model: self.models.first)
                 
                 self.setHStackView()
