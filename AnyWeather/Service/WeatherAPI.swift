@@ -12,7 +12,7 @@ struct Urls {
     static let baseProtocol: String = "https://"
     static let baseUrl: String = "api.openweathermap.org/data/2.5"
     static let oneCall: String = "/onecall"
-    static let icon: String = "https://api.openweathermap.org/img/w/"
+    static let icon: String = "\(Urls.baseProtocol)api.openweathermap.org/img/w/"
 }
 
 struct Parameters {

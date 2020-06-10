@@ -16,7 +16,6 @@
 		1C5931162489076A00C4EF34 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5931152489076A00C4EF34 /* UIFont+Extensions.swift */; };
 		1C59311A248909DB00C4EF34 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C593119248909DB00C4EF34 /* UIStackView+Extensions.swift */; };
 		1C59311E24890B8C00C4EF34 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C59311D24890B8C00C4EF34 /* BaseViewController.swift */; };
-		1C5931272489260200C4EF34 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5931262489260200C4EF34 /* UICollectionView+Extensions.swift */; };
 		1C59312B24893E7A00C4EF34 /* UIScrollView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C59312A24893E7A00C4EF34 /* UIScrollView+Extensions.swift */; };
 		1C593132248B1B7B00C4EF34 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C593131248B1B7B00C4EF34 /* UILabel+Extensions.swift */; };
 		1C903E1F248CB86800ECD50A /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C903E1E248CB86800ECD50A /* Date+Extensions.swift */; };
@@ -86,7 +85,6 @@
 		1C5931152489076A00C4EF34 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		1C593119248909DB00C4EF34 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
 		1C59311D24890B8C00C4EF34 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		1C5931262489260200C4EF34 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		1C59312A24893E7A00C4EF34 /* UIScrollView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extensions.swift"; sourceTree = "<group>"; };
 		1C593131248B1B7B00C4EF34 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		1C903E1E248CB86800ECD50A /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -377,7 +375,6 @@
 				313A36CA2488CF5D008DCF68 /* UIView+Extensions.swift */,
 				1C59312A24893E7A00C4EF34 /* UIScrollView+Extensions.swift */,
 				1C593119248909DB00C4EF34 /* UIStackView+Extensions.swift */,
-				1C5931262489260200C4EF34 /* UICollectionView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -606,7 +603,6 @@
 				1C593132248B1B7B00C4EF34 /* UILabel+Extensions.swift in Sources */,
 				313A36BA2488B08C008DCF68 /* String+Extensions.swift in Sources */,
 				313A36BE2488B928008DCF68 /* Log.swift in Sources */,
-				1C5931272489260200C4EF34 /* UICollectionView+Extensions.swift in Sources */,
 				1CF76D32248BC7C40021B42D /* TodayDetailCell.swift in Sources */,
 				1C59311A248909DB00C4EF34 /* UIStackView+Extensions.swift in Sources */,
 				313A368024889633008DCF68 /* SceneDelegate.swift in Sources */,

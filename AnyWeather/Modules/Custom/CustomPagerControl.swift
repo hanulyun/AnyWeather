@@ -34,7 +34,7 @@ class CustomPagerControl: CustomView {
     }
     
     func setControls(controls: [PagerControl]) {
-        stackView.subviews.forEach { $0.removeFromSuperview() }
+        stackView.removeAllSubviews()
         
         let controlImages: [UIImageView] = controls.map { return $0.rawValue }
         controlImages.forEach { stackView.addArrangedSubview($0) }
