@@ -85,6 +85,10 @@ class ListViewController: BaseViewController {
         topView.backgroundColor = .getWeatherColor(models.first?.current?.weather?.first?.id,
                                                    icon: models.first?.current?.weather?.first?.icon)
         
+        self.prepareTableView()
+    }
+    
+    private func prepareTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.dropDelegate = self

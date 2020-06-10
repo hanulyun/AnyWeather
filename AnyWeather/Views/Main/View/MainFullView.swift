@@ -140,6 +140,7 @@ class MainFullView: CustomView {
         [dailyStackView, todaySummaryView, todayDetailStackView].forEach { contentView.addSubview($0) }
         hScrollView.addSubview(hourlyStackView)
         
+        // HeaderViews
         currentWeatherview.equalToTop(toAnchor: self.topAnchor)
         currentWeatherview.equalToLeading(toAnchor: self.leadingAnchor)
         currentWeatherview.equalToTrailing(toAnchor: self.trailingAnchor)
@@ -157,6 +158,7 @@ class MainFullView: CustomView {
         
         hourlyStackView.equalToEdges(to: hScrollView)
         
+        // ContentViews
         vScrollView.equalToTop(toAnchor: self.topAnchor)
         vScrollView.equalToLeading(toAnchor: self.leadingAnchor)
         vScrollView.equalToTrailing(toAnchor: self.trailingAnchor)

@@ -31,7 +31,6 @@ class SearchViewController: BaseViewController {
     
     override func viewDidLoad() {
         prepareViewUI()
-        prepareSearchBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,10 +38,6 @@ class SearchViewController: BaseViewController {
         DispatchQueue.main.async {
             self.searchController.searchBar.becomeFirstResponder()
         }
-    }
-    
-    override func configureAutolayouts() {
-        
     }
     
     private func prepareViewUI() {
@@ -63,6 +58,11 @@ class SearchViewController: BaseViewController {
         view.insertSubview(blurEffectView, at: 0)
         blurEffectView.equalToEdges(to: self.view)
         
+        prepareTableView()
+        prepareSearchBar()
+    }
+    
+    private func prepareTableView() {
         view.addSubview(tableView)
         tableView.equalToGuides(guide: guide)
         
@@ -84,6 +84,7 @@ class SearchViewController: BaseViewController {
         searchBar.delegate = self
         self.navigationItem.searchController = self.searchController
         
+        // searchBar Textfield 부분 custom
         let textField = searchBar.value(forKey: "searchField") as! UITextField
         textField.textColor = .white
         
@@ -154,7 +155,6 @@ extension SearchViewController: UITableViewDataSource {
             text = "발견된 결과가 없습니다."
         }
         
-//        cell.textLabel?.text = text
         cell.textLabel?.attributedText = getAttText(text!)
         
         cell.backgroundColor = .clear

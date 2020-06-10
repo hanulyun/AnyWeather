@@ -25,6 +25,7 @@ class MainWeatherViewModel: NSObject {
     var currentModels: (([WeatherModel]) -> Void)?
     
     // 현재 위치 날씨 요청
+    // 현재 위치를 받아오면 API request 후 model array에 저장
     func requestCurrentGps() {
         LocationManager.shared.locationAuthorizaionCheck(delegate: self) { [weak self] isPermit in
             guard let self = self else { return }
@@ -134,6 +135,7 @@ extension MainWeatherViewModel {
     }
 }
 
+// MARK: Location Delegate
 extension MainWeatherViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse || status == .authorizedAlways {

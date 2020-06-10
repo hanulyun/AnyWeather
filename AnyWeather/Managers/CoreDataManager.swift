@@ -86,7 +86,7 @@ class CoreDataManager {
             Log.debug("Could not DeleteAll🥺: \(error), \(error.userInfo)")
         }
         
-        // 다시 저장
+        // 바뀐 정렬로 다시 저장
         let localCount: Int = onGps ? data.count - 1 : data.count
         var editCount: Int = 0
         
