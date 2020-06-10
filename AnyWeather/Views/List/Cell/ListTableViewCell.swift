@@ -35,7 +35,7 @@ class ListTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    func setData(model: WeatherModel, isFirst: Bool) {
+    func setData(model: WeatherModel) {
         backgroundColor = .getWeatherColor(model: model)
         
         let now: Date = Date()
@@ -49,7 +49,9 @@ class ListTableViewCell: UITableViewCell {
         tempLabel.text = "\(String(temp))\(degSymbol)"
         tempLabel.setFont(.font(.mainBig), color: .color(.main))
         
-        gpsImageView.isHidden = !isFirst
+        if let isGps: Bool = model.isGps {
+            gpsImageView.isHidden = !isGps
+        }
     }
     
     func dateToString(date: Date, format: String, timeZone: String?) -> String {

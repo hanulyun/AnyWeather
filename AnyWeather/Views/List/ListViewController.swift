@@ -43,7 +43,7 @@ class ListViewController: BaseViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
-        self.models = viewModel.tempoModel
+        self.models = viewModel.weatherModels
         self.unit = viewModel.unit
     }
     
@@ -142,8 +142,7 @@ extension ListViewController: UITableViewDataSource {
                 tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseId, for: indexPath)
                     as? ListTableViewCell else { fatalError("Failed to cast ListTableViewCell") }
             let model: WeatherModel = self.models[indexPath.row]
-            let isFirst: Bool = (indexPath.row == 0)
-            cell.setData(model: model, isFirst: isFirst)
+            cell.setData(model: model)
             return cell
         } else {
             guard let cell =
@@ -195,7 +194,8 @@ extension ListViewController: UITableViewDelegate {
 extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession,
                    withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        if destinationIndexPath?.row == 0 {
+        let model: WeatherModel = models[destinationIndexPath?.row ?? 0]
+        if let isGps: Bool = model.isGps, isGps {
             return UITableViewDropProposal(operation: .forbidden)
         }
         
@@ -225,7 +225,8 @@ extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     // drag 시작 시
     func tableView(_ tableView: UITableView,
                    itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        if indexPath.row == 0 {
+        let model: WeatherModel = models[indexPath.row]
+        if let isGps: Bool = model.isGps, isGps {
             return []
         }
         
@@ -253,8 +254,8 @@ extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate {
                 tableView.deleteRows(at: [sourceIndex], with: .fade)
                 tableView.insertRows(at: [destiIndexPath], with: .fade)
                 
-                self.viewModel?.editWeatherList(models: self.models, isCompleted: { isCompleted in
-                    self.delegate?.changeWeatherList(isChanged: isCompleted)
+                self.viewModel?.editWeatherList(models: self.models, isCompleted: { [weak self] isCompleted in
+                    self?.delegate?.changeWeatherList(isChanged: isCompleted)
                 })
             }, completion: nil)
             

@@ -19,7 +19,7 @@ class WeatherViewModel: NSObject {
     
     // 외부 접근 변수
     var unit: TempUnit = .c
-    var tempoModel: [WeatherModel] = [WeatherModel]()
+    var weatherModels: [WeatherModel] = [WeatherModel]()
     var gpsCity: String?
     var onGps: Bool = false
     
@@ -36,7 +36,7 @@ class WeatherViewModel: NSObject {
     // 현재 위치 날씨 요청
     // 현재 위치를 받아오면 API request 후 model array에 저장
     func requestCurrentGps() {
-        LocationManager.shared.locationAuthorizaionCheck() { [weak self] isPermit in
+        LocationManager.shared.locationAuthorizaionCheck(delegate: self) { [weak self] isPermit in
             guard let self = self else { return }
             
             if isPermit {
@@ -48,28 +48,41 @@ class WeatherViewModel: NSObject {
                     if !self.getGpsFlag {
                         self.getGpsFlag = true
                         
-                        self.requestLatLonPoint(lat: lat.description, lon: lon.description) { model in
-                            if let model: WeatherModel = model {
-                                self.onGps = true
-                                
-                                LocationManager.shared.stopUpdateLocation()
-                                
-                                var model: WeatherModel = model
-                                model.id = 0
-                                model.city = self.gpsCity
-                                model.isGps = true
-                                
-                                self.tempoModel.insert(model, at: 0)
-                                self.currentModels?(self.tempoModel)
-                                Log.debug("서버 요청을 하였소")
-                            } else {
-                                self.getGpsFlag = false
-                            }
-                        }
+                        self.requestGpsLocation(lat: Double(lat), lon: Double(lon))
                     }
                 }
             } else {
                 self.onGps = false
+            }
+        }
+    }
+    
+    // background에서 foreground로 재진입 시
+    func requestWhenForeground() {
+        self.weatherModels = []
+        
+        self.getGpsFlag = false
+        self.requestCurrentGps()
+        self.getSearchWeather()
+    }
+    
+    private func requestGpsLocation(lat: Double, lon: Double) {
+        self.requestLatLonPoint(lat: lat.description, lon: lon.description) { model in
+            if let model: WeatherModel = model {
+                self.onGps = true
+                
+                LocationManager.shared.stopUpdateLocation()
+                
+                var model: WeatherModel = model
+                model.id = 0
+                model.city = self.gpsCity
+                model.isGps = true
+                
+                self.weatherModels.insert(model, at: 0)
+                self.currentModels?(self.weatherModels)
+                Log.debug("GPS 날씨 서버 요청을 하였소")
+            } else {
+                self.getGpsFlag = false
             }
         }
     }
@@ -81,17 +94,18 @@ class WeatherViewModel: NSObject {
             if var model: WeatherModel = model {
                 model.id = id
                 model.city = city
-                self.tempoModel.append(model)
+                model.isGps = false
+                self.weatherModels.append(model)
             
                 // 정렬
-                if self.tempoModel.count > 1 {
-                    let sortModel = self.tempoModel.sorted { (model0, model1) -> Bool in
+                if self.weatherModels.count > 1 {
+                    let sortModel = self.weatherModels.sorted { (model0, model1) -> Bool in
                         (model0.id ?? 0) < (model1.id ?? 0)
                     }
-                    self.tempoModel = sortModel
+                    self.weatherModels = sortModel
                 }
                 
-                self.currentModels?(self.tempoModel)
+                self.currentModels?(self.weatherModels)
             }
         }
     }
@@ -111,7 +125,12 @@ class WeatherViewModel: NSObject {
 // MARK: - LocalData 작업 부분
 extension WeatherViewModel {
     func saveSearchWeather(city: String, lat: Double, lon: Double) {
-        let saveId: Int = tempoModel.count
+        let allCity: [String?] = weatherModels.map { $0.city }
+        if allCity.contains(city) {
+            return
+        }
+        
+        let saveId: Int = weatherModels.count
         CoreDataManager.shared.saveData(id: saveId, city: city, lat: lat, lon: lon) { [weak self] isSaved in
             if isSaved {
                 guard let self = self else { return }
@@ -131,15 +150,15 @@ extension WeatherViewModel {
         CoreDataManager.shared.deleteData(filterId: id) { [weak self] isDeleted, type in
             if isDeleted, type == .success {
                 guard let self = self else { return }
-                self.tempoModel.remove(at: id)
-                self.currentModels?(self.tempoModel)
+                self.weatherModels.remove(at: id)
+                self.currentModels?(self.weatherModels)
             }
         }
     }
     
     func editWeatherList(models: [WeatherModel], isCompleted: @escaping ((Bool) -> Void)) {
         CoreDataManager.shared.editDataList(data: models, onGps: onGps) { [weak self] isDone in
-            self?.tempoModel = models
+            self?.weatherModels = models
             isCompleted(isDone)
         }
     }

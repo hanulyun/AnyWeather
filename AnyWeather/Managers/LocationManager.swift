@@ -24,7 +24,7 @@ class LocationManager {
         locationManager.delegate = delegate
     }
     
-    func locationAuthorizaionCheck(isPermited: @escaping ((Bool) -> Void)) {
+    func locationAuthorizaionCheck(delegate: CLLocationManagerDelegate, isPermited: @escaping ((Bool) -> Void)) {
         if CLLocationManager.locationServicesEnabled() {
             switch CLLocationManager.authorizationStatus() {
             case .notDetermined:
@@ -35,6 +35,7 @@ class LocationManager {
                 isPermited(false)
             case .authorizedWhenInUse, .authorizedAlways:
                 Log.debug("location 사용 가능")
+                locationManager.delegate = delegate
                 isPermited(true)
             @unknown default:
                 fatalError("locationAuthorizaionCheck error")

@@ -33,15 +33,15 @@ class FooterView: CustomView {
         super.init(coder: coder)
     }
     
-    func setPageControl(numberOfPage: Int, onGps: Bool) {
+    func setPageControl(models: [WeatherModel]) {
         var controls: [PagerControl] = []
         
-        for index in 0..<numberOfPage {
-            if index == 0 {
-                controls.append(onGps ? .gps : .dot)
-            } else {
-                controls.append(.dot)
+        for model in models {
+            var control: PagerControl = .dot
+            if let isGps: Bool = model.isGps, isGps {
+                control = .gps
             }
+            controls.append(control)
         }
         pageControl.setControls(controls: controls)
         selectedPage(currentPageNum)

@@ -32,12 +32,13 @@ class MainViewController: BaseViewController {
     private let footerView: FooterView = FooterView()
     
     private let viewModel: WeatherViewModel = WeatherViewModel()
+    private var observer: NSObjectProtocol?
+    private var onObserver: Bool = false // 첫 실행 시 observer 호출되는 부분 거르는 flag
     
     var models: [WeatherModel] = [WeatherModel]() {
         didSet {
             DispatchQueue.main.async {
-                self.footerView.setPageControl(numberOfPage: self.models.count,
-                                               onGps: self.viewModel.onGps)
+                self.footerView.setPageControl(models: self.models)
                 self.changeBackColor(model: self.models.first)
                 
                 self.setHStackView()
@@ -58,6 +59,13 @@ class MainViewController: BaseViewController {
         super.viewDidLoad()
         
         buttonEvent()
+        enterForeground()
+    }
+
+    deinit {
+        if let observer = observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     override func bindData() {
@@ -69,7 +77,6 @@ class MainViewController: BaseViewController {
                 
         viewModel.currentModels = { [weak self] models in
             self?.models = models
-            Log.debug("timeZone = \(models.map{ $0.timezone })")
         }
     }
     
@@ -92,6 +99,20 @@ class MainViewController: BaseViewController {
         footerView.equalToLeading(toAnchor: guide.leadingAnchor)
         footerView.equalToTrailing(toAnchor: guide.trailingAnchor)
         footerView.equalToHeight(50.adjusted)
+    }
+    
+    private func enterForeground() {
+        observer = NotificationCenter.default.addObserver(
+            forName: UIApplication.willEnterForegroundNotification,
+            object: nil, queue: .main, using: { [weak self] _ in
+                guard let self = self else { return }
+                
+                if self.onObserver {
+                    self.viewModel.requestWhenForeground()
+                } else {
+                    self.onObserver = true
+                }
+        })
     }
     
     private func buttonEvent() {
@@ -139,7 +160,7 @@ extension MainViewController: ListViewContollerDelegate {
     
     func changeWeatherList(isChanged: Bool) {
         if isChanged {
-            self.models = viewModel.tempoModel
+            self.models = viewModel.weatherModels
         }
     }
 }
