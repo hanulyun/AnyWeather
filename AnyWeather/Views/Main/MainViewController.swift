@@ -42,6 +42,7 @@ class MainViewController: BaseViewController {
                 self.changeBackColor(model: self.models.first)
                 
                 self.setHStackView()
+                self.setScrollOffsetWithPageIndex(index: self.currentIndex)
             }
         }
     }
@@ -141,6 +142,11 @@ class MainViewController: BaseViewController {
             self.hStackView.addArrangedSubview(fullView)
         }
     }
+    
+    private func setScrollOffsetWithPageIndex(index: Int) {
+        let xOffset: CGFloat = CommonSizes.screenWidth * CGFloat(index)
+        hScrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: false)
+    }
 }
 
 extension MainViewController: UIScrollViewDelegate {
@@ -154,8 +160,7 @@ extension MainViewController: UIScrollViewDelegate {
 extension MainViewController: ListViewContollerDelegate {
     func selectedIndex(index: Int) {
         self.currentIndex = index
-        let xOffset: CGFloat = CommonSizes.screenWidth * CGFloat(index)
-        hScrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: false)
+        self.setScrollOffsetWithPageIndex(index: index)
     }
     
     func changeWeatherList(isChanged: Bool) {

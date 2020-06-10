@@ -96,16 +96,14 @@ class WeatherViewModel: NSObject {
                 model.city = city
                 model.isGps = false
                 self.weatherModels.append(model)
-            
-                // 정렬
-                if self.weatherModels.count > 1 {
-                    let sortModel = self.weatherModels.sorted { (model0, model1) -> Bool in
-                        (model0.id ?? 0) < (model1.id ?? 0)
-                    }
-                    self.weatherModels = sortModel
-                }
                 
-                self.currentModels?(self.weatherModels)
+                // 정렬
+                let sortModel = self.weatherModels.sorted { (model0, model1) -> Bool in
+                    (model0.id ?? 0) < (model1.id ?? 0)
+                }
+                self.weatherModels = sortModel
+                
+                self.currentModels?(sortModel)
             }
         }
     }
@@ -180,7 +178,6 @@ extension WeatherViewModel: CLLocationManagerDelegate {
         
         self.isCompletedGetGps?(CGFloat(latitude), CGFloat(longitude))
                 
-        // 지역명 찾을 때, 아직 안쓰고 있음.
         let findLocation: CLLocation = CLLocation(latitude: latitude, longitude: longitude)
         let geoCoder: CLGeocoder = CLGeocoder()
         let local: Locale = Locale(identifier: "Ko-kr")
