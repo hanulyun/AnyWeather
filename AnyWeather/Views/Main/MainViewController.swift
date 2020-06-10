@@ -11,6 +11,15 @@ import UIKit
 class MainViewController: BaseViewController {
     
     private let backgroundView: UIView = UIView().filledStyle(color: .darkGray)
+    private let emptyLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "위치권한을 허용하거나\n선호 지역을 추가해보세요."
+        label.textAlignment = .center
+        label.textColor = .color(.translucentMain)
+        return label
+    }()
+    
     lazy var hScrollView: UIScrollView = {
         let scrollView = UIScrollView().basicStyle()
         scrollView.delegate = self
@@ -65,9 +74,11 @@ class MainViewController: BaseViewController {
     
     override func configureAutolayouts() {
         [backgroundView, hScrollView, footerView].forEach { view.addSubview($0) }
+        backgroundView.addSubview(emptyLabel)
         hScrollView.addSubview(hStackView)
         
         backgroundView.equalToEdges(to: self.view)
+        emptyLabel.equalToCenter(to: backgroundView)
         
         hScrollView.equalToGuides(guide: self.guide)
         
@@ -95,6 +106,7 @@ class MainViewController: BaseViewController {
     
     private func changeBackColor(model: WeatherModel?) {
         UIView.animate(withDuration: 0.5) {
+            self.emptyLabel.isHidden = !(self.models.count == 0)
             self.backgroundView.backgroundColor = .getWeatherColor(model: model)
         }
     }
