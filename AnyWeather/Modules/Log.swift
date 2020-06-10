@@ -11,7 +11,7 @@ import Foundation
 class Log {
     class func debug<T>(_ object: T?, file: String = #file, line: Int = #line,
                     funcName: String = #function) {
-        #if !DEBUG
+        #if DEBUG
         let fileNames = file.components(separatedBy: ["/", "."])
         let fileName = fileNames[fileNames.count - 2]
         if let object = object {

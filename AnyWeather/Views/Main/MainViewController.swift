@@ -8,8 +8,6 @@
 
 import UIKit
 
-public var scrollY: CGFloat = 0
-
 class MainViewController: BaseViewController {
     
     private let backgroundView: UIView = UIView().filledStyle(color: .white)
