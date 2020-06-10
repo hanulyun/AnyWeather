@@ -9,11 +9,12 @@
 import Foundation
 
 class APIManager {
-    static let shared: APIManager = APIManager()
+    
+    var session: URLSession!
     
     func request<T: Decodable>(_ type: T.Type, url: String, param: [String: Any],
-                               result: @escaping ((T?) -> Void)) {
-        guard var component: URLComponents = URLComponents(string: Urls.base + url) else {
+                                      result: @escaping ((T?, Error?) -> Void)) {
+        guard var component: URLComponents = URLComponents(string: Urls.baseProtocol + Urls.baseUrl + url) else {
             Log.debug("Failed to load UrlComponents: \(url)"); return
         }
         
@@ -26,29 +27,29 @@ class APIManager {
         }
         
         guard let url: URL = component.url else { Log.debug("Failed to load Url"); return }
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let res: HTTPURLResponse = response as? HTTPURLResponse {
-                Log.debug("url: \(url), status: \(res.statusCode)")
-                
-                if let data: Data = data,
-                    (200 ..< 300) ~= res.statusCode,
-                    error == nil {
-                    
-                    let jsonString: String = String(decoding: data, as: UTF8.self)
-                    let dict = jsonString.convertToDictionary()
-                    Log.debug("dict: \(String(describing: dict))")
-                    
-                    let decoder: JSONDecoder = JSONDecoder()
-                    guard let loaded = try? decoder.decode(T.self, from: data)
-                        else { Log.debug("Failed to decode data"); return }
-                    
-                    result(loaded)
-                } else {
-                    result(nil)
-                    Log.debug("error: \(String(describing: error?.localizedDescription))")
-                }
-            }
+        
+        if session == nil {
+            session = URLSession.shared
         }
-        task.resume()
+        
+        session.dataTask(with: url) { (data, response, error) in
+            guard error == nil else {
+                result(nil, error)
+                return
+            }
+            
+            guard let data = data else {
+                result(nil, NSError(domain: "No Data", code: 777, userInfo: nil))
+                return
+            }
+            
+            do {
+                let decoder: JSONDecoder = JSONDecoder()
+                let model = try decoder.decode(T.self, from: data)
+                result(model, nil)
+            } catch let error {
+                result(nil, error)
+            }
+        }.resume()
     }
 }

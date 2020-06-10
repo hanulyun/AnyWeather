@@ -92,7 +92,7 @@ class MainWeatherViewModel: NSObject {
             ParamKey.lat.rawValue: lat.description,
             ParamKey.lon.rawValue: lon.description,
         ]
-        APIManager.shared.request(WeatherModel.self, url: Urls.onecall, param: param) { model in
+        APIManager().request(WeatherModel.self, url: Urls.oneCall, param: param) { (model, _) in
             isCompleted(model)
         }
     }

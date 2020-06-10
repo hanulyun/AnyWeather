@@ -24,7 +24,7 @@ import UIKit
  - 온도 단위 변환했을 때 메인에서도 반영되게
  */
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, ViewProtocol {
     
     var guide: UILayoutGuide {
         return view.safeAreaLayoutGuide

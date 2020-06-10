@@ -8,8 +8,7 @@
 
 import UIKit
 
-class CustomView: UIView {
-    
+class CustomView: UIView, ViewProtocol {
     func setInit(_ backColor: UIColor = .clear) {
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
         backgroundColor = backColor
@@ -19,6 +18,7 @@ class CustomView: UIView {
     }
     
     func configureAutolayouts() { }
+    func bindData() { }
     
     func getMaxIndexLabel(_ labels: [UILabel]) -> UILabel {
         var labelWidths: [CGFloat] = []

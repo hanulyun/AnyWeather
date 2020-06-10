@@ -9,10 +9,9 @@
 import Foundation
 
 struct Urls {
-    static let base: String = "https://api.openweathermap.org/data/2.5"
-    static let current: String = "/weather"
-    static let onecall: String = "/onecall"
-    static let several: String = ""
+    static let baseProtocol: String = "https://"
+    static let baseUrl: String = "api.openweathermap.org/data/2.5"
+    static let oneCall: String = "/onecall"
     static let icon: String = "https://api.openweathermap.org/img/w/"
 }
 
@@ -28,7 +27,5 @@ public enum ParamKey: String {
     case lat = "lat"
     case lon = "lon"
     case lang = "lang"
-    case cnt = "cnt"
     case units = "units"
-    case exclued = "exclude"
 }
