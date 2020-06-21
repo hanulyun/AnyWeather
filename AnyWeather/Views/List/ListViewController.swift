@@ -30,10 +30,8 @@ class ListViewController: BaseViewController {
         
     private var unit: TempUnit = .c {
         didSet {
-            DispatchQueue.main.async {
-                self.viewModel?.unit = self.unit
-                self.tableView.reloadData()
-            }
+            self.viewModel?.unit = self.unit
+            self.tableView.reloadData()
         }
     }
     
@@ -60,9 +58,7 @@ class ListViewController: BaseViewController {
         viewModel?.currentModels = { [weak self] models in
             
             self?.models = models
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
+            self?.tableView.reloadData()
             
             self?.delegate?.changeWeatherList(isChanged: true)
             Log.debug("List가 변경되었다!")

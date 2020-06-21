@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MainViewController: BaseViewController {
     
@@ -35,24 +36,23 @@ class MainViewController: BaseViewController {
     private var observer: NSObjectProtocol?
     private var onObserver: Bool = false // 첫 실행 시 observer 호출되는 부분 거르는 flag
     
+    private var gpsIsPermit: ((Bool) -> Void)? // 권한 요청 후 권한 허용 상태에 따라 API 요청
+    private var isCompletedGetGps: ((_ lat: CGFloat, _ lon: CGFloat) -> Void)?
+    
     var models: [WeatherModel] = [WeatherModel]() {
         didSet {
-            DispatchQueue.main.async {
-                self.footerView.setPageControl(models: self.models)
-                self.changeBackColor(model: self.models.first)
-                
-                self.setHStackView()
-                self.setScrollOffsetWithPageIndex(index: self.currentIndex)
-            }
+            self.footerView.setPageControl(models: self.models)
+            self.changeBackColor(model: self.models.first)
+            
+            self.setHStackView()
+            self.setScrollOffsetWithPageIndex(index: self.currentIndex)
         }
     }
     
     var currentIndex: Int = 0 {
         didSet {
-            DispatchQueue.main.async {
-                self.footerView.selectedPage(self.currentIndex)
-                self.changeBackColor(model: self.models[self.currentIndex])
-            }
+            self.footerView.selectedPage(self.currentIndex)
+            self.changeBackColor(model: self.models[self.currentIndex])
         }
     }
     
@@ -71,14 +71,12 @@ class MainViewController: BaseViewController {
     
     override func bindData() {
         viewModel.getSearchWeather()
-        
-        viewModel.gpsIsPermitCheck { [weak self] isPermit in
-            self?.viewModel.requestCurrentGps()
-        }
                 
         viewModel.currentModels = { [weak self] models in
             self?.models = models
         }
+        
+        gpsIsPermitCheckAndGetWeather()
     }
     
     override func configureAutolayouts() {
@@ -110,6 +108,7 @@ class MainViewController: BaseViewController {
                 
                 if self.onObserver {
                     self.viewModel.requestWhenForeground()
+                    self.gpsIsPermitCheckAndGetWeather()
                 } else {
                     self.onObserver = true
                 }
@@ -147,6 +146,31 @@ class MainViewController: BaseViewController {
         let xOffset: CGFloat = CommonSizes.screenWidth * CGFloat(index)
         hScrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: false)
     }
+    
+    // 현재 위치 날씨 요청
+    // 현재 위치를 받아오면 API request 후 model array에 저장
+    private func gpsIsPermitCheckAndGetWeather() {
+        LocationManager.shared.locationAuthorCall(delegate: self)
+        
+        gpsIsPermit = { [weak self] isPermited in
+            guard let self = self else { return }
+            if isPermited {
+                LocationManager.shared.startUpdateLocation()
+                
+                self.isCompletedGetGps = { [weak self] (lat, lon) in
+                    guard let self = self else { return }
+                    
+                    if !self.viewModel.getGpsFlag {
+                        self.viewModel.getGpsFlag = true
+                        
+                        self.viewModel.requestGpsLocation(lat: Double(lat), lon: Double(lon))
+                    }
+                }
+            } else {
+                self.viewModel.onGps = false
+            }
+        }
+    }
 }
 
 extension MainViewController: UIScrollViewDelegate {
@@ -167,5 +191,41 @@ extension MainViewController: ListViewContollerDelegate {
         if isChanged {
             self.models = viewModel.weatherModels
         }
+    }
+}
+
+// MARK: - Location Delegate
+extension MainViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse || status == .authorizedAlways {
+            LocationManager.shared.requestLocation()
+            self.gpsIsPermit?(true)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location: CLLocation = locations[locations.count - 1]
+        let longitude: CLLocationDegrees = location.coordinate.longitude
+        let latitude: CLLocationDegrees = location.coordinate.latitude
+        
+        self.isCompletedGetGps?(CGFloat(latitude), CGFloat(longitude))
+                
+        let findLocation: CLLocation = CLLocation(latitude: latitude, longitude: longitude)
+        let geoCoder: CLGeocoder = CLGeocoder()
+        let local: Locale = Locale(identifier: "Ko-kr")
+        // 위치정보를 사용할 때
+        geoCoder.reverseGeocodeLocation(findLocation, preferredLocale: local) { [weak self] (place, error) in
+            if let address: [CLPlacemark] = place {
+                self?.viewModel.gpsCity = address.last?.locality
+                Log.debug("address = \(String(describing: address.last?.locality))")
+            }
+            if let error = error {
+                Log.debug("errorGeoCoder = \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        Log.debug("errorManager = \(error)")
     }
 }

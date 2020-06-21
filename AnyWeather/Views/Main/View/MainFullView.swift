@@ -206,8 +206,6 @@ extension MainFullView: UIScrollViewDelegate {
             self.contentTop.constant = 0
         }
         
-        DispatchQueue.main.async {
-            self.currentWeatherview.updateLayoutWhenScroll(viewHeight: self.headerHeight.constant)
-        }
+        self.currentWeatherview.updateLayoutWhenScroll(viewHeight: self.headerHeight.constant)
     }
 }

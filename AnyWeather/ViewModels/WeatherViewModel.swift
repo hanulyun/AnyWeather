@@ -6,18 +6,14 @@
 //  Copyright © 2020 hanulyun. All rights reserved.
 //
 
-import CoreLocation
 import UIKit
 
 // Seoul: lat 37.57, lon 126.98
 // 런던: lat 51.51, lon -0.13
 class WeatherViewModel: NSObject {
     
-    private var gpsIsPermit: ((Bool) -> Void)? // 권한 요청 후 권한 허용 상태에 따라 API 요청
-    private var isCompletedGetGps: ((_ lat: CGFloat, _ lon: CGFloat) -> Void)?
-    private var getGpsFlag: Bool = false
-    
     // 외부 접근 변수
+    var getGpsFlag: Bool = false
     var unit: TempUnit = .c
     var weatherModels: [WeatherModel] = [WeatherModel]()
     var gpsCity: String?
@@ -25,48 +21,15 @@ class WeatherViewModel: NSObject {
     
     var currentModels: (([WeatherModel]) -> Void)?
     
-    func gpsIsPermitCheck(isPermit: @escaping ((Bool) -> Void)) {
-        LocationManager.shared.locationAuthorCall(delegate: self)
-        
-        gpsIsPermit = { isPermited in
-            isPermit(isPermited)
-        }
-    }
-    
-    // 현재 위치 날씨 요청
-    // 현재 위치를 받아오면 API request 후 model array에 저장
-    func requestCurrentGps() {
-        LocationManager.shared.locationAuthorizaionCheck(delegate: self) { [weak self] isPermit in
-            guard let self = self else { return }
-            
-            if isPermit {
-                LocationManager.shared.startUpdateLocation()
-                
-                self.isCompletedGetGps = { [weak self] (lat, lon) in
-                    guard let self = self else { return }
-                    
-                    if !self.getGpsFlag {
-                        self.getGpsFlag = true
-                        
-                        self.requestGpsLocation(lat: Double(lat), lon: Double(lon))
-                    }
-                }
-            } else {
-                self.onGps = false
-            }
-        }
-    }
-    
     // background에서 foreground로 재진입 시
     func requestWhenForeground() {
         self.weatherModels = []
         
         self.getGpsFlag = false
-        self.requestCurrentGps()
         self.getSearchWeather()
     }
     
-    private func requestGpsLocation(lat: Double, lon: Double) {
+    func requestGpsLocation(lat: Double, lon: Double) {
         self.requestLatLonPoint(lat: lat.description, lon: lon.description) { model in
             if let model: WeatherModel = model {
                 self.onGps = true
@@ -162,38 +125,4 @@ extension WeatherViewModel {
     }
 }
 
-// MARK: Location Delegate
-extension WeatherViewModel: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse || status == .authorizedAlways {
-            LocationManager.shared.requestLocation()
-            self.gpsIsPermit?(true)
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location: CLLocation = locations[locations.count - 1]
-        let longitude: CLLocationDegrees = location.coordinate.longitude
-        let latitude: CLLocationDegrees = location.coordinate.latitude
-        
-        self.isCompletedGetGps?(CGFloat(latitude), CGFloat(longitude))
-                
-        let findLocation: CLLocation = CLLocation(latitude: latitude, longitude: longitude)
-        let geoCoder: CLGeocoder = CLGeocoder()
-        let local: Locale = Locale(identifier: "Ko-kr")
-        // 위치정보를 사용할 때
-        geoCoder.reverseGeocodeLocation(findLocation, preferredLocale: local) { [weak self] (place, error) in
-            if let address: [CLPlacemark] = place {
-                self?.gpsCity = address.last?.locality
-                Log.debug("address = \(String(describing: address.last?.locality))")
-            }
-            if let error = error {
-                Log.debug("errorGeoCoder = \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        Log.debug("errorManager = \(error)")
-    }
-}
+

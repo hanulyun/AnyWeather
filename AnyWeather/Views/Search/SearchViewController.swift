@@ -22,9 +22,7 @@ class SearchViewController: BaseViewController {
     
     private var mapItems: [MKMapItem] = [MKMapItem]() {
         didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
     }
     private var pointAnnotation: MKPointAnnotation = MKPointAnnotation()

@@ -33,22 +33,24 @@ class APIManager {
         }
         
         session.dataTask(with: url) { (data, response, error) in
-            guard error == nil else {
-                result(nil, error)
-                return
-            }
-            
-            guard let data = data else {
-                result(nil, NSError(domain: "No Data", code: 777, userInfo: nil))
-                return
-            }
-            
-            do {
-                let decoder: JSONDecoder = JSONDecoder()
-                let model = try decoder.decode(T.self, from: data)
-                result(model, nil)
-            } catch let error {
-                result(nil, error)
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    result(nil, error)
+                    return
+                }
+                
+                guard let data = data else {
+                    result(nil, NSError(domain: "No Data", code: 777, userInfo: nil))
+                    return
+                }
+                
+                do {
+                    let decoder: JSONDecoder = JSONDecoder()
+                    let model = try decoder.decode(T.self, from: data)
+                    result(model, nil)
+                } catch let error {
+                    result(nil, error)
+                }
             }
         }.resume()
     }
