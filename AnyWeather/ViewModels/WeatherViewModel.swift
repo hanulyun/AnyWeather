@@ -77,7 +77,11 @@ class WeatherViewModel: NSObject {
             ParamKey.lat.rawValue: lat.description,
             ParamKey.lon.rawValue: lon.description,
         ]
-        APIManager().request(WeatherModel.self, url: Urls.oneCall, param: param) { (model, _) in
+        APIManager().request(WeatherModel.self, url: Urls.oneCall, param: param) { (model, error) in
+            if let err: NSError = error as NSError?, err.code == 777 {
+                Log.debug("No Data")
+            }
+            
             isCompleted(model)
         }
     }
