@@ -32,12 +32,12 @@ struct WeatherModel: Codable {
         var sunrise: Double? // 일출
         var sunset: Double? // 일몰
         var temp: Double? // 기온
-        var feels_like: Double? // 체감온도
+        var feelsLike: Double? // 체감온도
         var pressure: Double? // 기압
         var humidity: Double? // 습도
         var uvi: Double? // 자외선지수
-        var wind_deg: Double? // 바람 방향
-        var wind_speed: Double? // 풍속
+        var windDeg: Double? // 바람 방향
+        var windSpeed: Double? // 풍속
         var visibility: Double? // 가시거리 단위 m
         
         var weather: [Weather]?

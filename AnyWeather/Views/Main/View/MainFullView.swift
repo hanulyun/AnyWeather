@@ -94,9 +94,9 @@ class MainFullView: CustomView {
         let sunrise: String? = model?.sunrise?.timestampToString(format: "a h:mm")
         let sunset: String? = model?.sunset?.timestampToString(format: "a h:mm")
         let windDeg: String?
-            = "\(model?.wind_deg?.calcWindDirection() ?? "") \(Int(model?.wind_speed ?? 0).description )m/s"
+            = "\(model?.windDeg?.calcWindDirection() ?? "") \(Int(model?.windSpeed ?? 0).description )m/s"
         let humi: String? = "\(Int(model?.humidity ?? 0).description)%"
-        let feels: String? = "\(Int(model?.feels_like ?? 0).description)\(degSymbol)"
+        let feels: String? = "\(Int(model?.feelsLike ?? 0).description)\(degSymbol)"
         let press: String? = "\(Int(model?.pressure ?? 0).description)hPa"
         let visi: String? = "\(((model?.visibility ?? 0) / 1000).description)km"
         let uvi: String? = Int(model?.uvi ?? 0).description

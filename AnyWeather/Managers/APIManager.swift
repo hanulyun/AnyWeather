@@ -45,6 +45,7 @@ class APIManager {
             
             do {
                 let decoder: JSONDecoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let model = try decoder.decode(T.self, from: data)
                 result(model, nil)
             } catch let error {
