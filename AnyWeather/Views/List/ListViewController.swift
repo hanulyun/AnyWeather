@@ -194,9 +194,16 @@ extension ListViewController: UITableViewDelegate {
 extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession,
                    withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        let model: WeatherModel = models[destinationIndexPath?.row ?? 0]
-        if let isGps: Bool = model.isGps, isGps {
-            return UITableViewDropProposal(operation: .forbidden)
+        
+        if let indexPath: IndexPath = destinationIndexPath, indexPath.row <= models.count - 1 {
+            let model: WeatherModel = models[indexPath.row]
+            if let isGps: Bool = model.isGps, isGps {
+                return UITableViewDropProposal(operation: .forbidden)
+            }
+            
+            if indexPath.section == 1 {
+                return UITableViewDropProposal(operation: .forbidden)
+            }
         }
         
         if tableView.hasActiveDrag {
