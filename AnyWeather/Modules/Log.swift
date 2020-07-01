@@ -8,8 +8,8 @@
 
 import Foundation
 
-class Log {
-    class func debug<T>(_ object: T?, file: String = #file, line: Int = #line,
+struct Log {
+    static func debug<T>(_ object: T?, file: String = #file, line: Int = #line,
                     funcName: String = #function) {
         #if DEBUG
         let fileNames = file.components(separatedBy: ["/", "."])
