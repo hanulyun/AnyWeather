@@ -19,6 +19,8 @@ enum SessionError: Error {
 
 class APIManager {
     
+    static let shared: APIManager = APIManager()
+    
     var session: URLSession!
     
     func request<T: Decodable>(_ type: T.Type, url: String, param: [String: Any]) -> Promise<T> {
@@ -43,7 +45,7 @@ class APIManager {
         }
         
         guard let url: URL = component.url else { promise.reject(SessionError.invalidUrl); return promise }
-        Log.debug("😀url = \(url)")
+        
         promise.fulfill(url)
         
         return promise

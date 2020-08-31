@@ -12,7 +12,7 @@ import Promises
 
 class APIManagerTests: XCTestCase {
     
-    let apiManager = APIManager()
+    let apiManager: APIManager = APIManager.shared
     let lat: Double = 37.57
     let lon: Double = 126.98
     let url: String = Urls.oneCall
