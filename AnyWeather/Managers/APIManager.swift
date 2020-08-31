@@ -7,10 +7,75 @@
 //
 
 import Foundation
+import Promises
+
+enum SessionError: Error {
+    case invalidUrl
+    case serverError
+    case noData
+    case failedToParse
+    case unknowned
+}
 
 class APIManager {
     
     var session: URLSession!
+    
+    func request<T: Decodable>(_ type: T.Type, url: String, param: [String: Any]) -> Promise<T> {
+        return setComponentUrl(url, param: param).then(sessionDataTask).then(parseModel)
+            .catch { error in
+                Log.debug(error.localizedDescription)
+        }
+    }
+    
+    func setComponentUrl(_ url: String, param: [String: Any]) -> Promise<URL> {
+        let promise: Promise<URL> = Promise<URL>.pending()
+        
+        guard var component: URLComponents = URLComponents(string: Urls.baseProtocol + Urls.baseUrl + url)
+            else { promise.reject(SessionError.invalidUrl); return promise }
+        
+        var param: [String: Any] = param
+        param[ParamKey.appId.rawValue] = Parameters.apiKey
+        param[ParamKey.lang.rawValue] = Parameters.lang
+        param[ParamKey.units.rawValue] = Parameters.units
+        component.queryItems = param.map { key, value in
+            URLQueryItem(name: key, value: value as? String)
+        }
+        
+        guard let url: URL = component.url else { promise.reject(SessionError.invalidUrl); return promise }
+        Log.debug("😀url = \(url)")
+        promise.fulfill(url)
+        
+        return promise
+    }
+    
+    private func sessionDataTask(_ url: URL) -> Promise<(Data?, URLResponse?)> {
+        let config: URLSessionConfiguration = URLSessionConfiguration.default
+        if session == nil {
+            session = URLSession(configuration: config)
+        }
+        return wrap { self.session.dataTask(with: url, completionHandler: $0).resume() }
+    }
+    
+    private func parseModel<T: Decodable>(_ data: Data?, response: URLResponse?) throws -> Promise<T> {
+        let promise: Promise<T> = Promise<T>.pending()
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+            (200..<300).contains(httpResponse.statusCode) else {
+                throw SessionError.serverError
+        }
+        
+        guard let data = data else { throw SessionError.noData }
+        
+        let decoder: JSONDecoder = JSONDecoder()
+        if let model: T = try? decoder.decode(T.self, from: data) {
+            promise.fulfill(model)
+        } else {
+            throw SessionError.failedToParse
+        }
+        
+        return promise
+    }
     
     func request<T: Decodable>(_ type: T.Type, url: String, param: [String: Any],
                                       result: @escaping ((T?, Error?) -> Void)) {

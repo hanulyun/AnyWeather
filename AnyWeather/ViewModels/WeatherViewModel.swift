@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Promises
 
 // Seoul: lat 37.57, lon 126.98
 // 런던: lat 51.51, lon -0.13
@@ -77,13 +78,16 @@ class WeatherViewModel: NSObject {
             ParamKey.lat.rawValue: lat.description,
             ParamKey.lon.rawValue: lon.description,
         ]
-        APIManager().request(WeatherModel.self, url: Urls.oneCall, param: param) { (model, error) in
-            if let err: NSError = error as NSError?, err.code == 777 {
-                Log.debug("No Data")
-            }
-            
-            isCompleted(model)
-        }
+//        APIManager().request(WeatherModel.self, url: Urls.oneCall, param: param).then { model in
+//            isCompleted(model)
+//        }
+//        APIManager().request(WeatherModel.self, url: Urls.oneCall, param: param) { (model, error) in
+//            if let err: NSError = error as NSError?, err.code == 777 {
+//                Log.debug("No Data")
+//            }
+//
+//            isCompleted(model)
+//        }
     }
 }
 
