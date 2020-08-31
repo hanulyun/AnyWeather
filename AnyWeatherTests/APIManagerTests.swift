@@ -21,17 +21,13 @@ class APIManagerTests: XCTestCase {
     }
     
     func testUrlParameters() {
-        let mockURLSession = MockURLSession(data: nil, urlResponse: nil, error: nil)
+        let mockURLSession: MockURLSession = MockURLSession(data: nil, urlResponse: nil, error: nil)
         apiManager.session = mockURLSession
     
         apiManager.setComponentUrl(url, param: param).then { url in
             XCTAssertEqual(url.query?.contains(ParamKey.lat.rawValue), true)
             XCTAssertEqual(url.query?.contains(ParamKey.lon.rawValue), true)
         }
-//        apiManager.request(MockModel.self, url: url, param: param) { (_, _) in }
-  
-//        XCTAssertEqual(mockURLSession.cachedUrl?.query?.contains(ParamKey.lat.rawValue), true)
-//        XCTAssertEqual(mockURLSession.cachedUrl?.query?.contains(ParamKey.lon.rawValue), true)
     }
     
     func testRequestAndDecoderModel() {
@@ -42,7 +38,7 @@ class APIManagerTests: XCTestCase {
                                                             urlResponse: mockResponse, error: nil)
         apiManager.session = mockURLSession
         
-        let modelExpect = expectation(description: "mockModel")
+        let modelExpect: XCTestExpectation = expectation(description: "mockModel")
         var mockModel: MockModel?
         
         let param: [String: Any] = [
@@ -54,23 +50,17 @@ class APIManagerTests: XCTestCase {
             mockModel = model
             modelExpect.fulfill()
         }
-        
-//        apiManager.request(MockModel.self, url: url, param: param) { (model, _) in
-//            mockModel = model
-//            modelExpect.fulfill()
-//        }
-        
+
         waitForExpectations(timeout: 1) { (error) in
           XCTAssertNotNil(mockModel)
         }
     }
     
     func testRequestDataEmptyError() {
-        let inputError: NSError = NSError(domain: "noDataError", code: 777, userInfo: nil)
         let mockResponse: HTTPURLResponse? = HTTPURLResponse(url: URL(string: url)!, statusCode: 200,
                                                              httpVersion: nil, headerFields: nil)
         let mockURLSession: MockURLSession = MockURLSession(data: nil,
-                                                            urlResponse: mockResponse, error: inputError)
+                                                            urlResponse: mockResponse, error: nil)
         apiManager.session = mockURLSession
         
         let errorExpect: XCTestExpectation = expectation(description: "noDataError")
@@ -81,13 +71,9 @@ class APIManagerTests: XCTestCase {
             errorExpect.fulfill()
         }
         
-//        apiManager.request(MockModel.self, url: url, param: param) { (_, error) in
-//            errorRes = error
-//            errorExpect.fulfill()
-//        }
-        
         waitForExpectations(timeout: 1) { error in
             XCTAssertNotNil(errorRes)
+            XCTAssertEqual(errorRes as? SessionError, SessionError.noData)
         }
     }
     
@@ -106,14 +92,10 @@ class APIManagerTests: XCTestCase {
             errorRes = error
             errorExpect.fulfill()
         }
-        
-//        apiManager.request(MockModel.self, url: url, param: param) { (_, error) in
-//            errorRes = error
-//            errorExpect.fulfill()
-//        }
-        
+
         waitForExpectations(timeout: 1) { (error) in
             XCTAssertNotNil(errorRes)
+            XCTAssertEqual(errorRes as? SessionError, SessionError.failedToParse)
         }
     }
 
