@@ -13,6 +13,7 @@ extension HTTPClient {
     func request<ResponseData: Decodable>(
         urlString: String, parameters: [String: Any]? = nil,
         parameterEncoding: URLRequest.ParameterEncoding = .form) -> Promise<ResponseData> {
+        
         return Promise<ResponseData> { fulfill, reject in
             self.request(urlString: urlString, method: .get, headers: nil, parameters: parameters,
                          parameterEncoding: parameterEncoding) { (data: ResponseData?, error) in

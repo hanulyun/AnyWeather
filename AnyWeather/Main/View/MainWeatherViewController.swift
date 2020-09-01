@@ -23,6 +23,15 @@ class MainWeatherViewController: UIViewController {
     
     @IBOutlet weak var pagerControlView: UIView!
     private lazy var controlView = CustomPagerControl.instantiate()
+        
+    private var models: [Model.WeatherModel] = [Model.WeatherModel]() {
+        didSet {
+            setPageControl(models: models)
+            changeBackgroundViewColor(model: models.first)
+            
+            setupHStackView()
+        }
+    }
     
     private var currentIndex: Int = 0 {
         didSet {
@@ -35,7 +44,8 @@ class MainWeatherViewController: UIViewController {
         super.viewDidLoad()
         
         initializeUI()
-        controlView.setControls(controls: [.gps])
+        
+        requestMainWeatherAPI()
     }
     
     private func initializeUI() {
@@ -51,11 +61,44 @@ class MainWeatherViewController: UIViewController {
         hScrollView.delegate = self
     }
     
-    private func changeBackColor(model: WeatherModel?) {
+    private func requestMainWeatherAPI() {
+        API.weather(lat: "37.57", lon: "126.98").then { [weak self] model in
+            self?.models.append(model)
+        }
+    }
+    
+    private func setupHStackView() {
+        hStackView.removeAllSubviews()
+//        for model in self.models {
+//            let fullView: MainFullView = MainFullView()
+//            fullView.setData(model: model)
+//            self.hStackView.addArrangedSubview(fullView)
+//        }
+    }
+    
+    private func setScrollOffsetWithPageIndex(index: Int) {
+        let xOffset: CGFloat = CommonSizes.screenWidth * CGFloat(index)
+        hScrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: false)
+    }
+    
+    private func changeBackgroundViewColor(model: Model.WeatherModel?) {
         UIView.animate(withDuration: 0.5) {
 //            self.emptyLabel.isHidden = !(self.models.count == 0)
-            self.backgroundView.backgroundColor = .getWeatherColor(model: model)
+            self.backgroundView.backgroundColor = UIColor.pay.getWeatherColor(model: model)
         }
+    }
+    
+    private func setPageControl(models: [Model.WeatherModel]) {
+        var controls: [PagerControlItem] = []
+        
+        for model in models {
+            var control: PagerControlItem = .dot
+            if let isGps: Bool = model.isGps, isGps {
+                control = .gps
+            }
+            controls.append(control)
+        }
+        controlView.setControls(controls: controls)
     }
     
     @IBAction func actionListButton(_ sender: UIButton) {
