@@ -1,9 +1,11 @@
 PODS:
+  - Kakaopay/Common (1.2.40)
   - PromisesObjC (1.2.8)
   - PromisesSwift (1.2.8):
     - PromisesObjC (= 1.2.8)
 
 DEPENDENCIES:
+  - Kakaopay/Common (from `https://github.kakaocorp.com/kakaopay-client/ios-pay-common.git`)
   - PromisesSwift
 
 SPEC REPOS:
@@ -11,10 +13,20 @@ SPEC REPOS:
     - PromisesObjC
     - PromisesSwift
 
+EXTERNAL SOURCES:
+  Kakaopay:
+    :git: https://github.kakaocorp.com/kakaopay-client/ios-pay-common.git
+
+CHECKOUT OPTIONS:
+  Kakaopay:
+    :commit: 8519fe9816f930d18b932e32e40efa83b47503ad
+    :git: https://github.kakaocorp.com/kakaopay-client/ios-pay-common.git
+
 SPEC CHECKSUMS:
+  Kakaopay: 31b781a9a0056eaa7f8bf074e8e67021393bd635
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   PromisesSwift: 37bad6f4daddb02f7c9c531efe91e8b21c13ee2f
 
-PODFILE CHECKSUM: bf180a03f19e8a142e32fde9a318e44edac4dcfe
+PODFILE CHECKSUM: f63376ef58dd0d700d0d8af3a748f7e3751ab46e
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

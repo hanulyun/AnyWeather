@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AWc-hJ-MZS">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Toast View Controller-->
+        <scene sceneID="sVC-HZ-SNh">
+            <objects>
+                <viewController id="AWc-hJ-MZS" customClass="ToastViewController" customModule="Kakaopay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9Gy-ja-YxD" customClass="TouchDisableView" customModule="Kakaopay" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hts-Uq-JMp">
+                                <rect key="frame" x="94" y="569" width="187.5" height="38"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a Toast message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5kE-Sv-Pam">
+                                        <rect key="frame" x="20" y="10" width="147.5" height="18"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.14901960784313725" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="5kE-Sv-Pam" firstAttribute="leading" secondItem="hts-Uq-JMp" secondAttribute="leading" constant="20" id="HPA-pk-U0h"/>
+                                    <constraint firstItem="5kE-Sv-Pam" firstAttribute="top" secondItem="hts-Uq-JMp" secondAttribute="top" constant="10" id="Mfi-2D-tTw"/>
+                                    <constraint firstAttribute="bottom" secondItem="5kE-Sv-Pam" secondAttribute="bottom" constant="10" id="oTH-wf-zwa"/>
+                                    <constraint firstAttribute="trailing" secondItem="5kE-Sv-Pam" secondAttribute="trailing" constant="20" id="y2g-7h-0E7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hts-Uq-JMp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Z9m-8h-QML" secondAttribute="leading" constant="30" id="Fux-Tr-QPy"/>
+                            <constraint firstItem="Z9m-8h-QML" firstAttribute="bottom" secondItem="hts-Uq-JMp" secondAttribute="bottom" constant="60" id="ifs-Mo-hcz"/>
+                            <constraint firstItem="hts-Uq-JMp" firstAttribute="centerX" secondItem="Z9m-8h-QML" secondAttribute="centerX" id="lhO-hE-xah"/>
+                            <constraint firstItem="Z9m-8h-QML" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hts-Uq-JMp" secondAttribute="trailing" constant="30" id="uwX-45-D8h"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Z9m-8h-QML"/>
+                    </view>
+                    <connections>
+                        <outlet property="messageContainerView" destination="hts-Uq-JMp" id="w9X-Z5-cQQ"/>
+                        <outlet property="messageLabel" destination="5kE-Sv-Pam" id="ccx-US-A5I"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lLI-lq-0U6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-527.20000000000005" y="38.23088455772114"/>
+        </scene>
+    </scenes>
+</document>

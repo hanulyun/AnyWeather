@@ -8,9 +8,9 @@
 
 import UIKit
 
-class FooterView: CustomView {
+class FooterView: CustomTempView {
     
-    private var pageControl: CustomPagerControl = CustomPagerControl()
+    private var pageControl: TempPagerControl = TempPagerControl()
     
     private let lineView: UIView = UIView().filledStyle(color: .color(.translucentMain))
     
@@ -34,10 +34,10 @@ class FooterView: CustomView {
     }
     
     func setPageControl(models: [WeatherModel]) {
-        var controls: [PagerControl] = []
+        var controls: [PagerControlItem] = []
         
         for model in models {
-            var control: PagerControl = .dot
+            var control: PagerControlItem = .dot
             if let isGps: Bool = model.isGps, isGps {
                 control = .gps
             }

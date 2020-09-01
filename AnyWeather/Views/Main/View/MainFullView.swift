@@ -15,7 +15,7 @@ struct DetailModel {
     var value2: String?
 }
 
-class MainFullView: CustomView {
+class MainFullView: CustomTempView {
     
     // HeaderViews
     private let currentWeatherview: MainTempView = MainTempView()

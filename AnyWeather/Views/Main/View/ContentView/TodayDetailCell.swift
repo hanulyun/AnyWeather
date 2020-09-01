@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodayDetailCell: CustomView {
+class TodayDetailCell: CustomTempView {
     
     private let miniLabel1: UILabel = UILabel()
     private let valueLabel1: UILabel = UILabel()

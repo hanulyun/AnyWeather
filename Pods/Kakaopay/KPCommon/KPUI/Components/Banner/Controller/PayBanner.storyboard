@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Pay Banner Container-->
+        <scene sceneID="Sn4-gG-Shh">
+            <objects>
+                <viewController storyboardIdentifier="PayBannerContainer" id="4ti-nB-nvJ" customClass="PayBannerContainer" customModule="Kakaopay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UZq-C6-syH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="rj4-TA-Pal"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="400"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uaD-xa-eZj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="129" y="-35"/>
+        </scene>
+        <!--Single Banner View Controller-->
+        <scene sceneID="JPk-q8-PkG">
+            <objects>
+                <viewController storyboardIdentifier="SingleBannerViewController" id="84w-bq-G3J" customClass="SingleBannerViewController" customModule="Kakaopay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rfc-ZE-pa4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4rZ-v3-TgD">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="NMw-jn-ftC" appends="YES" id="obG-mb-MRN"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4rZ-v3-TgD" firstAttribute="top" secondItem="rfc-ZE-pa4" secondAttribute="top" id="5bR-h2-xfa"/>
+                            <constraint firstItem="4eX-DR-nMJ" firstAttribute="trailing" secondItem="4rZ-v3-TgD" secondAttribute="trailing" id="Cnj-de-Fb2"/>
+                            <constraint firstAttribute="bottom" secondItem="4rZ-v3-TgD" secondAttribute="bottom" id="l8R-4D-fVh"/>
+                            <constraint firstItem="4rZ-v3-TgD" firstAttribute="leading" secondItem="4eX-DR-nMJ" secondAttribute="leading" id="zxk-Pb-P4G"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4eX-DR-nMJ"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="400"/>
+                    <connections>
+                        <outlet property="baseView" destination="4rZ-v3-TgD" id="dR7-hG-4ZL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kcO-dy-mFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="NMw-jn-ftC">
+                    <connections>
+                        <action selector="actionToBannerItem:" destination="84w-bq-G3J" id="Fvs-oc-V1t"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="477" y="285"/>
+        </scene>
+        <!--Pay Bottom Banner Container-->
+        <scene sceneID="9wh-X3-IMA">
+            <objects>
+                <viewController storyboardIdentifier="PayBottomBannerContainer" id="9Cq-Mq-fZM" customClass="PayBottomBannerContainer" customModule="Kakaopay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="V51-NW-ZU3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vQx-c2-Z2Y">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yh-x7-sPn" customClass="RoundedView" customModule="Kakaopay" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="626" width="414" height="270"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQy-MO-SuN">
+                                        <rect key="frame" x="27" y="22" width="360" height="192"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="192" id="Vcs-UC-bh2"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Nly-fy-98X" firstAttribute="trailing" secondItem="TQy-MO-SuN" secondAttribute="trailing" constant="27" id="Bcz-jP-HvQ"/>
+                                    <constraint firstItem="Nly-fy-98X" firstAttribute="bottom" secondItem="TQy-MO-SuN" secondAttribute="bottom" constant="22" id="Oes-VS-Avd"/>
+                                    <constraint firstItem="TQy-MO-SuN" firstAttribute="top" secondItem="7yh-x7-sPn" secondAttribute="top" constant="22" id="bUk-yj-FhX"/>
+                                    <constraint firstItem="TQy-MO-SuN" firstAttribute="leading" secondItem="Nly-fy-98X" secondAttribute="leading" constant="27" id="s3k-0e-zFv"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="Nly-fy-98X"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="leftTop" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rightTop" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qhT-Bm-4eY">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="626"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="xnO-8H-2zH" appends="YES" id="RPB-hd-RC3"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7yh-x7-sPn" firstAttribute="top" secondItem="qhT-Bm-4eY" secondAttribute="bottom" id="5mP-iV-3Pn"/>
+                            <constraint firstItem="7yh-x7-sPn" firstAttribute="trailing" secondItem="91P-R2-fw0" secondAttribute="trailing" id="8yP-ll-ygd"/>
+                            <constraint firstAttribute="bottom" secondItem="vQx-c2-Z2Y" secondAttribute="bottom" id="AFr-nx-m9c"/>
+                            <constraint firstItem="vQx-c2-Z2Y" firstAttribute="leading" secondItem="V51-NW-ZU3" secondAttribute="leading" id="HsM-Tq-bpp"/>
+                            <constraint firstItem="7yh-x7-sPn" firstAttribute="top" secondItem="qhT-Bm-4eY" secondAttribute="bottom" id="Kc8-1O-Wc0"/>
+                            <constraint firstItem="qhT-Bm-4eY" firstAttribute="leading" secondItem="91P-R2-fw0" secondAttribute="leading" id="LZ1-2T-3ko"/>
+                            <constraint firstItem="qhT-Bm-4eY" firstAttribute="trailing" secondItem="91P-R2-fw0" secondAttribute="trailing" id="LZp-d9-KzB"/>
+                            <constraint firstItem="7yh-x7-sPn" firstAttribute="leading" secondItem="91P-R2-fw0" secondAttribute="leading" id="aGc-Yf-gww"/>
+                            <constraint firstAttribute="trailing" secondItem="vQx-c2-Z2Y" secondAttribute="trailing" id="b5C-VC-Pa7"/>
+                            <constraint firstItem="vQx-c2-Z2Y" firstAttribute="top" secondItem="V51-NW-ZU3" secondAttribute="top" id="fTP-qM-Ppy"/>
+                            <constraint firstAttribute="bottom" secondItem="7yh-x7-sPn" secondAttribute="bottom" id="uAc-1c-eb0"/>
+                            <constraint firstItem="qhT-Bm-4eY" firstAttribute="top" secondItem="V51-NW-ZU3" secondAttribute="top" id="vqj-9T-yNW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="91P-R2-fw0"/>
+                    </view>
+                    <connections>
+                        <outlet property="bannerBaseView" destination="TQy-MO-SuN" id="KSi-6p-OZh"/>
+                        <outlet property="bottomView" destination="7yh-x7-sPn" id="xZ8-rs-IbQ"/>
+                        <outlet property="bottomViewDimmedView" destination="vQx-c2-Z2Y" id="mne-SK-uTz"/>
+                        <outlet property="bottomViewHeightConstraint" destination="Vcs-UC-bh2" id="wA4-o3-DMw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="98C-b6-2kW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="xnO-8H-2zH">
+                    <connections>
+                        <action selector="actionToCancel:" destination="9Cq-Mq-fZM" id="F84-I0-XRJ"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="879.71014492753625" y="-202.23214285714286"/>
+        </scene>
+        <!--Slide Banner View Controller-->
+        <scene sceneID="LeG-wz-cEH">
+            <objects>
+                <viewController storyboardIdentifier="SlideBannerViewController" id="5b6-bS-WrU" customClass="SlideBannerViewController" customModule="Kakaopay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7b1-cx-c0A">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u5a-gi-Kbz">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6qh-En-yyt">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a65-Gg-fhs">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                    </imageView>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUS-RX-SuC" customClass="BannerScrollView" customModule="Kakaopay" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="5b6-bS-WrU" id="9HQ-Ib-f91"/>
+                                        </connections>
+                                    </scrollView>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9At-3v-BHl">
+                                        <rect key="frame" x="207" y="405" width="0.0" height="0.0"/>
+                                        <color key="pageIndicatorTintColor" red="0.80784313725490198" green="0.83137254901960778" blue="0.85490196078431369" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="currentPageIndicatorTintColor" red="0.12941176470588234" green="0.14509803921568626" blue="0.16078431372549018" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="actionToPage:" destination="5b6-bS-WrU" eventType="touchUpInside" id="wkK-xc-FX9"/>
+                                        </connections>
+                                    </pageControl>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="a65-Gg-fhs" secondAttribute="bottom" id="Eo5-rf-eZT"/>
+                                    <constraint firstItem="9At-3v-BHl" firstAttribute="top" secondItem="u5a-gi-Kbz" secondAttribute="top" priority="250" constant="-5" id="GQC-tv-kzu"/>
+                                    <constraint firstItem="rUS-RX-SuC" firstAttribute="top" secondItem="u5a-gi-Kbz" secondAttribute="top" id="Nbo-Wi-wif"/>
+                                    <constraint firstItem="6qh-En-yyt" firstAttribute="top" secondItem="u5a-gi-Kbz" secondAttribute="top" id="PTa-nR-8co"/>
+                                    <constraint firstAttribute="bottom" secondItem="rUS-RX-SuC" secondAttribute="bottom" id="Tiy-0b-MZv"/>
+                                    <constraint firstItem="a65-Gg-fhs" firstAttribute="leading" secondItem="u5a-gi-Kbz" secondAttribute="leading" id="XCy-eM-B3P"/>
+                                    <constraint firstItem="a65-Gg-fhs" firstAttribute="top" secondItem="u5a-gi-Kbz" secondAttribute="top" id="YwX-BC-E9I"/>
+                                    <constraint firstAttribute="trailing" secondItem="6qh-En-yyt" secondAttribute="trailing" id="Z5P-PQ-h3E"/>
+                                    <constraint firstAttribute="trailing" secondItem="a65-Gg-fhs" secondAttribute="trailing" id="f4O-U9-rUz"/>
+                                    <constraint firstItem="9At-3v-BHl" firstAttribute="centerX" secondItem="u5a-gi-Kbz" secondAttribute="centerX" priority="750" id="iUF-3H-Zq3"/>
+                                    <constraint firstItem="9At-3v-BHl" firstAttribute="leading" secondItem="u5a-gi-Kbz" secondAttribute="leading" priority="250" constant="10" id="kOO-0P-XlY"/>
+                                    <constraint firstAttribute="trailing" secondItem="rUS-RX-SuC" secondAttribute="trailing" id="mZo-E8-UX4"/>
+                                    <constraint firstAttribute="trailing" secondItem="9At-3v-BHl" secondAttribute="trailing" priority="250" constant="10" id="nVX-K1-K9z"/>
+                                    <constraint firstAttribute="bottom" secondItem="9At-3v-BHl" secondAttribute="bottom" priority="750" constant="-5" id="pF6-K5-Sih"/>
+                                    <constraint firstAttribute="bottom" secondItem="6qh-En-yyt" secondAttribute="bottom" id="pKb-ur-MBs"/>
+                                    <constraint firstItem="6qh-En-yyt" firstAttribute="leading" secondItem="u5a-gi-Kbz" secondAttribute="leading" id="wCK-m8-65P"/>
+                                    <constraint firstItem="rUS-RX-SuC" firstAttribute="leading" secondItem="u5a-gi-Kbz" secondAttribute="leading" id="yPh-D8-zCE"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="u5a-gi-Kbz" firstAttribute="top" secondItem="7b1-cx-c0A" secondAttribute="top" id="3nz-Ge-X0n"/>
+                            <constraint firstItem="u5a-gi-Kbz" firstAttribute="leading" secondItem="xED-mO-PNW" secondAttribute="leading" id="gSW-RE-u2O"/>
+                            <constraint firstItem="xED-mO-PNW" firstAttribute="trailing" secondItem="u5a-gi-Kbz" secondAttribute="trailing" id="s4F-Vz-mEw"/>
+                            <constraint firstAttribute="bottom" secondItem="u5a-gi-Kbz" secondAttribute="bottom" id="wOR-L0-orm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xED-mO-PNW"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="dl1-0e-eBS" appends="YES" id="sZu-UC-0Vo"/>
+                        </connections>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="400"/>
+                    <connections>
+                        <outlet property="baseView" destination="u5a-gi-Kbz" id="PHc-Tc-2WE"/>
+                        <outlet property="pageControl" destination="9At-3v-BHl" id="1rp-pa-6EZ"/>
+                        <outlet property="pageControlBottom" destination="pF6-K5-Sih" id="dXM-Q6-kxm"/>
+                        <outlet property="pageControlCenter" destination="iUF-3H-Zq3" id="p8I-53-Gra"/>
+                        <outlet property="pageControlLeft" destination="kOO-0P-XlY" id="dL8-x8-HuX"/>
+                        <outlet property="pageControlRight" destination="nVX-K1-K9z" id="miy-oR-2B1"/>
+                        <outlet property="pageControlTop" destination="GQC-tv-kzu" id="p0X-kB-TJ8"/>
+                        <outlet property="scrollView" destination="rUS-RX-SuC" id="NCL-tw-O40"/>
+                        <outletCollection property="backgroundImageViews" destination="6qh-En-yyt" collectionClass="NSMutableArray" id="6Jo-dP-r4f"/>
+                        <outletCollection property="backgroundImageViews" destination="a65-Gg-fhs" collectionClass="NSMutableArray" id="4eX-GZ-nJT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z6W-A3-hNe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="dl1-0e-eBS">
+                    <connections>
+                        <action selector="actionToBannerItem:" destination="5b6-bS-WrU" id="8Be-pF-UdG"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-265" y="285"/>
+        </scene>
+        <!--Pay Floating Banner Container-->
+        <scene sceneID="IL2-G2-xjl">
+            <objects>
+                <viewController storyboardIdentifier="PayFloatingBannerContainer" id="5sd-gd-vlO" customClass="PayFloatingBannerContainer" customModule="Kakaopay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PuZ-wQ-Jct">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2g-Bl-PDb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aai-gl-KaA" customClass="RoundedView" customModule="Kakaopay" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="582" width="414" height="314"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aPX-Ku-LR2">
+                                        <rect key="frame" x="47" y="20" width="320" height="240"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="320" id="cGC-sK-YNN"/>
+                                            <constraint firstAttribute="height" constant="240" id="srD-tx-JT8"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="aPX-Ku-LR2" firstAttribute="centerX" secondItem="aai-gl-KaA" secondAttribute="centerX" id="7Ir-zq-Qy8"/>
+                                    <constraint firstItem="JHh-6t-SW1" firstAttribute="bottom" secondItem="aPX-Ku-LR2" secondAttribute="bottom" constant="20" id="Pa0-JK-o50"/>
+                                    <constraint firstItem="aPX-Ku-LR2" firstAttribute="top" secondItem="aai-gl-KaA" secondAttribute="top" constant="20" id="Suj-Ca-im6"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="JHh-6t-SW1"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="leftTop" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rightTop" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Se4-Gp-b3I">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="582"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="IDZ-9R-ifJ" appends="YES" id="7qy-DN-wUA"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Se4-Gp-b3I" firstAttribute="top" secondItem="PuZ-wQ-Jct" secondAttribute="top" id="0rz-F2-8qu"/>
+                            <constraint firstItem="aai-gl-KaA" firstAttribute="top" secondItem="Se4-Gp-b3I" secondAttribute="bottom" id="4jO-Yb-nQf"/>
+                            <constraint firstItem="aai-gl-KaA" firstAttribute="trailing" secondItem="kUf-WF-owN" secondAttribute="trailing" id="DU4-TQ-3W5"/>
+                            <constraint firstAttribute="bottom" secondItem="d2g-Bl-PDb" secondAttribute="bottom" id="EdT-WU-rLp"/>
+                            <constraint firstItem="Se4-Gp-b3I" firstAttribute="leading" secondItem="kUf-WF-owN" secondAttribute="leading" id="EeT-zJ-ZZE"/>
+                            <constraint firstAttribute="bottom" secondItem="aai-gl-KaA" secondAttribute="bottom" id="KST-Ez-5jv"/>
+                            <constraint firstItem="d2g-Bl-PDb" firstAttribute="top" secondItem="PuZ-wQ-Jct" secondAttribute="top" id="OY5-Zx-ugg"/>
+                            <constraint firstItem="aai-gl-KaA" firstAttribute="top" secondItem="Se4-Gp-b3I" secondAttribute="bottom" id="Qys-E6-BZ5"/>
+                            <constraint firstItem="aai-gl-KaA" firstAttribute="leading" secondItem="kUf-WF-owN" secondAttribute="leading" id="V97-Lw-Dzy"/>
+                            <constraint firstItem="d2g-Bl-PDb" firstAttribute="leading" secondItem="aai-gl-KaA" secondAttribute="leading" id="X1V-2k-cTw"/>
+                            <constraint firstItem="d2g-Bl-PDb" firstAttribute="trailing" secondItem="PuZ-wQ-Jct" secondAttribute="trailing" id="bOz-0Z-qCi"/>
+                            <constraint firstItem="Se4-Gp-b3I" firstAttribute="trailing" secondItem="kUf-WF-owN" secondAttribute="trailing" id="hOD-0m-2HN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kUf-WF-owN"/>
+                    </view>
+                    <connections>
+                        <outlet property="bannerBaseView" destination="aPX-Ku-LR2" id="Zpx-V0-Zjn"/>
+                        <outlet property="bottomView" destination="aai-gl-KaA" id="kEQ-Ir-4W8"/>
+                        <outlet property="bottomViewDimmedView" destination="d2g-Bl-PDb" id="1yk-U1-puG"/>
+                        <outlet property="bottomViewHeightConstraint" destination="srD-tx-JT8" id="z1s-N6-CMI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xFM-Ky-qws" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="IDZ-9R-ifJ">
+                    <connections>
+                        <action selector="actionToCancel:" destination="5sd-gd-vlO" id="4h2-ux-lYa"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1528" y="-202"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,3 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-AnyWeather-AnyWeatherUITests/Pods-AnyWeather-AnyWeatherUITests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Kakaopay/Kakaopay.framework
 ${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
 ${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodaySummaryView: CustomView {
+class TodaySummaryView: CustomTempView {
     
     private let commentLabel: UILabel = UILabel()
     

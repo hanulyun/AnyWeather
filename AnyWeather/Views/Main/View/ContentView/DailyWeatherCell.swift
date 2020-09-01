@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DailyWeatherCell: CustomView {
+class DailyWeatherCell: CustomTempView {
     
     private let containerView: UIView = UIView()
     

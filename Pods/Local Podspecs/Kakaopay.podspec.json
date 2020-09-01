@@ -1,0 +1,83 @@
+{
+  "name": "Kakaopay",
+  "version": "1.2.40",
+  "summary": "Kakaopay libraries",
+  "homepage": "https://github.daumkakao.com/mirror/kakaopay-client_ios-pay-common",
+  "authors": "KakaopayCorp.",
+  "license": "KakaopayCorp.",
+  "platforms": {
+    "ios": "11.0"
+  },
+  "requires_arc": true,
+  "source": {
+    "git": "https://github.daumkakao.com/mirror/kakaopay-client_ios-pay-common.git",
+    "tag": "1.2.40"
+  },
+  "default_subspecs": "Common",
+  "subspecs": [
+    {
+      "name": "Common",
+      "source_files": [
+        "Kakaopay.h",
+        "KPCommon/KPCore/**/*.{h,m,swift,c}",
+        "KPCommon/KPUI/**/*.{h,m,swift}"
+      ],
+      "public_header_files": [
+        "Kakaopay.h",
+        "KPCommon/KPCore/ImagePath/NSImagePathUtil.h",
+        "KPCommon/KPCore/Crypto/PayCrypto.h",
+        "KPCommon/KPCore/Crypto/PKI/PayJWT.h",
+        "KPCommon/KPCore/Crypto/PKI/PayCertificate.h",
+        "KPCommon/KPCore/Crypto/PKI/PayECKeyPair.h",
+        "KPCommon/KPCore/Crypto/Kisa/ariacbc.h"
+      ],
+      "private_header_files": [
+        "KPCommon/KPCore/ImagePath/CFImagePathUtil.h",
+        "KPCommon/KPCore/Crypto/PKI/PayOpenSSLHelper.h",
+        "KPCommon/KPCore/Crypto/PKI/PayCertUtil.h"
+      ],
+      "resources": "KPCommon/KPUI/**/*.{xib,storyboard}",
+      "vendored_libraries": "KPCommon/External/openssl/*.a",
+      "xcconfig": {
+        "HEADER_SEARCH_PATHS": "${PODS_TARGET_SRCROOT}/KPCommon/External/openssl/include"
+      },
+      "exclude_files": "KPCommon/KPCommon.h",
+      "preserve_paths": "KPCommon/External/openssl/include/**/*.h"
+    },
+    {
+      "name": "Fido",
+      "source_files": [
+        "Kakaopay.h",
+        "KPFido/FIDO/*.{h,m,swift}"
+      ],
+      "public_header_files": [
+        "Kakaopay.h",
+        "KPFido/FIDO/FidoWrapper.h"
+      ],
+      "vendored_frameworks": [
+        "KPFido/FIDO/onepassIosSdkfull_framework.framework",
+        "KPFido/FIDO/public_onepass.framework"
+      ],
+      "exclude_files": "KPFido/KPFido.h",
+      "frameworks": [
+        "onepassIosSdkfull_framework",
+        "public_onepass"
+      ]
+    },
+    {
+      "name": "nFilter",
+      "source_files": [
+        "Kakaopay.h",
+        "KPNFilter/nFilter/**/*.{h,m,swift}"
+      ],
+      "public_header_files": [
+        "Kakaopay.h",
+        "KPNFilter/nFilter/include/*.h"
+      ],
+      "private_header_files": "KPNFilter/nFilter/*.h",
+      "resources": "KPNFilter/nFilter/Resources/**/*.{png,plist,xib,storyboard,wav,caf}",
+      "vendored_libraries": "KPNFilter/nFilter/*.a",
+      "exclude_files": "KPNFilter/KPNFilter.h"
+    }
+  ]
+}

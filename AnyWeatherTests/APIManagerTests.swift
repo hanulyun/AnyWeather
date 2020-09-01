@@ -24,7 +24,7 @@ class APIManagerTests: XCTestCase {
         let mockURLSession: MockURLSession = MockURLSession(data: nil, urlResponse: nil, error: nil)
         apiManager.session = mockURLSession
         
-        apiManager.setComponentUrl(url, param: param).then { url in
+        apiManager.setUrlComponent(url, param: param).then { url in
             XCTAssertEqual(url.query?.contains(ParamKey.lat.rawValue), true)
             XCTAssertEqual(url.query?.contains(ParamKey.lon.rawValue), true)
         }
@@ -73,7 +73,7 @@ class APIManagerTests: XCTestCase {
         
         waitForExpectations(timeout: 1) { error in
             XCTAssertNotNil(errorRes)
-            XCTAssertEqual(errorRes as? SessionError, SessionError.noData)
+            XCTAssertEqual(errorRes as? HttpError, HttpError.noData)
         }
     }
     
@@ -95,7 +95,7 @@ class APIManagerTests: XCTestCase {
         
         waitForExpectations(timeout: 1) { (error) in
             XCTAssertNotNil(errorRes)
-            XCTAssertEqual(errorRes as? SessionError, SessionError.failedToParse)
+            XCTAssertEqual(errorRes as? HttpError, HttpError.failedToParse)
         }
     }
     

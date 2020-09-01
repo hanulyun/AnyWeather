@@ -8,6 +8,25 @@
 
 import UIKit
 
+/*
+ 기존 앱에서 페이앱 스타일로
+ 해결과제
+ # MVVM -> MVC
+ # Codebase UI -> Interface Builder (Storyboard, Xib)
+ # 폴더 구조 및 NameSpace
+ */
+
+/*
+개발 방법론.. 2주, 페이앱 기반
+Namespace, Promise
+
+kakaopayFramework common
+
+헨리, 칼리, 프레디, 로건
+프로젝트 구조, 프레임워크 구조
+꼭 봐야하는 코드들..
+*/
+
 class BaseViewController: UIViewController, ViewProtocol {
     
     var guide: UILayoutGuide {

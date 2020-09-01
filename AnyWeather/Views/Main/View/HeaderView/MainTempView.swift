@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainTempView: CustomView {
+class MainTempView: CustomTempView {
     private let centerContainerView: UIView = UIView().containerStyle()
     private let cityLabel: UILabel = UILabel()
     private let descLabel: UILabel = UILabel()
