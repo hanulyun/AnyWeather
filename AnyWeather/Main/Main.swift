@@ -11,6 +11,7 @@ import Kakaopay
 protocol MainNamespace {
     typealias API = Main.API
     typealias Model = Main.Model
+    typealias Action = Main.Action
 }
 
 struct Main: Namespace {
@@ -23,4 +24,5 @@ struct Main: Namespace {
     }
     
     static let degSymbol: String = "°"
+    static let location: LocationClient = LocationClient()
 }

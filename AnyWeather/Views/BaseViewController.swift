@@ -10,10 +10,13 @@ import UIKit
 
 /*
  기존 앱에서 페이앱 스타일로
- 해결과제
+ [해결과제]
  # MVVM -> MVC
  # Codebase UI -> Interface Builder (Storyboard, Xib)
  # 폴더 구조 및 NameSpace
+ 
+ [추가 해결과제]
+ # todayDetail 부분 파싱해보기
  */
 
 /*
