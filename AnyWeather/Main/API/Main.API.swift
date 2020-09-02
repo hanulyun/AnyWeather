@@ -14,9 +14,9 @@ extension Main.API {
         let parameters: [String: Any] = [
             HTTPClient.ParamKey.lat.rawValue: String(lat),
             HTTPClient.ParamKey.lon.rawValue: String(lon),
-            HTTPClient.ParamKey.appId.rawValue: Parameters.apiKey,
-            HTTPClient.ParamKey.lang.rawValue: Parameters.lang,
-            HTTPClient.ParamKey.units.rawValue: Parameters.units
+            HTTPClient.ParamKey.appId.rawValue: HTTPClient.Parameters.apiKey,
+            HTTPClient.ParamKey.lang.rawValue: HTTPClient.Parameters.lang,
+            HTTPClient.ParamKey.units.rawValue: HTTPClient.Parameters.units
         ]
         return HTTPClient.pay.request(urlString: HTTPClient.Urls.oneCall, parameters: parameters)
     }

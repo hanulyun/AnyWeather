@@ -24,10 +24,6 @@ class CustomPagerControl: CustomView {
     
     @IBOutlet weak var controlStackView: UIStackView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     func setControls(controls: [PagerControlItem]) {
         controlStackView.removeAllSubviews()
         

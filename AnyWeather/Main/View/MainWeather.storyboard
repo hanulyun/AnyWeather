@@ -32,16 +32,16 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oee-xH-t9a">
                                 <rect key="frame" x="0.0" y="44" width="414" height="768"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ee9-C3-NSP">
+                                    <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="301" placeholderIntrinsicHeight="768" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Ee9-C3-NSP">
                                         <rect key="frame" x="0.0" y="0.0" width="301" height="768"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Ee9-C3-NSP" firstAttribute="leading" secondItem="Oee-xH-t9a" secondAttribute="leading" id="JZb-HH-1ub"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ee9-C3-NSP" secondAttribute="trailing" id="S6N-jH-OIg"/>
-                                    <constraint firstAttribute="bottom" secondItem="Ee9-C3-NSP" secondAttribute="bottom" constant="-8" id="S6t-mV-4iL"/>
-                                    <constraint firstItem="BWa-p2-xQy" firstAttribute="trailing" secondItem="Ee9-C3-NSP" secondAttribute="trailing" constant="113" id="Z7Q-8U-X8b"/>
-                                    <constraint firstItem="Ee9-C3-NSP" firstAttribute="top" secondItem="Oee-xH-t9a" secondAttribute="top" id="dZR-bd-bGz"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ee9-C3-NSP" secondAttribute="bottom" id="cbe-f4-WeW"/>
+                                    <constraint firstItem="Ee9-C3-NSP" firstAttribute="top" secondItem="Oee-xH-t9a" secondAttribute="top" id="deh-hz-Cfx"/>
+                                    <constraint firstItem="Ee9-C3-NSP" firstAttribute="height" secondItem="Oee-xH-t9a" secondAttribute="height" id="uMf-fi-rv2"/>
+                                    <constraint firstItem="Ee9-C3-NSP" firstAttribute="leading" secondItem="Oee-xH-t9a" secondAttribute="leading" id="w6d-9Z-lAk"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ee9-C3-NSP" secondAttribute="trailing" id="zS0-5n-yY9"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Kmt-Vh-g1u"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="BWa-p2-xQy"/>
@@ -102,7 +102,6 @@
                             <constraint firstItem="Oee-xH-t9a" firstAttribute="top" secondItem="thr-qn-PYN" secondAttribute="top" id="43n-tM-viM"/>
                             <constraint firstItem="6Or-q2-1Dm" firstAttribute="top" secondItem="Oee-xH-t9a" secondAttribute="bottom" id="6bo-lq-WI2"/>
                             <constraint firstItem="6Or-q2-1Dm" firstAttribute="leading" secondItem="thr-qn-PYN" secondAttribute="leading" id="8Ya-Uk-bbj"/>
-                            <constraint firstItem="6Or-q2-1Dm" firstAttribute="top" secondItem="Ee9-C3-NSP" secondAttribute="bottom" id="KB1-M3-5xT"/>
                             <constraint firstItem="sKA-VN-kUn" firstAttribute="leading" secondItem="thr-qn-PYN" secondAttribute="leading" id="Lx8-Xr-cWh"/>
                             <constraint firstItem="sKA-VN-kUn" firstAttribute="trailing" secondItem="thr-qn-PYN" secondAttribute="trailing" id="Q6c-Xv-Cd7"/>
                             <constraint firstItem="thr-qn-PYN" firstAttribute="bottom" secondItem="6Or-q2-1Dm" secondAttribute="bottom" id="hAm-j7-atj"/>

@@ -45,7 +45,8 @@ class MainWeatherViewController: UIViewController {
         
         initializeUI()
         
-        requestMainWeatherAPI()
+//        requestMainWeatherAPI()
+        tempSetup()
     }
     
     private func initializeUI() {
@@ -65,15 +66,25 @@ class MainWeatherViewController: UIViewController {
         API.weather(lat: "37.57", lon: "126.98").then { [weak self] model in
             self?.models.append(model)
         }
+//        API.weather(lat: "37.57", lon: "126.98").then { [weak self] model in
+//            self?.models.append(model)
+//        }
+    }
+    
+    private func tempSetup() {
+        hStackView.removeAllSubviews()
+        let fullView: MainWeatherFullView = MainWeatherFullView.instantiate()
+        fullView.tempSet()
+        hStackView.addArrangedSubview(fullView)
     }
     
     private func setupHStackView() {
         hStackView.removeAllSubviews()
-//        for model in self.models {
-//            let fullView: MainFullView = MainFullView()
-//            fullView.setData(model: model)
-//            self.hStackView.addArrangedSubview(fullView)
-//        }
+        for model in models {
+            let fullView: MainWeatherFullView = MainWeatherFullView.instantiate()
+            fullView.initializeUI(model: model)
+            hStackView.addArrangedSubview(fullView)
+        }
     }
     
     private func setScrollOffsetWithPageIndex(index: Int) {
@@ -83,7 +94,7 @@ class MainWeatherViewController: UIViewController {
     
     private func changeBackgroundViewColor(model: Model.WeatherModel?) {
         UIView.animate(withDuration: 0.5) {
-//            self.emptyLabel.isHidden = !(self.models.count == 0)
+            self.emptyLabel.isHidden = !(self.models.count == 0)
             self.backgroundView.backgroundColor = UIColor.pay.getWeatherColor(model: model)
         }
     }
