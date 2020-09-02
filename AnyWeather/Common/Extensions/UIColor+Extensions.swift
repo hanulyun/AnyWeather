@@ -15,7 +15,7 @@ extension Pay where Base: UIColor {
         return set.rawValue
     }
     
-    static func getWeatherColor(model: Main.Model.WeatherModel?) -> UIColor {
+    static func getWeatherColor(model: Main.Model.Weather?) -> UIColor {
         var color: UIColor = .darkGray
         var alpha: CGFloat = 1
         

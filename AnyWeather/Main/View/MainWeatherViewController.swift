@@ -24,7 +24,7 @@ class MainWeatherViewController: UIViewController {
     @IBOutlet weak var pagerControlView: UIView!
     private lazy var controlView = CustomPagerControl.instantiate()
         
-    private var models: [Model.WeatherModel] = [Model.WeatherModel]() {
+    private var models: [Model.Weather] = [Model.Weather]() {
         didSet {
             setPageControl(models: models)
             changeBackgroundViewColor(model: models.first)
@@ -45,8 +45,7 @@ class MainWeatherViewController: UIViewController {
         
         initializeUI()
         
-//        requestMainWeatherAPI()
-        tempSetup()
+        requestMainWeatherAPI()
     }
     
     private func initializeUI() {
@@ -66,16 +65,6 @@ class MainWeatherViewController: UIViewController {
         API.weather(lat: "37.57", lon: "126.98").then { [weak self] model in
             self?.models.append(model)
         }
-//        API.weather(lat: "37.57", lon: "126.98").then { [weak self] model in
-//            self?.models.append(model)
-//        }
-    }
-    
-    private func tempSetup() {
-        hStackView.removeAllSubviews()
-        let fullView: MainWeatherFullView = MainWeatherFullView.instantiate()
-        fullView.tempSet()
-        hStackView.addArrangedSubview(fullView)
     }
     
     private func setupHStackView() {
@@ -92,14 +81,14 @@ class MainWeatherViewController: UIViewController {
         hScrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: false)
     }
     
-    private func changeBackgroundViewColor(model: Model.WeatherModel?) {
+    private func changeBackgroundViewColor(model: Model.Weather?) {
         UIView.animate(withDuration: 0.5) {
             self.emptyLabel.isHidden = !(self.models.count == 0)
             self.backgroundView.backgroundColor = UIColor.pay.getWeatherColor(model: model)
         }
     }
     
-    private func setPageControl(models: [Model.WeatherModel]) {
+    private func setPageControl(models: [Model.Weather]) {
         var controls: [PagerControlItem] = []
         
         for model in models {

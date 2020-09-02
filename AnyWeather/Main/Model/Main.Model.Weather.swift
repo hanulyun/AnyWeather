@@ -9,7 +9,7 @@
 import UIKit
 
 extension Main.Model {
-    struct WeatherModel: Decodable {
+    struct Weather: Decodable {
         var id: Int?
         var city: String?
         var isGps: Bool? = false

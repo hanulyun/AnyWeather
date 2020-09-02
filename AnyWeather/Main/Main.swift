@@ -21,4 +21,6 @@ struct Main: Namespace {
         typealias Model = Main.Model
         typealias API = Main.API
     }
+    
+    static let degSymbol: String = "°"
 }

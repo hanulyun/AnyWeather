@@ -10,7 +10,7 @@ import Kakaopay
 import Promises
 
 extension Main.API {
-    static func weather(lat: String, lon: String) -> Promise<Model.WeatherModel> {
+    static func weather(lat: String, lon: String) -> Promise<Model.Weather> {
         let parameters: [String: Any] = [
             HTTPClient.ParamKey.lat.rawValue: String(lat),
             HTTPClient.ParamKey.lon.rawValue: String(lon),
