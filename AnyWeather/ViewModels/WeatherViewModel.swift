@@ -100,7 +100,7 @@ extension WeatherViewModel {
         }
         
         let saveId: Int = weatherModels.count
-        CoreDataManager.shared.saveData(id: saveId, city: city, lat: lat, lon: lon) { [weak self] isSaved in
+        CoreDataTempManager.shared.saveData(id: saveId, city: city, lat: lat, lon: lon) { [weak self] isSaved in
             if isSaved {
                 guard let self = self else { return }
                 self.requestSavedLocation(id: saveId, city: city, lat: lat, lon: lon)
@@ -109,14 +109,14 @@ extension WeatherViewModel {
     }
     
     func getSearchWeather() {
-        let weathers: [Weather] = CoreDataManager.shared.getData(ascending: true)
+        let weathers: [CoreWeather] = CoreDataTempManager.shared.getData(ascending: true)
         weathers.forEach {
             requestSavedLocation(id: Int($0.id), city: $0.city, lat: $0.lat, lon: $0.lon)
         }
     }
     
     func deleteWeather(id: Int) {
-        CoreDataManager.shared.deleteData(filterId: id) { [weak self] isDeleted, type in
+        CoreDataTempManager.shared.deleteData(filterId: id) { [weak self] isDeleted, type in
             if isDeleted, type == .success {
                 guard let self = self else { return }
                 self.weatherModels.remove(at: id)
@@ -126,7 +126,7 @@ extension WeatherViewModel {
     }
     
     func editWeatherList(models: [WeatherModel], isCompleted: @escaping ((Bool) -> Void)) {
-        CoreDataManager.shared.editDataList(data: models, onGps: onGps) { [weak self] isDone in
+        CoreDataTempManager.shared.editDataList(data: models, onGps: onGps) { [weak self] isDone in
             self?.weatherModels = models
             isCompleted(isDone)
         }

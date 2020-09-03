@@ -9,8 +9,16 @@
 import UIKit
 import CoreData
 
-class CoreDataManager {
-    static let shared: CoreDataManager = CoreDataManager()
+struct LocalKey {
+    static let model: String = "CoreWeather"
+    static let id: String = "id"
+    static let city: String = "city"
+    static let lat: String = "lat"
+    static let lon: String = "lon"
+}
+
+class CoreDataTempManager {
+    static let shared: CoreDataTempManager = CoreDataTempManager()
     
     enum ResultType {
         case success
@@ -28,10 +36,10 @@ class CoreDataManager {
         return container
     }()
     
-    lazy var context = CoreDataManager.shared.persistentContainer.viewContext
+    lazy var context = CoreDataTempManager.shared.persistentContainer.viewContext
     
-    func getData(ascending: Bool = false) -> [Weather] {
-        var localDatas: [Weather] = [Weather]()
+    func getData(ascending: Bool = false) -> [CoreWeather] {
+        var localDatas: [CoreWeather] = [CoreWeather]()
         
             let idSort: NSSortDescriptor = NSSortDescriptor(key: LocalKey.id, ascending: ascending)
             let fetchRequest: NSFetchRequest<NSManagedObject>
@@ -39,7 +47,7 @@ class CoreDataManager {
             fetchRequest.sortDescriptors = [idSort]
             
             do {
-                if let fetchResult: [Weather] = try context.fetch(fetchRequest) as? [Weather] {
+                if let fetchResult: [CoreWeather] = try context.fetch(fetchRequest) as? [CoreWeather] {
                     localDatas = fetchResult
                 }
             } catch let error as NSError {
@@ -55,7 +63,7 @@ class CoreDataManager {
         if let entity: NSEntityDescription = NSEntityDescription.entity(forEntityName: LocalKey.model,
                                                                         in: context) {
             
-            if let data: Weather = NSManagedObject(entity: entity, insertInto: context) as? Weather {
+            if let data: CoreWeather = NSManagedObject(entity: entity, insertInto: context) as? CoreWeather {
                 data.id = Int64(id)
                 data.city = city
                 data.lat = lat
@@ -107,7 +115,7 @@ class CoreDataManager {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = filteredRequest(id: filterId)
         
         do {
-            if let results: [Weather] = try context.fetch(fetchRequest) as? [Weather] {
+            if let results: [CoreWeather] = try context.fetch(fetchRequest) as? [CoreWeather] {
                 if results.count != 0 {
                     for result in results {
                         context.delete(result)
@@ -128,7 +136,7 @@ class CoreDataManager {
     }
 }
 
-extension CoreDataManager {
+extension CoreDataTempManager {
     private func filteredRequest(id: Int) -> NSFetchRequest<NSFetchRequestResult> {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult>
             = NSFetchRequest<NSFetchRequestResult>(entityName: LocalKey.model)

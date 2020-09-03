@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/joey.con/Desktop/Study/GitHub/AnyWeather/AnyWeather/Main/Model/CoreWeather+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/joey.con/Desktop/Study/GitHub/AnyWeather/AnyWeather/Main/Model/CoreWeather+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:AnyWeather.xcodeproj">
    </FileRef>
    <FileRef

@@ -17,12 +17,13 @@ protocol MainNamespace {
 struct Main: Namespace {
     static func initialize() { }
     struct API { typealias Model = Main.Model }
-    struct Model { }
+    struct Model { typealias LocalWeather = CoreWeather }
     struct Action {
         typealias Model = Main.Model
         typealias API = Main.API
     }
     
     static let degSymbol: String = "°"
+    static let entityName: String = "CoreWeather"
     static let location: LocationClient = LocationClient()
 }

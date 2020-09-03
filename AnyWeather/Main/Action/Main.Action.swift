@@ -15,4 +15,9 @@ extension Main.Action {
             return
         }
     }
+    
+    static func getSavedLocalWeather() -> Promise<[Model.LocalWeather]> {
+        return CoreDataManager.shared
+            .getLocalData(Model.LocalWeather.self, entityName: Main.entityName, sortKey: "id")
+    }
 }
