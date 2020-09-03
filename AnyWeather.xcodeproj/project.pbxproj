@@ -396,7 +396,6 @@
 			children = (
 				313A368824889636008DCF68 /* LaunchScreen.storyboard */,
 				313A368624889636008DCF68 /* Assets.xcassets */,
-				314A5B74248E00F50090845A /* Data */,
 				1C59310E248904CF00C4EF34 /* Common */,
 			);
 			path = Resources;
@@ -439,14 +438,6 @@
 				1CF76D34248BCF4A0021B42D /* FooterView */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		314A5B74248E00F50090845A /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				314A5B76248E01320090845A /* CoreWeather.xcdatamodeld */,
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 		314A5B7D248E01F30090845A /* Local */ = {
@@ -580,6 +571,7 @@
 				CA5922E724FF862300790B66 /* Location */,
 				CA5922EA24FF8D9900790B66 /* Permission */,
 				CA5922EF2500801D00790B66 /* CoreData */,
+				CACF714F2500CD6100509462 /* Weather */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -618,8 +610,6 @@
 				1CC7F674248CA7BF00F83CB2 /* Main.Model.Weather.swift */,
 				CA5922E524FF7EAC00790B66 /* Main.Model.Detail.swift */,
 				CA5922D724FF484C00790B66 /* Main.Model.Sizes.swift */,
-				CA5922F42500B0F600790B66 /* CoreWeather+CoreDataClass.swift */,
-				CA5922F52500B0F600790B66 /* CoreWeather+CoreDataProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -679,9 +669,19 @@
 			isa = PBXGroup;
 			children = (
 				CA5922F02500804F00790B66 /* CoreDataManager.swift */,
-				CA5922F22500AA7E00790B66 /* CoreDataManager+WeatherModel.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		CACF714F2500CD6100509462 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				314A5B76248E01320090845A /* CoreWeather.xcdatamodeld */,
+				CA5922F42500B0F600790B66 /* CoreWeather+CoreDataClass.swift */,
+				CA5922F52500B0F600790B66 /* CoreWeather+CoreDataProperties.swift */,
+				CA5922F22500AA7E00790B66 /* CoreDataManager+WeatherModel.swift */,
+			);
+			path = Weather;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
