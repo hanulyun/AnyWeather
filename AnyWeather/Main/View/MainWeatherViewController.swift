@@ -89,7 +89,7 @@ class MainWeatherViewController: UIViewController {
             self?.requestGpsWeatherAPI(lat: location.latitude, lon: location.longitude, city: city)
         }
         
-        // 내부 저장된 날씨 리스트 얻어와서 API 호출
+        // 내부 저장된 날씨 리스트 얻어온 후 API 호출
         Action.getSavedLocalWeather().then { [weak self] savedWeathers in
             savedWeathers.forEach { [weak self] weather in
                 self?.requestSavedWeatherAPI(with: weather)
@@ -98,7 +98,10 @@ class MainWeatherViewController: UIViewController {
     }
     
     @IBAction func actionListButton(_ sender: UIButton) {
-        Log.debug("tap")
+        let listVC: ListWeatherViewController = ListWeatherViewController.instantiate()
+        listVC.models = models
+        listVC.modalPresentationStyle = .currentContext
+        present(listVC, animated: true, completion: nil)
     }
 }
 
@@ -155,6 +158,7 @@ extension MainWeatherViewController {
             controls.append(control)
         }
         controlView.setControls(controls: controls)
+        controlView.selectIndex(currentIndex)
     }
     
     private func setScrollOffsetWithPageIndex(index: Int) {

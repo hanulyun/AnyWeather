@@ -20,11 +20,6 @@ struct MainSizes {
     static let currentMinHeight: CGFloat = 100.adjusted
 }
 
-public enum TempUnit {
-    case c
-    case f
-}
-
 public enum ColorSet {
     case background
     case main

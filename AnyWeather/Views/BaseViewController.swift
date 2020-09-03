@@ -46,12 +46,5 @@ class BaseViewController: UIViewController, ViewProtocol {
 
     func configureAutolayouts() { }
     func bindData() { }
-    
-    func getStatusHeight() -> CGFloat {
-        if #available(iOS 13.0, *) {
-            let window: UIWindow? = UIApplication.shared.windows.filter({$0.isKeyWindow}).first
-            return window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        }
-        return UIApplication.shared.statusBarFrame.height
-    }
+
 }

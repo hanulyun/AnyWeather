@@ -28,7 +28,7 @@ class ListViewController: BaseViewController {
     
     var topOffset: NSLayoutConstraint!
         
-    private var unit: TempUnit = .c {
+    private var unit: TempUnit = .celsius {
         didSet {
             self.viewModel?.unit = self.unit
             self.tableView.reloadData()
@@ -146,7 +146,7 @@ extension ListViewController: UITableViewDataSource {
                     as? ListTailTableViewCell else { fatalError("Failed to cast ListTailTableViewCell") }
             cell.buttonTapEvent = { [weak self] tag in
                 if tag == .deg {
-                    let changeUnit: TempUnit = (self?.unit == .c) ? .f : .c
+                    let changeUnit: TempUnit = (self?.unit == .celsius) ? .fahrenheit : .celsius
                     self?.changeDegree(to: changeUnit)
                 } else {
                     self?.goToSearchViewCon()

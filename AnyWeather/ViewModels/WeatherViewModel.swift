@@ -15,7 +15,7 @@ class WeatherViewModel: NSObject {
     
     // 외부 접근 변수
     var getGpsFlag: Bool = false
-    var unit: TempUnit = .c
+    var unit: TempUnit = .celsius
     var weatherModels: [WeatherModel] = [WeatherModel]()
     var gpsCity: String?
     var onGps: Bool = false

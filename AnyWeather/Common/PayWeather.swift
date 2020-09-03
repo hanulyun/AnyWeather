@@ -15,3 +15,8 @@ class PayWeather: Namespace {
         
     }
 }
+
+public enum TempUnit {
+    case celsius
+    case fahrenheit
+}
