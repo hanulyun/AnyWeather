@@ -15,13 +15,40 @@
                     <view key="view" contentMode="scaleToFill" id="eax-Ro-f2C">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FxE-XV-3WU">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YpG-ly-cqZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OeV-zJ-yYK">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="xmo-k4-qbN" firstAttribute="trailing" secondItem="FxE-XV-3WU" secondAttribute="trailing" id="CAk-ER-sDP"/>
+                            <constraint firstItem="FxE-XV-3WU" firstAttribute="leading" secondItem="xmo-k4-qbN" secondAttribute="leading" id="Ntf-YQ-7ev"/>
+                            <constraint firstItem="FxE-XV-3WU" firstAttribute="top" secondItem="eax-Ro-f2C" secondAttribute="top" id="Pvg-9l-eGt"/>
+                            <constraint firstItem="xmo-k4-qbN" firstAttribute="bottom" secondItem="OeV-zJ-yYK" secondAttribute="bottom" id="kAU-AT-VLt"/>
+                            <constraint firstAttribute="bottom" secondItem="FxE-XV-3WU" secondAttribute="bottom" id="kiU-EJ-yXW"/>
+                            <constraint firstItem="xmo-k4-qbN" firstAttribute="trailing" secondItem="OeV-zJ-yYK" secondAttribute="trailing" id="l6N-J0-duo"/>
+                            <constraint firstItem="OeV-zJ-yYK" firstAttribute="top" secondItem="xmo-k4-qbN" secondAttribute="top" id="vYm-s5-OdO"/>
+                            <constraint firstItem="OeV-zJ-yYK" firstAttribute="leading" secondItem="xmo-k4-qbN" secondAttribute="leading" id="xpG-dk-VqK"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="xmo-k4-qbN"/>
                     </view>
+                    <connections>
+                        <outlet property="blurEffectView" destination="FxE-XV-3WU" id="6vS-9z-ok7"/>
+                        <outlet property="tableView" destination="OeV-zJ-yYK" id="Mjq-6C-iNO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="StX-v4-wfd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="339" y="-212"/>
+            <point key="canvasLocation" x="337.68115942028987" y="-212.27678571428569"/>
         </scene>
     </scenes>
 </document>

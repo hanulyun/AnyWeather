@@ -766,8 +766,8 @@
 		CACF716E250235D700509462 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CACF7173250236CB00509462 /* SearchWeatherViewController.swift */,
 				CACF71752502370600509462 /* SearchWeather.storyboard */,
+				CACF7173250236CB00509462 /* SearchWeatherViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

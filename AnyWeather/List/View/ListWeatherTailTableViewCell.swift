@@ -44,7 +44,8 @@ class ListWeatherTailTableViewCell: UITableViewCell {
     
     @IBAction func addButtonAction(_ sender: UIButton) {
         guard let fromVC = self.fromVC else { return }
-        let vc = SearchWeatherViewController.instantiate()
-        fromVC.present(vc, animated: true, completion: nil)
+        let vc: SearchWeatherViewController = SearchWeatherViewController.instantiate()
+        let navVC: UINavigationController = UINavigationController(rootViewController: vc)
+        fromVC.present(navVC, animated: true, completion: nil)
     }
 }
