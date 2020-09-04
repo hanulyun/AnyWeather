@@ -98,8 +98,7 @@ class MainWeatherViewController: UIViewController, ReusePromiseable {
     }
     
     @IBAction func actionListButton(_ sender: UIButton) {
-        let listVC: ListWeatherViewController = ListWeatherViewController.instantiate()
-        listVC.models = models
+        let listVC: ListWeatherViewController = ListWeatherViewController.instantiate(models)
         listVC.modalPresentationStyle = .currentContext
         present(listVC, animated: true, completion: nil)
         

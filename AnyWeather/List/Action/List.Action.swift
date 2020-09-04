@@ -13,8 +13,8 @@ extension List.Action {
         return CoreDataManager.shared.deleteLocalWeather(filter: id)
     }
     
-    static func updateModels(_ models: [Weather]) -> Promise<Void> {
-        let firstModel: Weather? = models.first
+    static func updateModels(_ models: [Model.Weather]) -> Promise<Void> {
+        let firstModel: Model.Weather? = models.first
         let onGps: Bool = firstModel?.isGps ?? false
         return CoreDataManager.shared.editLocalWeather(models, onGps: onGps)
     }

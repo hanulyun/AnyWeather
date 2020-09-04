@@ -14,8 +14,10 @@ class ListWeatherViewController: UIViewController, ReusePromiseable {
     
     typealias PromiseData = (changedList: Bool, selectedIndex: Int)
     
-    static func instantiate() -> ListWeatherViewController {
-        return self.instantiate(storyboardName: "ListWeather") as! ListWeatherViewController
+    static func instantiate(_ models: [Model.Weather]) -> ListWeatherViewController {
+        let vc = self.instantiate(storyboardName: "ListWeather") as! ListWeatherViewController
+        vc.models = models
+        return vc
     }
     
     //    static func presentListVC(on viewController: UIViewController,
@@ -33,7 +35,7 @@ class ListWeatherViewController: UIViewController, ReusePromiseable {
     @IBOutlet weak var topMaskViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var topMaskViewHeightConstraint: NSLayoutConstraint!
     
-    var models: [Model.Weather] = [Model.Weather]()
+    var models: [Model.Weather] = [Model.Weather]() // 리스트에서 접근한다.
     
     private var unit: TempUnit = .celsius {
         didSet {
