@@ -1,0 +1,3 @@
+
+CoreDataManager, API 호출하는 부분 모두 errorCode 정리.. catch 정리
+새창으로 뜨는 present 관련해서 공통 promise 있는지 확인 후 정리

@@ -10,7 +10,9 @@ import UIKit
 import Promises
 
 extension MainWeatherViewController: MainNamespace { }
-class MainWeatherViewController: UIViewController {
+class MainWeatherViewController: UIViewController, ReusePromiseable {
+    
+    typealias PromiseData = [Model.Weather]
     
     static func instantiate() -> MainWeatherViewController {
         return self.instantiate(storyboardName: "MainWeather") as! MainWeatherViewController
@@ -31,7 +33,6 @@ class MainWeatherViewController: UIViewController {
         didSet {
             setupPageControl(models: models)
             changeBackgroundViewColor(model: models.first)
-            
             setupHStackView()
         }
     }
@@ -40,6 +41,7 @@ class MainWeatherViewController: UIViewController {
         didSet {
             controlView.selectIndex(currentIndex)
             changeBackgroundViewColor(model: models[currentIndex])
+            setScrollOffsetWithPageIndex(index: currentIndex)
         }
     }
     
@@ -51,8 +53,7 @@ class MainWeatherViewController: UIViewController {
         initializeUI()
         
         initializeAction()
-        
-        //        tempSaveLocal()
+//                tempSaveLocal()
     }
     
     private func tempSaveLocal() {
@@ -67,7 +68,6 @@ class MainWeatherViewController: UIViewController {
         }
     }
     
-    // 오늘 할 일: 코어데이터 프로미스로 메인 완성하기!
     private func initializeUI() {
         pagerControlView.backgroundColor = .clear
         pagerControlView.addSubview(controlView)
@@ -102,6 +102,16 @@ class MainWeatherViewController: UIViewController {
         listVC.models = models
         listVC.modalPresentationStyle = .currentContext
         present(listVC, animated: true, completion: nil)
+        
+        listVC.fulfill = { [weak self] promiseData -> Promise<Void> in
+            let values = promiseData as ListWeatherViewController.PromiseData
+            if values.changedList {
+                self?.models = listVC.models
+            }
+            self?.currentIndex = values.selectedIndex
+            
+            return Promise(())
+        }
     }
 }
 

@@ -96,6 +96,9 @@
 		CACF715D2500D7AB00509462 /* ListWeatherTailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF715C2500D7AB00509462 /* ListWeatherTailTableViewCell.swift */; };
 		CACF71602500DEDE00509462 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF715F2500DEDE00509462 /* ReusableView.swift */; };
 		CACF71622500EA1900509462 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF71612500EA1900509462 /* UIViewController+Extensions.swift */; };
+		CACF71642501E12000509462 /* List.Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF71632501E12000509462 /* List.Action.swift */; };
+		CACF716725020D3B00509462 /* ReusePromiseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF716625020D3B00509462 /* ReusePromiseable.swift */; };
+		CACF71692502183100509462 /* Promiseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF71682502183000509462 /* Promiseable.swift */; };
 		D8881B834054F9DC0190E3B4 /* Pods_AnyWeatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ECFE3668801F62DD5D6B4E0 /* Pods_AnyWeatherTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -214,6 +217,9 @@
 		CACF715C2500D7AB00509462 /* ListWeatherTailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWeatherTailTableViewCell.swift; sourceTree = "<group>"; };
 		CACF715F2500DEDE00509462 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		CACF71612500EA1900509462 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		CACF71632501E12000509462 /* List.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.Action.swift; sourceTree = "<group>"; };
+		CACF716625020D3B00509462 /* ReusePromiseable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusePromiseable.swift; sourceTree = "<group>"; };
+		CACF71682502183000509462 /* Promiseable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promiseable.swift; sourceTree = "<group>"; };
 		D04EB52740524B2B3AA86F99 /* Pods-AnyWeatherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyWeatherTests.release.xcconfig"; path = "Target Support Files/Pods-AnyWeatherTests/Pods-AnyWeatherTests.release.xcconfig"; sourceTree = "<group>"; };
 		F0C5E732741A9AB98CD0241C /* Pods-AnyWeather-AnyWeatherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyWeather-AnyWeatherUITests.debug.xcconfig"; path = "Target Support Files/Pods-AnyWeather-AnyWeatherUITests/Pods-AnyWeather-AnyWeatherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F65A8B226FC3958546B00B9E /* Pods-AnyWeatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyWeatherTests.debug.xcconfig"; path = "Target Support Files/Pods-AnyWeatherTests/Pods-AnyWeatherTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -593,6 +599,7 @@
 				CA5922EA24FF8D9900790B66 /* Permission */,
 				CA5922EF2500801D00790B66 /* CoreData */,
 				CACF714F2500CD6100509462 /* Weather */,
+				CACF716525020CFD00509462 /* Promises */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -722,6 +729,7 @@
 		CACF71542500D00E00509462 /* Action */ = {
 			isa = PBXGroup;
 			children = (
+				CACF71632501E12000509462 /* List.Action.swift */,
 			);
 			path = Action;
 			sourceTree = "<group>";
@@ -743,6 +751,15 @@
 				CACF715F2500DEDE00509462 /* ReusableView.swift */,
 			);
 			path = ReusableView;
+			sourceTree = "<group>";
+		};
+		CACF716525020CFD00509462 /* Promises */ = {
+			isa = PBXGroup;
+			children = (
+				CACF71682502183000509462 /* Promiseable.swift */,
+				CACF716625020D3B00509462 /* ReusePromiseable.swift */,
+			);
+			path = Promises;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -995,6 +1012,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C903E23248CE05B00ECD50A /* ListViewController.swift in Sources */,
+				CACF71692502183100509462 /* Promiseable.swift in Sources */,
 				CA5922BB24FE14F100790B66 /* HTTPClient+Session.swift in Sources */,
 				CA5922CC24FE274100790B66 /* CustomPageControl.swift in Sources */,
 				1CF76D2A248BBA9A0021B42D /* MainFullView.swift in Sources */,
@@ -1046,6 +1064,7 @@
 				CA5922A524FDF26300790B66 /* Namespace.swift in Sources */,
 				CA5922AB24FDF39F00790B66 /* HTTPClient+Pay.swift in Sources */,
 				CACF715D2500D7AB00509462 /* ListWeatherTailTableViewCell.swift in Sources */,
+				CACF716725020D3B00509462 /* ReusePromiseable.swift in Sources */,
 				313A36C62488CA22008DCF68 /* CustomTempView.swift in Sources */,
 				1C593110248904E900C4EF34 /* CommonValues.swift in Sources */,
 				314A5B82248E17FA0090845A /* SearchViewController.swift in Sources */,
@@ -1054,6 +1073,7 @@
 				1CF76D30248BC5EC0021B42D /* TodaySummaryView.swift in Sources */,
 				1C903E1F248CB86800ECD50A /* Date+Extensions.swift in Sources */,
 				1C593132248B1B7B00C4EF34 /* UILabel+Extensions.swift in Sources */,
+				CACF71642501E12000509462 /* List.Action.swift in Sources */,
 				CA5922AD24FE0A1D00790B66 /* HTTPClient+Log.swift in Sources */,
 				313A36BA2488B08C008DCF68 /* String+Extensions.swift in Sources */,
 				CACF71602500DEDE00509462 /* ReusableView.swift in Sources */,

@@ -13,7 +13,7 @@ class CoreDataManager {
     
     static let shared: CoreDataManager = CoreDataManager()
     
-    private lazy var persistentContainer: NSPersistentContainer = {
+    internal lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: CoreDataManager.shared.entityName)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error {
@@ -23,7 +23,7 @@ class CoreDataManager {
         return container
     }()
     
-    private lazy var entityName: String = ""
+    internal lazy var entityName: String = ""
     
     public func getLocalData<Model: NSManagedObject>(_ model: Model.Type,
                                                      entityName: String,
@@ -50,31 +50,37 @@ class CoreDataManager {
         return promise
     }
     
-    public func saveLocalWeather(_ model: Main.Model.CoreWeatherItem) -> Promise<Void> {
-        self.entityName = Main.entityName
-        
-        let promise = Promise<Void>.pending()
-        
-        let context: NSManagedObjectContext = persistentContainer.viewContext
-        if let entity = NSEntityDescription.entity(forEntityName: Main.entityName, in: context) {
-            if let data = NSManagedObject(entity: entity, insertInto: context) as? CoreWeather {
-                data.id = Int64(model.id)
-                data.city = model.city
-                data.lat = model.lat
-                data.lon = model.lon
-            }
-            self.contextSaved(context).then { void in
-                promise.fulfill(void)
-            }
-        }
-        
-        return promise
+    internal func filteredRequest(id: Int) -> NSFetchRequest<NSFetchRequestResult> {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult>
+            = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        fetchRequest.predicate = NSPredicate(format: "id = %@", NSNumber(value: id))
+        return fetchRequest
     }
     
-    private func contextSaved(_ context: NSManagedObjectContext) -> Promise<Void> {
+    internal func contextSaved(_ context: NSManagedObjectContext) -> Promise<Void> {
         let promise: Promise<Void> = Promise<Void>.pending()
         do {
             try context.save()
+            promise.fulfill(())
+        } catch let error {
+            promise.reject(error)
+        }
+        return promise
+    }
+    
+    internal func contextAllDeleted() -> Promise<Void> {
+        let promise: Promise<Void> = Promise<Void>.pending()
+        
+        let context: NSManagedObjectContext = persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult>
+            = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try context.fetch(fetchRequest)
+            for object in results {
+                guard let objectData = object as? NSManagedObject else { continue }
+                context.delete(objectData)
+            }
             promise.fulfill(())
         } catch let error {
             promise.reject(error)

@@ -18,7 +18,7 @@ struct List: Namespace {
     static func initialize() { }
     struct API { typealias Model = List.Model }
     struct Model { typealias Weather = Main.Model.Weather }
-    struct Action { }
+    struct Action { typealias Weather = List.Model.Weather }
     
     static let degSymbol: String = "°"
 }
