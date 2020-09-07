@@ -145,11 +145,11 @@ extension SearchWeatherViewController {
                 }
             }
 
-            attOriginText.addAttribute(.foregroundColor, value: UIColor.color(.translucentMain),
+            attOriginText.addAttribute(.foregroundColor, value: UIColor.white.withAlphaComponent(0.5),
                                        range: originRange)
             if self.mapItems.count > 0 {
                 rangeAtt.forEach {
-                    attOriginText.addAttribute(.foregroundColor, value: UIColor.color(.main), range: $0)
+                    attOriginText.addAttribute(.foregroundColor, value: UIColor.white, range: $0)
                 }
             }
             

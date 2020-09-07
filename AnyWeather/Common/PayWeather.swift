@@ -9,14 +9,12 @@
 import Foundation
 import Kakaopay
 
-class PayWeather: Namespace {
-    static func initialize() {
-        // module init
-        
-    }
-}
-
 public enum TempUnit {
     case celsius
     case fahrenheit
+}
+
+struct CommonSizes {
+    static let screenWidth: CGFloat = UIScreen.main.bounds.width
+    static let screenHeight: CGFloat = UIScreen.main.bounds.height
 }

@@ -104,7 +104,7 @@ class MainWeatherFullView: CustomView, MainNamespace {
         let windDeg: String?
             = "\(model?.wind_deg?.calcWindDirection() ?? "") \(Int(model?.wind_speed ?? 0).description )m/s"
         let humi: String? = "\(Int(model?.humidity ?? 0).description)%"
-        let feels: String? = "\(Int(model?.feels_like ?? 0).description)\(degSymbol)"
+        let feels: String? = "\(Int(model?.feels_like ?? 0).description)\(Main.degSymbol)"
         let press: String? = "\(Int(model?.pressure ?? 0).description)hPa"
         let visi: String? = "\(((model?.visibility ?? 0) / 1000).description)km"
         let uvi: String? = Int(model?.uvi ?? 0).description
