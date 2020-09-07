@@ -1,14 +1,14 @@
 //
-//  CustomView.swift
+//  ModuleView.swift
 //  AnyWeather
 //
-//  Created by hanulyun-tera on 2020/06/04.
+//  Created by joey.con on 2020/09/07.
 //  Copyright © 2020 hanulyun. All rights reserved.
 //
 
 import UIKit
 
-class CustomView: UIView {
+class ModuleView: UIView {
     class func instantiate() -> Self {
         return loadFromNib(self)
     }

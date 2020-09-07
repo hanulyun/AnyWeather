@@ -13,6 +13,14 @@ class CoreDataManager {
     
     static let shared: CoreDataManager = CoreDataManager()
     
+    internal enum CoreDataError: Error {
+        case fetchError
+        case contextSaveFailed
+        case contextDeleteFailed
+        case resaveFailed
+        case noMatchData
+    }
+    
     internal lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: CoreDataManager.shared.entityName)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -43,8 +51,8 @@ class CoreDataManager {
             if let fetchResult: [Model] = try context.fetch(fetchRequest) as? [Model] {
                 promise.fulfill(fetchResult)
             }
-        } catch let error {
-            promise.reject(error)
+        } catch {
+            promise.reject(CoreDataError.fetchError)
         }
         
         return promise
@@ -62,8 +70,8 @@ class CoreDataManager {
         do {
             try context.save()
             promise.fulfill(())
-        } catch let error {
-            promise.reject(error)
+        } catch {
+            promise.reject(CoreDataError.contextSaveFailed)
         }
         return promise
     }
@@ -82,8 +90,8 @@ class CoreDataManager {
                 context.delete(objectData)
             }
             promise.fulfill(())
-        } catch let error {
-            promise.reject(error)
+        } catch {
+            promise.reject(CoreDataError.contextDeleteFailed)
         }
         return promise
     }

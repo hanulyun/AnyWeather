@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Kakaopay
 
-class MainDailyWeatherView: CustomView, MainNamespace {
+class MainDailyWeatherView: ModuleView, MainNamespace {
     
     @IBOutlet weak var weekLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
@@ -21,7 +22,7 @@ class MainDailyWeatherView: CustomView, MainNamespace {
         weekLabel.text = week
         
         if let icon: String = model?.weather?.first?.icon {
-            let url: URL? = URL(string: "\(Urls.icon)\(icon).png")
+            let url: URL? = URL(string: "\(HTTPClient.Urls.icon)\(icon).png")
             iconImageView.setImage(url: url)
         }
         

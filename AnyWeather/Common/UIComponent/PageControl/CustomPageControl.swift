@@ -20,7 +20,7 @@ enum PagerControlItem {
     }
 }
 
-class CustomPagerControl: CustomView {
+class CustomPagerControl: ModuleView {
     
     @IBOutlet weak var controlStackView: UIStackView!
     

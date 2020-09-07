@@ -49,16 +49,17 @@ extension CoreDataManager {
                         context.delete(result)
                     }
                 } else {
-                    let error: NSError = NSError(domain: "No match data", code: 0, userInfo: nil)
-                    promise.reject(error)
+                    promise.reject(CoreDataError.noMatchData)
                 }
             }
-        } catch let error {
-            promise.reject(error)
+        } catch {
+            promise.reject(CoreDataError.contextDeleteFailed)
         }
         
         contextSaved(context).then { void in
             promise.fulfill(void)
+        }.catch { error in
+            promise.reject(error)
         }
         
         return promise
@@ -71,6 +72,8 @@ extension CoreDataManager {
         
         contextAllDeleted().then(resavedLocalWeather(models, onGps: onGps)).then {
             promise.fulfill(())
+        }.catch { error in
+            promise.reject(error)
         }
         
         return promise
@@ -85,15 +88,19 @@ extension CoreDataManager {
         
         for (index, weather) in models.enumerated() {
             if index == 0, onGps {
-                Log.debug("Gps 날씨 데이터")
+                Log.debug("Gps 날씨 데이터 있음")
             } else {
                 let item: Main.Model.CoreWeatherItem
                     = Main.Model.CoreWeatherItem(id: index, city: weather.city, lat: weather.lat!, lon: weather.lon!)
                 self.saveLocalWeather(item).then {
                     editCount += 1
                     
-                    if localCount == editCount {
-                        promise.fulfill(())
+                    if (models.count - 1) == index {
+                        if localCount == editCount {
+                            promise.fulfill(())
+                        } else {
+                            promise.reject(CoreDataError.resaveFailed)
+                        }
                     }
                 }
             }

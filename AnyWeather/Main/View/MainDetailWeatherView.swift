@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainDetailWeatherView: CustomView, MainNamespace {
+class MainDetailWeatherView: ModuleView, MainNamespace {
     
     @IBOutlet weak var leftMiniLabel: UILabel!
     @IBOutlet weak var leftValueLabel: UILabel!

@@ -11,17 +11,19 @@ import Promises
 
 extension HTTPClient {
     func request<ResponseData: Decodable>(
-        urlString: String, parameters: [String: Any]? = nil,
+        urlString: String, method: HTTPClient.Method = .get, parameters: [String: Any]? = nil,
         parameterEncoding: URLRequest.ParameterEncoding = .form) -> Promise<ResponseData> {
         
         return Promise<ResponseData> { fulfill, reject in
-            self.request(urlString: urlString, method: .get, headers: nil, parameters: parameters,
-                         parameterEncoding: parameterEncoding) { (data: ResponseData?, error) in
-                if let error = error { return reject(error) }
-                fulfill(data!)
+            self.request(
+                urlString: urlString, method: method, headers: nil, parameters: parameters,
+                parameterEncoding: parameterEncoding) { (data: ResponseData?, error) in
+                    if let error = error { Log.debug("ResponseError: \(error)")
+                        return reject(error) }
+                    fulfill(data!)
             }
-        }.catch { error in
-            Log.debug("Error: \(error as? HTTPClient.SessionError)")
+        }.catch { (error: HTTPClient.SessionError) in
+            Log.debug("SessionError: \(error)")
         }
     }
 }

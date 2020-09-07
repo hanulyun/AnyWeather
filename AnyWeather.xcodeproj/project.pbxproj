@@ -19,9 +19,7 @@
 		313A368024889633008DCF68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A367F24889633008DCF68 /* SceneDelegate.swift */; };
 		313A368724889636008DCF68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 313A368624889636008DCF68 /* Assets.xcassets */; };
 		313A368A24889636008DCF68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 313A368824889636008DCF68 /* LaunchScreen.storyboard */; };
-		313A36BA2488B08C008DCF68 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36B92488B08C008DCF68 /* String+Extensions.swift */; };
 		313A36BE2488B928008DCF68 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36BD2488B928008DCF68 /* Log.swift */; };
-		313A36C62488CA22008DCF68 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A36C52488CA22008DCF68 /* CustomView.swift */; };
 		314A5B78248E01320090845A /* CoreWeather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 314A5B76248E01320090845A /* CoreWeather.xcdatamodeld */; };
 		314A5B84248E1C620090845A /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A5B83248E1C620090845A /* UIApplication+Extensions.swift */; };
 		BB1691D77D3B36DD9D1044A0 /* Pods_AnyWeather_AnyWeatherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AFDF6759D9FF2CE79FC53C /* Pods_AnyWeather_AnyWeatherUITests.framework */; };
@@ -76,6 +74,7 @@
 		CACF717A2505D9C300509462 /* List.API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF71792505D9C300509462 /* List.API.swift */; };
 		CACF717C2505F42F00509462 /* Promiseable+Pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF717B2505F42F00509462 /* Promiseable+Pay.swift */; };
 		CACF717E2505F74500509462 /* ReusePromiseable+Pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF717D2505F74500509462 /* ReusePromiseable+Pay.swift */; };
+		CACF718125060A5000509462 /* ModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF718025060A5000509462 /* ModuleView.swift */; };
 		D8881B834054F9DC0190E3B4 /* Pods_AnyWeatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ECFE3668801F62DD5D6B4E0 /* Pods_AnyWeatherTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -111,9 +110,7 @@
 		313A368B24889636008DCF68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		313A369024889636008DCF68 /* AnyWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnyWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		313A369B24889636008DCF68 /* AnyWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnyWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		313A36B92488B08C008DCF68 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		313A36BD2488B928008DCF68 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		313A36C52488CA22008DCF68 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		314A5B77248E01320090845A /* Weather.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Weather.xcdatamodel; sourceTree = "<group>"; };
 		314A5B83248E1C620090845A /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		339D1786FF6FF9E604212D38 /* Pods_AnyWeather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnyWeather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +170,7 @@
 		CACF71792505D9C300509462 /* List.API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.API.swift; sourceTree = "<group>"; };
 		CACF717B2505F42F00509462 /* Promiseable+Pay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promiseable+Pay.swift"; sourceTree = "<group>"; };
 		CACF717D2505F74500509462 /* ReusePromiseable+Pay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReusePromiseable+Pay.swift"; sourceTree = "<group>"; };
+		CACF718025060A5000509462 /* ModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleView.swift; sourceTree = "<group>"; };
 		D04EB52740524B2B3AA86F99 /* Pods-AnyWeatherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyWeatherTests.release.xcconfig"; path = "Target Support Files/Pods-AnyWeatherTests/Pods-AnyWeatherTests.release.xcconfig"; sourceTree = "<group>"; };
 		F0C5E732741A9AB98CD0241C /* Pods-AnyWeather-AnyWeatherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyWeather-AnyWeatherUITests.debug.xcconfig"; path = "Target Support Files/Pods-AnyWeather-AnyWeatherUITests/Pods-AnyWeather-AnyWeatherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F65A8B226FC3958546B00B9E /* Pods-AnyWeatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyWeatherTests.debug.xcconfig"; path = "Target Support Files/Pods-AnyWeatherTests/Pods-AnyWeatherTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -253,7 +251,6 @@
 		313A36B82488B082008DCF68 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				313A36B92488B08C008DCF68 /* String+Extensions.swift */,
 				1C593109248903C800C4EF34 /* Double+Extensions.swift */,
 				1C903E1E248CB86800ECD50A /* Date+Extensions.swift */,
 				1C5931132489063D00C4EF34 /* UIColor+Extensions.swift */,
@@ -337,19 +334,11 @@
 		CA59229B24FDEEFE00790B66 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
-				CA59229C24FDF18200790B66 /* CustomView */,
+				CACF717F25060A3E00509462 /* Module */,
 				CA59229D24FDF19700790B66 /* PageControl */,
 				CACF715E2500DECE00509462 /* ReusableView */,
 			);
 			path = UIComponent;
-			sourceTree = "<group>";
-		};
-		CA59229C24FDF18200790B66 /* CustomView */ = {
-			isa = PBXGroup;
-			children = (
-				313A36C52488CA22008DCF68 /* CustomView.swift */,
-			);
-			path = CustomView;
 			sourceTree = "<group>";
 		};
 		CA59229D24FDF19700790B66 /* PageControl */ = {
@@ -537,6 +526,14 @@
 				CACF7173250236CB00509462 /* SearchWeatherViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		CACF717F25060A3E00509462 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				CACF718025060A5000509462 /* ModuleView.swift */,
+			);
+			path = Module;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -789,6 +786,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CACF718125060A5000509462 /* ModuleView.swift in Sources */,
 				CACF717E2505F74500509462 /* ReusePromiseable+Pay.swift in Sources */,
 				CACF71692502183100509462 /* Promiseable.swift in Sources */,
 				CA5922BB24FE14F100790B66 /* HTTPClient+Session.swift in Sources */,
@@ -826,12 +824,10 @@
 				CA5922AB24FDF39F00790B66 /* HTTPClient+Pay.swift in Sources */,
 				CACF715D2500D7AB00509462 /* ListWeatherTailTableViewCell.swift in Sources */,
 				CACF716725020D3B00509462 /* ReusePromiseable.swift in Sources */,
-				313A36C62488CA22008DCF68 /* CustomView.swift in Sources */,
 				CA5922D424FF404000790B66 /* MainNowWeatherView.swift in Sources */,
 				1C903E1F248CB86800ECD50A /* Date+Extensions.swift in Sources */,
 				CACF71642501E12000509462 /* List.Action.swift in Sources */,
 				CA5922AD24FE0A1D00790B66 /* HTTPClient+Log.swift in Sources */,
-				313A36BA2488B08C008DCF68 /* String+Extensions.swift in Sources */,
 				CACF71602500DEDE00509462 /* ReusableView.swift in Sources */,
 				CA5922E924FF864A00790B66 /* LocationClient.swift in Sources */,
 				313A36BE2488B928008DCF68 /* Log.swift in Sources */,

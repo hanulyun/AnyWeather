@@ -9,7 +9,7 @@
 import UIKit
 import Kakaopay
 
-class MainHourlyWeatherView: CustomView, MainNamespace {
+class MainHourlyWeatherView: ModuleView, MainNamespace {
     
     @IBOutlet weak var containerView: UIView!
     
@@ -24,7 +24,7 @@ class MainHourlyWeatherView: CustomView, MainNamespace {
         tempLabel.text = Int(model?.temp ?? 0).description + Main.degSymbol
         
         if let icon: String = model?.weather?.first?.icon {
-            let url: URL? = URL(string: "\(Urls.icon)\(icon).png")
+            let url: URL? = URL(string: "\(HTTPClient.Urls.icon)\(icon).png")
             iconImageView.setImage(url: url)
         }
     }

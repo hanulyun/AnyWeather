@@ -19,16 +19,7 @@ class ListWeatherViewController: UIViewController, ReusePromiseable {
         vc.models = models
         return vc
     }
-    
-    //    static func presentListVC(on viewController: UIViewController,
-    //                              models: [Model.Weather]) -> Promise<(models: [Model.Weather], index: Int)> {
-    //        let vc = self.instantiate(storyboardName: "ListWeather") as! ListWeatherViewController
-    //        vc.models = models
-    //        vc.modalPresentationStyle = .currentContext
-    //        viewController.present(vc, animated: true, completion: nil)
-    //        return vc.pendingPromise
-    //    }
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var topMaskView: UIView!
     
@@ -39,7 +30,9 @@ class ListWeatherViewController: UIViewController, ReusePromiseable {
     
     private var unit: TempUnit = .celsius {
         didSet {
-            tableView.reloadData()
+            UIView.transition(with: tableView, duration: 0.1, options: .transitionCrossDissolve, animations: {
+                self.tableView.reloadData()
+            }, completion: nil)
         }
     }
     

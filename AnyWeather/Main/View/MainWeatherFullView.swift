@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainWeatherFullView: CustomView, MainNamespace {
+class MainWeatherFullView: ModuleView, MainNamespace {
     
     @IBOutlet weak var nowWeatherView: UIView!
     @IBOutlet weak var hourlyHStackView: UIStackView!

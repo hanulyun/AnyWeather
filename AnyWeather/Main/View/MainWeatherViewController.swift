@@ -76,6 +76,8 @@ class MainWeatherViewController: UIViewController, ReusePromiseable {
             Main.location.currentLocation()
         }.then { [weak self] (location, city) in
             self?.requestGpsWeatherAPI(lat: location.latitude, lon: location.longitude, city: city)
+        }.catch { error in
+            Log.debug("GPS Location error: \(error)")
         }
         
         // 내부 저장된 날씨 리스트 얻어온 후 API 호출
