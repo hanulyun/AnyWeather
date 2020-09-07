@@ -28,7 +28,7 @@ class ListWeatherTailTableViewCell: UITableViewCell, ReusePromiseable {
         let transWhite: UIColor = UIColor.white.withAlphaComponent(0.5)
         let cColor: UIColor = isC ? .white : transWhite
         let fColor: UIColor = isC ? transWhite : .white
-        let font: UIFont = .systemFont(ofSize: 20.adjusted)
+        let font: UIFont = .systemFont(ofSize: 20)
         
         formatStr.custom("\(List.degSymbol)C", color: cColor, font: font)
         formatStr.custom(" / ", color: transWhite, font: font)
@@ -49,13 +49,13 @@ class ListWeatherTailTableViewCell: UITableViewCell, ReusePromiseable {
         guard let fromVC = self.fromVC else { return }
         let vc: SearchWeatherViewController
             = SearchWeatherViewController.instantiate(modelCount: fromVC.models.count)
-        let navVC: UINavigationController = UINavigationController(rootViewController: vc)
-        fromVC.present(navVC, animated: true, completion: nil)
         
-        vc.pendingPromise.then { item in
-            Action.saveLocalWeather(item).then { [weak self] _ in
-                self?.fulfill(item)
-            }
+        Promise.start {
+            vc.pay.presented(on: fromVC, animated: true, withNavigationController: true)
+        }.then { item in
+            Action.saveLocalWeather(item)
+        }.then { [weak self] item in
+            self?.fulfill(item)
         }
     }
 }

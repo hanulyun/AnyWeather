@@ -11,7 +11,8 @@ import MapKit
 import Promises
 
 extension SearchWeatherViewController: SearchNamespace { }
-class SearchWeatherViewController: UIViewController {
+class SearchWeatherViewController: UIViewController, Promiseable {
+    typealias PromiseData = Model.WeatherItem
     
     static func instantiate(modelCount: Int) -> SearchWeatherViewController {
         let vc = self.instantiate(storyboardName: "SearchWeather") as! SearchWeatherViewController
@@ -28,7 +29,6 @@ class SearchWeatherViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-    var pendingPromise: Promise<Model.WeatherItem> = Promise<Model.WeatherItem>.pending()
     private var count: Int = 0
     
     override func viewDidLoad() {
@@ -57,7 +57,7 @@ class SearchWeatherViewController: UIViewController {
         // Title
         let titleLabel: UILabel = UILabel()
         let formatStr: NSMutableAttributedString = NSMutableAttributedString()
-        formatStr.custom("도시, 우편번호 또는 공항 위치 입력", color: .white, font: .systemFont(ofSize: 12.adjusted))
+        formatStr.custom("도시, 우편번호 또는 공항 위치 입력", color: .white, font: .systemFont(ofSize: 12))
         titleLabel.attributedText = formatStr
         navigationItem.titleView = titleLabel
         
@@ -170,7 +170,7 @@ extension SearchWeatherViewController: UITableViewDelegate {
             if let lat = lat, let lon = lon {
                 let mapItem: Model.WeatherItem = Model.WeatherItem(id: count, city: city,
                                                                    lat: lat, lon: lon)
-                self.pendingPromise.fulfill(mapItem)
+                self.pay.fulfill(data: mapItem)
                 
                 self.searchController.dismiss(animated: true, completion: nil)
                 self.dismiss(animated: true, completion: nil)

@@ -9,14 +9,6 @@
 import UIKit
 
 extension UIStackView {
-    func basicStyle(_ axis: NSLayoutConstraint.Axis) -> UIStackView {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = axis
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 0
-        return stackView
-    }
     
     func removeAllSubviews() {
         arrangedSubviews.forEach { view in

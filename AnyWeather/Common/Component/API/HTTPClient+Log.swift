@@ -46,7 +46,7 @@ extension HTTPClient {
                 // print result as String
                 if let data: Data = maybeData,
                     let string: String = String(data: data, encoding: .utf8) {
-//                    responseLog += "Response: \(string)\n"
+                    responseLog += "Response: \(string)\n"
                 }
             }
             if let debugError: Error = maybeError { responseLog += "Error: \(debugError.localizedDescription)\n" }

@@ -1,4 +1,15 @@
 
-CoreDataManager, API 호출하는 부분 모두 errorCode 정리.. catch 정리
-새창으로 뜨는 present 관련해서 공통 promise 있는지 확인 후 정리
-이미지캐시 있는지 확인
+- CoreDataManager, API 호출하는 부분 모두 errorCode 정리.. catch 정리
+- 이미지캐시 있는지 확인
+
+
+[설명자료]
+- 해결과제
+- 변경해야하는 항목들
+- 기존 구조와 변경된 구조
+  - 폴더 구조
+  - kakaopay import
+  - Promise를 활용한 HttpClient, Error 핸들링
+  - Promiseable, ReusePromiseable
+  - Permisstion
+  

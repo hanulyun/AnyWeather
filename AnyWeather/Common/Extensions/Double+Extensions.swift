@@ -8,16 +8,7 @@
 
 import UIKit
 
-extension CGFloat {
-    var adjusted: CGFloat {
-        return self * (CommonSizes.screenWidth / 375)
-    }
-}
-
 extension Double {
-    var adjusted: CGFloat {
-        return CGFloat(self) * (CommonSizes.screenWidth / 375)
-    }
     
     func timestampToDate() -> Date {
         let date: Date = Date(timeIntervalSince1970: self)

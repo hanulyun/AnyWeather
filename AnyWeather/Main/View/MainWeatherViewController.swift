@@ -27,7 +27,7 @@ class MainWeatherViewController: UIViewController, ReusePromiseable {
     @IBOutlet weak var hStackView: UIStackView!
     
     @IBOutlet weak var pagerControlView: UIView!
-    private lazy var controlView = CustomPagerControl.instantiate()
+    private lazy var _pagerControlView = CustomPagerControl.instantiate()
     
     private var models: [Model.Weather] = [Model.Weather]() {
         didSet {
@@ -39,7 +39,7 @@ class MainWeatherViewController: UIViewController, ReusePromiseable {
     
     private var currentIndex: Int = 0 {
         didSet {
-            controlView.selectIndex(currentIndex)
+            _pagerControlView.selectIndex(currentIndex)
             changeBackgroundViewColor(model: models[currentIndex])
             setScrollOffsetWithPageIndex(index: currentIndex)
         }
@@ -53,29 +53,16 @@ class MainWeatherViewController: UIViewController, ReusePromiseable {
         initializeUI()
         
         initializeAction()
-//                tempSaveLocal()
-    }
-    
-    private func tempSaveLocal() {
-        let model: Model.CoreWeatherItem = Model.CoreWeatherItem(id: 1, city: "서울", lat: 37.57, lon: 126.98)
-        CoreDataManager.shared.saveLocalWeather(model).then { _ in
-            Log.debug("saved success")
-        }
-        
-        let model2 = Model.CoreWeatherItem(id: 2, city: "런던", lat: 51.51, lon: -0.13)
-        CoreDataManager.shared.saveLocalWeather(model2).then { _ in
-            Log.debug("saved success2")
-        }
     }
     
     private func initializeUI() {
         pagerControlView.backgroundColor = .clear
-        pagerControlView.addSubview(controlView)
+        pagerControlView.addSubview(_pagerControlView)
         
-        controlView.translatesAutoresizingMaskIntoConstraints = false
+        _pagerControlView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            controlView.centerXAnchor.constraint(equalTo: pagerControlView.centerXAnchor),
-            controlView.centerYAnchor.constraint(equalTo: pagerControlView.centerYAnchor)
+            _pagerControlView.centerXAnchor.constraint(equalTo: pagerControlView.centerXAnchor),
+            _pagerControlView.centerYAnchor.constraint(equalTo: pagerControlView.centerYAnchor)
         ])
         
         hScrollView.delegate = self
@@ -83,7 +70,9 @@ class MainWeatherViewController: UIViewController, ReusePromiseable {
     
     private func initializeAction() {
         // GPS 권한 요청 후, GPS 사용 가능할 때 위치 받으면 API 호출
-        Action.requestLocationPermission().then { _ in
+        Promise.start {
+            Action.requestLocationPermission()
+        }.then {
             Main.location.currentLocation()
         }.then { [weak self] (location, city) in
             self?.requestGpsWeatherAPI(lat: location.latitude, lon: location.longitude, city: city)
@@ -100,7 +89,7 @@ class MainWeatherViewController: UIViewController, ReusePromiseable {
     @IBAction func actionListButton(_ sender: UIButton) {
         let listVC: ListWeatherViewController = ListWeatherViewController.instantiate(models)
         listVC.modalPresentationStyle = .currentContext
-        present(listVC, animated: true, completion: nil)
+        listVC.pay.presented(on: self)
         
         listVC.fulfill = { [weak self] promiseData -> Promise<Void> in
             let values = promiseData as ListWeatherViewController.PromiseData
@@ -166,8 +155,8 @@ extension MainWeatherViewController {
             }
             controls.append(control)
         }
-        controlView.setControls(controls: controls)
-        controlView.selectIndex(currentIndex)
+        _pagerControlView.setControls(controls: controls)
+        _pagerControlView.selectIndex(currentIndex)
     }
     
     private func setScrollOffsetWithPageIndex(index: Int) {

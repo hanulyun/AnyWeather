@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import Kakaopay
 
 class MainHourlyWeatherView: CustomView, MainNamespace {
     
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var ampmLabel: UILabel!
-    @IBOutlet weak var iconImageView: CustomImageView!
+    @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
     
     func initializeUI(model: Model.Weather.Hourly?, isFirst: Bool) {
@@ -22,6 +23,9 @@ class MainHourlyWeatherView: CustomView, MainNamespace {
         
         tempLabel.text = Int(model?.temp ?? 0).description + Main.degSymbol
         
-        iconImageView.loadImageUrl(model?.weather?.first?.icon)
+        if let icon: String = model?.weather?.first?.icon {
+            let url: URL? = URL(string: "\(Urls.icon)\(icon).png")
+            iconImageView.setImage(url: url)
+        }
     }
 }

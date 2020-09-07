@@ -25,7 +25,7 @@ class MainWeatherFullView: CustomView, MainNamespace {
     @IBOutlet weak var maskTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var contentTopConstraint: NSLayoutConstraint!
     
-    private lazy var mainNowWeatherView = MainNowWeatherView.instantiate()
+    private lazy var _nowWeatherView = MainNowWeatherView.instantiate()
     
     override class func instantiate() -> Self {
         let view = loadFromNib(self)
@@ -46,8 +46,8 @@ class MainWeatherFullView: CustomView, MainNamespace {
     }
     
     private func initializeNowWeatherView(model: Model.Weather) {
-        nowWeatherView.addSubview(mainNowWeatherView)
-        mainNowWeatherView.initializeUI(model: model, viewHeight: nowHeightConstraint.constant)
+        nowWeatherView.addSubview(_nowWeatherView)
+        _nowWeatherView.initializeUI(model: model, viewHeight: nowHeightConstraint.constant)
     }
     
     private func initializeHourlyWeatherView(model: Model.Weather) {
@@ -133,6 +133,6 @@ extension MainWeatherFullView: UIScrollViewDelegate {
             contentTopConstraint.constant = 0
         }
         
-        mainNowWeatherView.updateLayoutWhenScrolling(viewHeight: nowHeightConstraint.constant)
+        _nowWeatherView.updateLayoutWhenScrolling(viewHeight: nowHeightConstraint.constant)
     }
 }

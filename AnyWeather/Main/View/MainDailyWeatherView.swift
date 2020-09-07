@@ -11,7 +11,7 @@ import UIKit
 class MainDailyWeatherView: CustomView, MainNamespace {
     
     @IBOutlet weak var weekLabel: UILabel!
-    @IBOutlet weak var iconImageView: CustomImageView!
+    @IBOutlet weak var iconImageView: UIImageView!
 
     @IBOutlet weak var maxTempLabel: UILabel!
     @IBOutlet weak var minTempLabel: UILabel!
@@ -20,7 +20,10 @@ class MainDailyWeatherView: CustomView, MainNamespace {
         let week: String? = model?.dt?.timestampToString(format: "EEEE")
         weekLabel.text = week
         
-        iconImageView.loadImageUrl(model?.weather?.first?.icon)
+        if let icon: String = model?.weather?.first?.icon {
+            let url: URL? = URL(string: "\(Urls.icon)\(icon).png")
+            iconImageView.setImage(url: url)
+        }
         
         let max: Int = Int(model?.temp?.max ?? 0)
         maxTempLabel.text = max.description

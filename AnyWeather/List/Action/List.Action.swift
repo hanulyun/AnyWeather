@@ -19,7 +19,13 @@ extension List.Action {
         return CoreDataManager.shared.editLocalWeather(models, onGps: onGps)
     }
     
-    static func saveLocalWeather(_ item: Model.WeatherItem) -> Promise<Void> {
-        return CoreDataManager.shared.saveLocalWeather(item)
+    static func saveLocalWeather(_ item: Model.WeatherItem) -> Promise<Model.WeatherItem> {
+        return Promise { fulfill, reject in
+            CoreDataManager.shared.saveLocalWeather(item).then { _ in
+                fulfill(item)
+            }.catch { error in
+                reject(error)
+            }
+        }
     }
 }
