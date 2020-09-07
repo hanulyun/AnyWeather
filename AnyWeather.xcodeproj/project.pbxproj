@@ -102,6 +102,7 @@
 		CACF7170250235E600509462 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF716F250235E600509462 /* Search.swift */; };
 		CACF7174250236CB00509462 /* SearchWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF7173250236CB00509462 /* SearchWeatherViewController.swift */; };
 		CACF71762502370600509462 /* SearchWeather.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CACF71752502370600509462 /* SearchWeather.storyboard */; };
+		CACF717A2505D9C300509462 /* List.API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF71792505D9C300509462 /* List.API.swift */; };
 		D8881B834054F9DC0190E3B4 /* Pods_AnyWeatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ECFE3668801F62DD5D6B4E0 /* Pods_AnyWeatherTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -226,6 +227,7 @@
 		CACF716F250235E600509462 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CACF7173250236CB00509462 /* SearchWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWeatherViewController.swift; sourceTree = "<group>"; };
 		CACF71752502370600509462 /* SearchWeather.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchWeather.storyboard; sourceTree = "<group>"; };
+		CACF71792505D9C300509462 /* List.API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.API.swift; sourceTree = "<group>"; };
 		D04EB52740524B2B3AA86F99 /* Pods-AnyWeatherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyWeatherTests.release.xcconfig"; path = "Target Support Files/Pods-AnyWeatherTests/Pods-AnyWeatherTests.release.xcconfig"; sourceTree = "<group>"; };
 		F0C5E732741A9AB98CD0241C /* Pods-AnyWeather-AnyWeatherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyWeather-AnyWeatherUITests.debug.xcconfig"; path = "Target Support Files/Pods-AnyWeather-AnyWeatherUITests/Pods-AnyWeather-AnyWeatherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F65A8B226FC3958546B00B9E /* Pods-AnyWeatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyWeatherTests.debug.xcconfig"; path = "Target Support Files/Pods-AnyWeatherTests/Pods-AnyWeatherTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -543,7 +545,6 @@
 			children = (
 				CA5922A124FDF1EB00790B66 /* -----날씨 검색----- */,
 				CACF716F250235E600509462 /* Search.swift */,
-				CACF7171250235EF00509462 /* Action */,
 				CACF716E250235D700509462 /* View */,
 			);
 			path = Search;
@@ -723,6 +724,7 @@
 		CACF71532500D00800509462 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				CACF71792505D9C300509462 /* List.API.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -770,13 +772,6 @@
 				CACF7173250236CB00509462 /* SearchWeatherViewController.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		CACF7171250235EF00509462 /* Action */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Action;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1044,6 +1039,7 @@
 				CA5922B224FE127300790B66 /* Main.swift in Sources */,
 				1C59310A248903C800C4EF34 /* CGFloat+Double+Extensions.swift in Sources */,
 				CACF715B2500D79E00509462 /* ListWeatherTableViewCell.swift in Sources */,
+				CACF717A2505D9C300509462 /* List.API.swift in Sources */,
 				1CF76CD3248B21820021B42D /* FooterView.swift in Sources */,
 				1C59312B24893E7A00C4EF34 /* UIScrollView+Extensions.swift in Sources */,
 				313A36B624889A63008DCF68 /* APIManager.swift in Sources */,

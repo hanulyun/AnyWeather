@@ -10,11 +10,12 @@ import Kakaopay
 
 protocol SearchNamespace {
     typealias Model = Search.Model
-    typealias Action = Search.Action
 }
 
 struct Search: Namespace {
     static func initialize() { }
-    struct Model { typealias Weather = Main.Model.Weather }
-    struct Action { }
+    struct Model {
+        typealias Weather = Main.Model.Weather
+        typealias WeatherItem = Main.Model.CoreWeatherItem
+    }
 }

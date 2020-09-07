@@ -17,7 +17,10 @@ protocol ListNamespace {
 struct List: Namespace {
     static func initialize() { }
     struct API { typealias Model = List.Model }
-    struct Model { typealias Weather = Main.Model.Weather }
+    struct Model {
+        typealias Weather = Main.Model.Weather
+        typealias WeatherItem = Main.Model.CoreWeatherItem
+    }
     struct Action { typealias Model = List.Model }
     
     static let degSymbol: String = "°"

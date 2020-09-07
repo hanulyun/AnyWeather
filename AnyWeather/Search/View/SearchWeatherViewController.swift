@@ -8,12 +8,15 @@
 
 import UIKit
 import MapKit
+import Promises
 
 extension SearchWeatherViewController: SearchNamespace { }
 class SearchWeatherViewController: UIViewController {
     
-    static func instantiate() -> SearchWeatherViewController {
-        return self.instantiate(storyboardName: "SearchWeather") as! SearchWeatherViewController
+    static func instantiate(modelCount: Int) -> SearchWeatherViewController {
+        let vc = self.instantiate(storyboardName: "SearchWeather") as! SearchWeatherViewController
+        vc.count = modelCount
+        return vc
     }
     
     @IBOutlet weak var blurEffectView: UIVisualEffectView!
@@ -25,7 +28,8 @@ class SearchWeatherViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-    private var pointAnnotation: MKPointAnnotation = MKPointAnnotation()
+    var pendingPromise: Promise<Model.WeatherItem> = Promise<Model.WeatherItem>.pending()
+    private var count: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +37,7 @@ class SearchWeatherViewController: UIViewController {
         initializeUI()
     }
     
+    // 오늘 할 일.. search 기능 handler promise로 변경. select 했을 때 promie로 리스트화면에 데이터 전달
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         DispatchQueue.main.async {
@@ -101,16 +106,16 @@ extension SearchWeatherViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell()
-        var text: String? = ""
+        var text: String?
         if mapItems.count > 0 {
             let item = mapItems[indexPath.row].placemark
-            text = appendLocalTitles(item)
+            text = item.title
         } else if let searchText: String = searchController.searchBar.text,
             !searchText.isEmpty, mapItems.count == 0 {
             text = "발견된 결과가 없습니다."
         }
         
-        cell.textLabel?.attributedText = getAttText(text!)
+        cell.textLabel?.attributedText = getAttText(text ?? "")
         
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
@@ -120,23 +125,6 @@ extension SearchWeatherViewController: UITableViewDataSource {
 }
 
 extension SearchWeatherViewController {
-    private func appendLocalTitles(_ mark: MKPlacemark) -> String {
-        var appendTitle: String = ""
-        let titles: [String?] = [mark.locality, mark.administrativeArea, mark.isoCountryCode, mark.country]
-        
-        for title in titles {
-            if let t: String = title {
-                if appendTitle.isEmpty {
-                    appendTitle.append(t)
-                } else {
-                    appendTitle.append(", \(t)")
-                }
-            }
-        }
-        
-        return appendTitle
-    }
-    
     private func getAttText(_ text: String) -> NSMutableAttributedString? {
         if let findText: String = searchController.searchBar.text {
             
@@ -177,19 +165,13 @@ extension SearchWeatherViewController: UITableViewDelegate {
             let item: MKMapItem = mapItems[indexPath.row]
             let lat: Double? = item.placemark.location?.coordinate.latitude
             let lon: Double? = item.placemark.location?.coordinate.longitude
-            let mark: MKPlacemark = item.placemark
-            let titles: [String?] = [mark.locality, mark.administrativeArea, mark.isoCountryCode, mark.country]
-            var city: String? = item.placemark.locality
+            let city: String? = item.placemark.name
             
-            for title in titles {
-                if let unwrapTitle: String = title {
-                    city = unwrapTitle
-                    break
-                }
-            }
-            
-            if let lat = lat, let lon = lon, let city = city {
-//                self.delegate?.isSelectMapItem(city: city, lat: lat, lon: lon)
+            if let lat = lat, let lon = lon {
+                let mapItem: Model.WeatherItem = Model.WeatherItem(id: count, city: city,
+                                                                   lat: lat, lon: lon)
+                self.pendingPromise.fulfill(mapItem)
+                
                 self.searchController.dismiss(animated: true, completion: nil)
                 self.dismiss(animated: true, completion: nil)
             }
@@ -208,11 +190,6 @@ extension SearchWeatherViewController: UISearchResultsUpdating {
         let search: MKLocalSearch = MKLocalSearch(request: request)
         search.start { (response, _) in
             guard let response = response else { self.mapItems = []; return }
-            
-            let center: CLLocationCoordinate2D = response.boundingRegion.center
-            self.pointAnnotation.title = searchController.searchBar.text
-            self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: center.latitude,
-                                                                     longitude: center.longitude)
             
             self.mapItems = response.mapItems
         }

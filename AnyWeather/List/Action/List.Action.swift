@@ -18,4 +18,8 @@ extension List.Action {
         let onGps: Bool = firstModel?.isGps ?? false
         return CoreDataManager.shared.editLocalWeather(models, onGps: onGps)
     }
+    
+    static func saveLocalWeather(_ item: Model.WeatherItem) -> Promise<Void> {
+        return CoreDataManager.shared.saveLocalWeather(item)
+    }
 }

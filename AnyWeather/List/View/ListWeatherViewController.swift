@@ -35,7 +35,7 @@ class ListWeatherViewController: UIViewController, ReusePromiseable {
     @IBOutlet weak var topMaskViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var topMaskViewHeightConstraint: NSLayoutConstraint!
     
-    var models: [Model.Weather] = [Model.Weather]() // 리스트에서 접근한다.
+    var models: [Model.Weather] = [Model.Weather]() // tail cell에서 접근한다.
     
     private var unit: TempUnit = .celsius {
         didSet {
@@ -58,6 +58,21 @@ class ListWeatherViewController: UIViewController, ReusePromiseable {
         topMaskView.backgroundColor = UIColor.pay.getWeatherColor(model: models.first)
         view.bringSubviewToFront(topMaskView)
         topMaskViewHeightConstraint.constant = self.getStatusHeight()
+    }
+    
+    private func requestSavedWeatherAPI(with item: Model.WeatherItem) {
+        API.weather(lat: item.lat, lon: item.lon).then { [weak self] model in
+            guard let self = self else { return }
+            var model: Model.Weather = model
+            model.id = item.id
+            model.city = item.city
+            model.isGps = false
+            self.models.append(model)
+            self.tableView.insertRows(at: [IndexPath(row: self.models.count - 1, section: 0)],
+                                      with: .automatic)
+            
+            let _ = self.fulfill((true, 0))
+        }
     }
 }
 
@@ -97,6 +112,10 @@ extension ListWeatherViewController: UITableViewDataSource {
                                               for: indexPath) as? ListWeatherTailTableViewCell
                 else { fatalError("Failed to cast ListWeatherTailTableViewCell") }
             cell.configure(from: self)
+            cell.fulfill = { [weak self] promiseData -> Promise<Void> in
+                self?.requestSavedWeatherAPI(with: promiseData)
+                return Promise(())
+            }
             return cell
         }
     }

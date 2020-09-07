@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Promises
 
-class ListWeatherTailTableViewCell: UITableViewCell {
+extension ListWeatherTailTableViewCell: ListNamespace { }
+class ListWeatherTailTableViewCell: UITableViewCell, ReusePromiseable {
+    typealias PromiseData = Model.WeatherItem
     
     @IBOutlet weak var degLabel: UILabel!
     
@@ -44,8 +47,15 @@ class ListWeatherTailTableViewCell: UITableViewCell {
     
     @IBAction func addButtonAction(_ sender: UIButton) {
         guard let fromVC = self.fromVC else { return }
-        let vc: SearchWeatherViewController = SearchWeatherViewController.instantiate()
+        let vc: SearchWeatherViewController
+            = SearchWeatherViewController.instantiate(modelCount: fromVC.models.count)
         let navVC: UINavigationController = UINavigationController(rootViewController: vc)
         fromVC.present(navVC, animated: true, completion: nil)
+        
+        vc.pendingPromise.then { item in
+            Action.saveLocalWeather(item).then { [weak self] _ in
+                self?.fulfill(item)
+            }
+        }
     }
 }
