@@ -27,13 +27,13 @@
                         <constraint firstAttribute="width" secondItem="I3p-qB-r7e" secondAttribute="height" multiplier="1:1" id="rxg-35-qzS"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMr-98-PGT">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMr-98-PGT">
                     <rect key="frame" x="327" y="25" width="25" height="24"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fue-bH-HO4">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fue-bH-HO4">
                     <rect key="frame" x="376" y="25" width="22" height="24"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <color key="textColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -46,8 +46,8 @@
                 <constraint firstItem="I3p-qB-r7e" firstAttribute="centerY" secondItem="CHl-6h-DOj" secondAttribute="centerY" id="HqE-nx-TzT"/>
                 <constraint firstItem="fue-bH-HO4" firstAttribute="centerY" secondItem="hW3-sI-uey" secondAttribute="centerY" id="Jkx-Jr-JeT"/>
                 <constraint firstItem="I3p-qB-r7e" firstAttribute="centerX" secondItem="CHl-6h-DOj" secondAttribute="centerX" id="O1V-gz-udB"/>
+                <constraint firstAttribute="trailing" secondItem="CMr-98-PGT" secondAttribute="trailing" constant="62" id="aw0-eo-qjb"/>
                 <constraint firstItem="hW3-sI-uey" firstAttribute="top" secondItem="CHl-6h-DOj" secondAttribute="top" constant="8" id="m5b-fj-AQ2"/>
-                <constraint firstItem="fue-bH-HO4" firstAttribute="leading" secondItem="CMr-98-PGT" secondAttribute="trailing" constant="24" id="sJQ-j7-vFI"/>
                 <constraint firstItem="fDR-N1-bSs" firstAttribute="trailing" secondItem="fue-bH-HO4" secondAttribute="trailing" constant="16" id="uod-zh-qPh"/>
                 <constraint firstItem="CMr-98-PGT" firstAttribute="centerY" secondItem="hW3-sI-uey" secondAttribute="centerY" id="zAF-dK-Mhh"/>
             </constraints>

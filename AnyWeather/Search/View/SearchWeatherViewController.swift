@@ -37,7 +37,6 @@ class SearchWeatherViewController: UIViewController, Promiseable {
         initializeUI()
     }
     
-    // 오늘 할 일.. search 기능 handler promise로 변경. select 했을 때 promie로 리스트화면에 데이터 전달
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         DispatchQueue.main.async {
@@ -101,7 +100,7 @@ extension SearchWeatherViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mapItems.count
+        return mapItems.isEmpty ? 1 : mapItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -111,7 +110,7 @@ extension SearchWeatherViewController: UITableViewDataSource {
             let item = mapItems[indexPath.row].placemark
             text = item.title
         } else if let searchText: String = searchController.searchBar.text,
-            !searchText.isEmpty, mapItems.count == 0 {
+            !searchText.isEmpty, mapItems.isEmpty {
             text = "발견된 결과가 없습니다."
         }
         
@@ -182,14 +181,18 @@ extension SearchWeatherViewController: UITableViewDelegate {
 // MARK: - SearchBar Delegate
 extension SearchWeatherViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchBarText = searchController.searchBar.text else { self.mapItems = []; return }
+        guard let searchBarText = searchController.searchBar.text, !searchBarText.isEmpty else {
+            self.mapItems = []
+            return }
         
         let request: MKLocalSearch.Request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchBarText
         
         let search: MKLocalSearch = MKLocalSearch(request: request)
         search.start { (response, _) in
-            guard let response = response else { self.mapItems = []; return }
+            guard let response = response else {
+                self.mapItems = []
+                 return }
             
             self.mapItems = response.mapItems
         }

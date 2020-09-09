@@ -18,6 +18,8 @@ extension List.API {
             HTTPClient.ParamKey.lang.rawValue: HTTPClient.Parameters.lang,
             HTTPClient.ParamKey.units.rawValue: HTTPClient.Parameters.units
         ]
-        return HTTPClient.pay.request(urlString: HTTPClient.Urls.oneCall, method: .get, parameters: parameters)
+        return HTTPClient.pay.request(urlString: HTTPClient.Urls.oneCall,
+                                      method: .get, parameters: parameters)
     }
 }
+

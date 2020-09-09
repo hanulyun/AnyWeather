@@ -17,20 +17,6 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cMZ-9D-VBc">
                     <rect key="frame" x="0.0" y="0.0" width="80" height="130"/>
                     <subviews>
-                        <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W0H-UL-q1L">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="1"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="o6D-HE-mKf"/>
-                            </constraints>
-                        </view>
-                        <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KeF-CM-NJW">
-                            <rect key="frame" x="0.0" y="128" width="80" height="1"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="DeC-9W-Cby"/>
-                            </constraints>
-                        </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오전" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hC0-fZ-Ybf">
                             <rect key="frame" x="27" y="11" width="26" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -53,20 +39,14 @@
                         </label>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="KeF-CM-NJW" firstAttribute="leading" secondItem="cMZ-9D-VBc" secondAttribute="leading" id="2Ua-MH-GPY"/>
                         <constraint firstAttribute="width" constant="80" id="5rH-gF-DRk"/>
-                        <constraint firstItem="W0H-UL-q1L" firstAttribute="top" secondItem="cMZ-9D-VBc" secondAttribute="top" id="BkD-iW-x3p"/>
                         <constraint firstItem="coP-dW-aN4" firstAttribute="centerX" secondItem="cMZ-9D-VBc" secondAttribute="centerX" id="LMo-GT-Bp8"/>
                         <constraint firstItem="hC0-fZ-Ybf" firstAttribute="centerX" secondItem="cMZ-9D-VBc" secondAttribute="centerX" id="Mp8-Og-lnK"/>
-                        <constraint firstAttribute="trailing" secondItem="W0H-UL-q1L" secondAttribute="trailing" id="RJF-bz-Iwk"/>
                         <constraint firstItem="BQa-gF-MG5" firstAttribute="centerX" secondItem="cMZ-9D-VBc" secondAttribute="centerX" id="RLQ-Zr-xKG"/>
-                        <constraint firstItem="W0H-UL-q1L" firstAttribute="leading" secondItem="cMZ-9D-VBc" secondAttribute="leading" id="a43-tp-nks"/>
                         <constraint firstItem="BQa-gF-MG5" firstAttribute="top" secondItem="coP-dW-aN4" secondAttribute="bottom" constant="16" id="brf-p0-1e8"/>
                         <constraint firstItem="coP-dW-aN4" firstAttribute="centerY" secondItem="cMZ-9D-VBc" secondAttribute="centerY" id="bxr-2r-zQg"/>
-                        <constraint firstAttribute="bottom" secondItem="KeF-CM-NJW" secondAttribute="bottom" constant="1" id="e6L-oq-S8L"/>
                         <constraint firstItem="coP-dW-aN4" firstAttribute="top" secondItem="hC0-fZ-Ybf" secondAttribute="bottom" constant="16" id="fwW-BY-Xi5"/>
                         <constraint firstAttribute="height" constant="130" id="kS1-1s-SRT"/>
-                        <constraint firstAttribute="trailing" secondItem="KeF-CM-NJW" secondAttribute="trailing" id="vuy-oT-tZ2"/>
                     </constraints>
                 </view>
             </subviews>

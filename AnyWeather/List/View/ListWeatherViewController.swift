@@ -105,8 +105,8 @@ extension ListWeatherViewController: UITableViewDataSource {
                                               for: indexPath) as? ListWeatherTailTableViewCell
                 else { fatalError("Failed to cast ListWeatherTailTableViewCell") }
             cell.configure(from: self)
-            cell.fulfill = { [weak self] promiseData -> Promise<Void> in
-                self?.requestSavedWeatherAPI(with: promiseData)
+            cell.fulfill = { [weak self] weatherItem -> Promise<Void> in
+                self?.requestSavedWeatherAPI(with: weatherItem)
                 return Promise(())
             }
             return cell

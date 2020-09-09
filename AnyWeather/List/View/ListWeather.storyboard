@@ -55,6 +55,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
+                                                <constraint firstItem="gRi-9m-ONj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Dv-W2-BWU" secondAttribute="trailing" constant="16" id="08u-hp-Hyk"/>
                                                 <constraint firstAttribute="bottom" secondItem="6Dv-W2-BWU" secondAttribute="bottom" constant="16" id="84m-yO-i45"/>
                                                 <constraint firstItem="gRi-9m-ONj" firstAttribute="centerY" secondItem="cQe-DW-VFa" secondAttribute="centerY" id="AtN-fZ-men"/>
                                                 <constraint firstItem="xrA-jU-rq3" firstAttribute="top" secondItem="cQe-DW-VFa" secondAttribute="top" constant="16" id="C3c-8j-adB"/>
@@ -154,14 +155,17 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQr-ha-oSY">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8l0-Fc-Cwe">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8l0-Fc-Cwe">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="8l0-Fc-Cwe" secondAttribute="bottom" id="CRH-GL-Ngb"/>
+                                    <constraint firstAttribute="trailing" secondItem="8l0-Fc-Cwe" secondAttribute="trailing" id="QDq-nl-ckG"/>
+                                    <constraint firstItem="8l0-Fc-Cwe" firstAttribute="leading" secondItem="cQr-ha-oSY" secondAttribute="leading" id="XRo-O5-fSO"/>
                                     <constraint firstAttribute="height" constant="44" id="eXq-ts-MSk"/>
+                                    <constraint firstItem="8l0-Fc-Cwe" firstAttribute="top" secondItem="cQr-ha-oSY" secondAttribute="top" id="o8O-vv-1DD"/>
                                 </constraints>
                             </view>
                         </subviews>

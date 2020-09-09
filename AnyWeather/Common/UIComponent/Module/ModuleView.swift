@@ -19,3 +19,4 @@ class ModuleView: UIView {
             .instantiate(withOwner: nil, options: nil)[0] as! T
     }
 }
+
